@@ -5,8 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Expression;
 
 import org.springframework.stereotype.Repository;
 
@@ -21,14 +19,16 @@ public class DishOrderDaoImpl implements DishOrderDao {
 	private EntityManager em;
 
 	@Override
-	public void save(DishOrder order, List<OrderItem> dishesOrdered) {
+	public void save(DishOrder dishOrder, List<OrderItem> orderItems) {
 
-		order.setDishOrdered(dishesOrdered);
+		dishOrder.setOrderItems(orderItems);
+		;
 
-		for (OrderItem dish : dishesOrdered) {
-			dish.setOrder(order);
+		for (OrderItem dish : orderItems) {
+			dish.setDishOrder(dishOrder);
+			;
 		}
-		em.persist(order);
+		em.persist(dishOrder);
 
 	}
 
@@ -62,5 +62,20 @@ public class DishOrderDaoImpl implements DishOrderDao {
 		// , Order.class);
 		// return query.getResultList();
 		return null;
+	}
+
+	@Override
+	public List<DishOrder> findAll() {
+		TypedQuery<DishOrder> query = em.createQuery(
+				"SELECT o FROM DishOrder o", DishOrder.class);
+		return query.getResultList();
+	}
+
+	@Override
+	public void remove(int id) {
+		DishOrder order = em.find(DishOrder.class, id);
+		if (order != null) {
+			em.remove(order);
+		}
 	}
 }

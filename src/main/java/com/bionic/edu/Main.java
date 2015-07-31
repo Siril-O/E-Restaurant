@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,51 +19,89 @@ import com.bionic.edu.entities.Customer;
 import com.bionic.edu.enums.Role;
 import com.bionic.edu.enums.Status;
 import com.bionic.edu.service.DishCategoryService;
+import com.bionic.edu.service.DishOrderService;
 import com.bionic.edu.service.DishService;
-import com.bionic.edu.service.OrderService;
-import com.bionic.edu.service.OrderServiceImpl;
 import com.bionic.edu.service.CustomerService;
 
 public class Main {
-	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 
 		ApplicationContext context = new ClassPathXmlApplicationContext(
 				"beans.xml");
 
-		// showCategoriesList(context);
-		/*
-		 * DishService dishService = context.getBean(DishService.class);
-		 * 
-		 * OrderService orderService = context.getBean(OrderService.class);
-		 * 
-		 * Time time = Time.valueOf(LocalTime.now()); Date date =
-		 * Date.valueOf(LocalDate.now()); Order order = new Order(0, time, date,
-		 * "Dude", "Order Address", Status.COMPLETELY_NOT_DONE, null);
-		 * List<DishOrdered> dishesOrdered = new LinkedList<>(); Dish dish1 =
-		 * dishService.findById(1); Dish dish2 = dishService.findById(2);
-		 * 
-		 * dishesOrdered.add(new DishOrdered(0, dish1, null, false, dish1
-		 * .getPrice())); dishesOrdered.add(new DishOrdered(0, dish2, null,
-		 * false, dish1 .getPrice()));
-		 * 
-		 * orderService.save(order, dishesOrdered);
-		 */
+		//	placeOrder(context);
+		// deleteOrder(context, 201);
+		showAllOrders(context);
 
-		showCustomer(context,1);
+
+		// showAlDishes(context);
+		// orderService.save(order, dishesOrdered);
+		// showCategoriesList(context);
+		// showCategoriesList(context);
+		// showCustomer(context,1);
+	}
+
+	private static void deleteOrder(ApplicationContext context, int id) {
+		DishOrderService ordrerService = context
+				.getBean(DishOrderService.class);
+
+		ordrerService.remove(id);
+	}
+
+	private static void showAllOrders(ApplicationContext context) {
+		DishOrderService ordrerService = context
+				.getBean(DishOrderService.class);
+
+		StringBuilder sb = new StringBuilder();
+
+		for (DishOrder dishOrder : ordrerService.findAll()) {
+			sb.append("\n").append(dishOrder).append(
+					"\n********** Ordered Items *************\n");
+			for (OrderItem orderItem : dishOrder.getOrderItems()) {
+				sb.append(orderItem).append("\n");
+
+			}
+			System.out.println(sb.toString());
+		}
+	}
+
+	private static void placeOrder(ApplicationContext context) {
+		DishOrderService orderService = context.getBean(DishOrderService.class);
+		DishService dishService = context.getBean(DishService.class);
+
+		Time time = Time.valueOf(LocalTime.now());
+		Date date = Date.valueOf(LocalDate.now());
+
+		DishOrder order = new DishOrder(0, time, date, "Kirill",
+				"Hnata Uri 16 ", Status.COMPLETELY_NOT_DONE, null);
+
+		List<OrderItem> orderItems = Arrays.asList(new OrderItem(0, null,
+				dishService.findById(1)),
+				new OrderItem(0, null, dishService.findById(2)));
+		orderService.save(order, orderItems);
+		System.out.println("Order id = " + order.getId() +" placed");
+	}
+
+	private static DishService showAlDishes(ApplicationContext context) {
+		DishService dishService = context.getBean(DishService.class);
+
+		for (Dish dish : dishService.findAll()) {
+			System.out.println(dish);
+		}
+		return dishService;
 	}
 
 	private static void addCustomer(ApplicationContext context) {
 		CustomerService userService = context.getBean(CustomerService.class);
 		Date date = Date.valueOf(LocalDate.of(1993, 07, 25));
-		Customer user = new Customer(0, "Kiril", "Kyiv Hnata Uri", "dude@gmail.com",
-				date, Role.USER, "12345");
+		Customer user = new Customer(0, "Kiril", "Kyiv Hnata Uri",
+				"dude@gmail.com", date, Role.USER, "12345");
 
 		userService.create(user);
-		
+
 		System.out.println(userService.findById(user.getId()));
 	}
-	
+
 	private static void showCustomer(ApplicationContext context, int id) {
 		CustomerService userService = context.getBean(CustomerService.class);
 		System.out.println(userService.findById(id));
@@ -78,5 +117,4 @@ public class Main {
 		}
 	}
 
-	
 }

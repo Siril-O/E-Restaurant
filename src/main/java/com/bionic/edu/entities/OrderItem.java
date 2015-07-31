@@ -15,7 +15,7 @@ public class OrderItem {
 	private int id;
 	@ManyToOne
 	@JoinColumn(name = "orderId")
-	private DishOrder order;
+	private DishOrder dishOrder;
 	@ManyToOne
 	@JoinColumn(name = "dishId")
 	private Dish dish;
@@ -23,18 +23,27 @@ public class OrderItem {
 	private boolean status;// done or not done
 	private double price;
 
-	public OrderItem(int id, Dish dish, DishOrder order, boolean status,
+	public OrderItem() {
+		super();
+	}
+
+	public OrderItem(int id, DishOrder dishOrder, Dish dish, boolean status,
 			double price) {
 		super();
 		this.id = id;
+		this.dishOrder = dishOrder;
 		this.dish = dish;
-		this.order = order;
 		this.status = status;
 		this.price = price;
 	}
 
-	public OrderItem() {
+	public OrderItem(int id, DishOrder dishOrder, Dish dish) {
 		super();
+		this.id = id;
+		this.dishOrder = dishOrder;
+		this.dish = dish;
+		this.status = false;
+		this.price = dish.getPrice();
 	}
 
 	/**
@@ -53,6 +62,21 @@ public class OrderItem {
 	}
 
 	/**
+	 * @return the dishOrder
+	 */
+	public DishOrder getDishOrder() {
+		return dishOrder;
+	}
+
+	/**
+	 * @param dishOrder
+	 *            the dishOrder to set
+	 */
+	public void setDishOrder(DishOrder dishOrder) {
+		this.dishOrder = dishOrder;
+	}
+
+	/**
 	 * @return the dish
 	 */
 	public Dish getDish() {
@@ -68,24 +92,9 @@ public class OrderItem {
 	}
 
 	/**
-	 * @return the order
-	 */
-	public DishOrder getOrder() {
-		return order;
-	}
-
-	/**
-	 * @param order
-	 *            the order to set
-	 */
-	public void setOrder(DishOrder order) {
-		this.order = order;
-	}
-
-	/**
 	 * @return the status
 	 */
-	public boolean getStatus() {
+	public boolean isStatus() {
 		return status;
 	}
 
@@ -112,5 +121,17 @@ public class OrderItem {
 		this.price = price;
 	}
 
-	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "OrderItem [id=" + id + ", dishOrder_ID = " + dishOrder.getId()
+				+ ", dish=" + dish + ", status="
+				+ (status ? "Order done" : "Order not done") + ", price="
+				+ price + "]";
+	}
+
 }

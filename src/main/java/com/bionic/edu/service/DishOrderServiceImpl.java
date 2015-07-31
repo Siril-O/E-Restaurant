@@ -13,19 +13,30 @@ import com.bionic.edu.entities.OrderItem;
 import com.bionic.edu.entities.DishOrder;
 
 @Named
-public class OrderServiceImpl implements OrderService {
+public class DishOrderServiceImpl implements DishOrderService {
 
 	@Inject
-	@Named("orderDaoImpl")
+	@Named("dishOrderDaoImpl")
 	private DishOrderDao orderDao;
 
-	public OrderServiceImpl() {
+	public DishOrderServiceImpl() {
 		super();
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRES_NEW)
-	public void save(DishOrder order, List<OrderItem> dishesOrdered) {
-		orderDao.save(order, dishesOrdered);
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public void save(DishOrder order, List<OrderItem> orderItems) {
+		orderDao.save(order, orderItems);
+	}
+
+	@Override
+	public List<DishOrder> findAll() {
+		return orderDao.findAll();
+	}
+
+	@Override
+	@Transactional
+	public void remove(int id) {
+		orderDao.remove(id);
 	}
 }

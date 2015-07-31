@@ -12,7 +12,12 @@ public interface DishOrderDao {
 
 	public void save(DishOrder order, List<OrderItem> dishesOrdered);
 
+	public List<DishOrder> findAll();
+
 	public List<DishOrder> findAllOrdersForDelivery();
 
 	public List<DishOrder> findAllOrdersForDeliveryByStatus(Status status);
+
+	public void remove(int id);
+
 }

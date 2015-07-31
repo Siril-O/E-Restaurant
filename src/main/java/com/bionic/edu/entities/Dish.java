@@ -127,15 +127,18 @@ public class Dish {
 		this.dishtype = dishtype;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "Dish [id=" + id + ", name=" + name + ", price=" + price
-				+ ", category=" + category + ", dishtype=" + dishtype
-				+ ", menuitem=" + menuitem + "]";
+				+ ", category=" + category + ", dishtype ="
+				+ (dishtype ? "Kitchen_Made" : "Non_KitchenMade")
+				+ ", menuitem="
+				+ (menuitem ? " In the menu" : "Not in the menu") + "]";
 	}
 
-	
 }

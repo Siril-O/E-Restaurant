@@ -27,14 +27,16 @@ public class DishOrder {
 	private Date date;
 	private String userName;
 	private String deliveryAddress;
+
 	@Enumerated(EnumType.ORDINAL)
 	private Status status;
+
 	@ManyToOne
 	@JoinColumn(name = "userId")
 	private Customer user;
 
-	@OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
-	private Collection<OrderItem> dishOrdered;
+	@OneToMany(mappedBy = "dishOrder", cascade = {CascadeType.PERSIST , CascadeType.REMOVE} )
+	private Collection<OrderItem> orderItems;
 
 	public DishOrder() {
 		super();
@@ -50,6 +52,20 @@ public class DishOrder {
 		this.deliveryAddress = deliveryAddress;
 		this.status = status;
 		this.user = user;
+	}
+
+	public DishOrder(int id, Time ordertime, Date date, String userName,
+			String deliveryAddress, Status status, Customer user,
+			Collection<OrderItem> orderItems) {
+		super();
+		this.id = id;
+		this.ordertime = ordertime;
+		this.date = date;
+		this.userName = userName;
+		this.deliveryAddress = deliveryAddress;
+		this.status = status;
+		this.user = user;
+		this.orderItems = orderItems;
 	}
 
 	/**
@@ -158,18 +174,26 @@ public class DishOrder {
 	}
 
 	/**
-	 * @return the dishOrdered
+	 * @return the orderItems
 	 */
-	public Collection<OrderItem> getDishOrdered() {
-		return dishOrdered;
+	public Collection<OrderItem> getOrderItems() {
+		return orderItems;
 	}
 
 	/**
-	 * @param dishOrdered
-	 *            the dishOrdered to set
+	 * @param orderItems
+	 *            the orderItems to set
 	 */
-	public void setDishOrdered(Collection<OrderItem> dishOrdered) {
-		this.dishOrdered = dishOrdered;
+	public void setOrderItems(Collection<OrderItem> orderItems) {
+		this.orderItems = orderItems;
+	}
+
+	@Override
+	public String toString() {
+		return "DishOrder [id=" + id + ", ordertime=" + ordertime + ", date="
+				+ date + ", userName=" + userName + ", deliveryAddress="
+				+ deliveryAddress + ", status=" + status + ", user=" + user
+				+ ", dishOrdered=" + orderItems + "]";
 	}
 
 }
