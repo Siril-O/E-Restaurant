@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bionic.edu.dao.DishOrderDao;
 import com.bionic.edu.entities.OrderItem;
 import com.bionic.edu.entities.DishOrder;
+import com.bionic.edu.enums.Status;
 
 @Named
 public class DishOrderServiceImpl implements DishOrderService {
@@ -38,5 +39,10 @@ public class DishOrderServiceImpl implements DishOrderService {
 	@Transactional
 	public void remove(int id) {
 		orderDao.remove(id);
+	}
+
+	@Override
+	public void updateStatus(int id, Status status) {
+		// TODO Auto-generated method stub
 	}
 }

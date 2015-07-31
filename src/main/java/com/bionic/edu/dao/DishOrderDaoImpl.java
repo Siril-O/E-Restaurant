@@ -22,11 +22,9 @@ public class DishOrderDaoImpl implements DishOrderDao {
 	public void save(DishOrder dishOrder, List<OrderItem> orderItems) {
 
 		dishOrder.setOrderItems(orderItems);
-		;
 
 		for (OrderItem dish : orderItems) {
 			dish.setDishOrder(dishOrder);
-			;
 		}
 		em.persist(dishOrder);
 
@@ -46,7 +44,6 @@ public class DishOrderDaoImpl implements DishOrderDao {
 	public void updateStatus(int id, Status status) {
 		DishOrder order = em.find(DishOrder.class, id);
 		if (order != null) {
-
 			order.setStatus(status);
 		}
 

@@ -18,8 +18,8 @@ public class DishCategoryDaoImpl implements DishCategoryDao {
 
 	@Override
 	public List<DishCategory> findAll() {
-		TypedQuery<DishCategory> query = em.createQuery(
-				"SELECT c FROM DishCategory c", DishCategory.class);
+		TypedQuery<DishCategory> query = em.createNamedQuery(
+				"DishCategory.findAll", DishCategory.class);
 		return query.getResultList();
 	}
 

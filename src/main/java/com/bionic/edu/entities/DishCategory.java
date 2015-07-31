@@ -4,7 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
+@NamedQueries({ @NamedQuery(name = "DishCategory.findAll",
+query = "SELECT c FROM DishCategory c")})
 @Entity
 public class DishCategory {
 

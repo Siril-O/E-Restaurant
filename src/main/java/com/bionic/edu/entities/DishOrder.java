@@ -1,10 +1,12 @@
 package com.bionic.edu.entities;
 
-import java.sql.Date;
+
 import java.sql.Time;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -14,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.bionic.edu.enums.Status;
 
@@ -23,9 +27,17 @@ public class DishOrder {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
+	@Column(name = "ORDERTIME")
 	private Time ordertime;
+
+	@Column(name = "DATE")
+	@Temporal(value = TemporalType.DATE)
 	private Date date;
+
+	@Column(name = "USERNAME")
 	private String userName;
+	@Column(name = "DELIVERYADDRESS")
 	private String deliveryAddress;
 
 	@Enumerated(EnumType.ORDINAL)
@@ -35,7 +47,8 @@ public class DishOrder {
 	@JoinColumn(name = "userId")
 	private Customer user;
 
-	@OneToMany(mappedBy = "dishOrder", cascade = {CascadeType.PERSIST , CascadeType.REMOVE} )
+	@OneToMany(mappedBy = "dishOrder", cascade = { CascadeType.PERSIST,
+			CascadeType.REMOVE })
 	private Collection<OrderItem> orderItems;
 
 	public DishOrder() {

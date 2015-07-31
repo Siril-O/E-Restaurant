@@ -1,12 +1,15 @@
 package com.bionic.edu.dao;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
 import com.bionic.edu.entities.Customer;
+
 
 @Repository
 public class CustomerDaoImpl implements CustomerDao {
@@ -15,9 +18,9 @@ public class CustomerDaoImpl implements CustomerDao {
 	private EntityManager em;
 
 	@Override
-	public void create(Customer user) {
-		if (user != null) {
-			em.persist(user);
+	public void create(Customer customer) {
+		if (customer != null) {
+			em.persist(customer);
 		}
 	}
 
@@ -29,9 +32,10 @@ public class CustomerDaoImpl implements CustomerDao {
 	@Override
 	public Customer findByLoginAndPassword(String login, String password) {
 
-		TypedQuery<Customer> query = em.createQuery(
-				"SELECT u FROM User u WHERE u.login = " + login
-						+ " AND u.password = " + password, Customer.class);
+		TypedQuery<Customer> query = em.createNamedQuery(
+				"Customer.findByLoginAndPassword", Customer.class);
+		query.setParameter("login", login);
+		query.setParameter("password", password);
 		return query.getSingleResult();
 	}
 

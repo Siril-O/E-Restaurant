@@ -19,8 +19,8 @@ public class DishServiceImpl implements DishService {
 	private DishDao dishDao;
 
 	@Override
-	public List<Dish> findByCategory(DishCategory category) {
-		return dishDao.findByCategory(category);
+	public List<Dish> findByCategoryInMenu(DishCategory category) {
+		return dishDao.findByCategoryInMenu(category);
 	}
 
 	@Override
@@ -30,11 +30,14 @@ public class DishServiceImpl implements DishService {
 	}
 
 	@Override
-	public void update(int id, Dish newDish) {
-		dishDao.update(id, newDish);
+	@Transactional
+	public void update(int id, String name, double price,
+			DishCategory category, boolean dishtype, boolean menuitem) {
+		dishDao.update(id, name, price, category, dishtype, menuitem);
 	}
 
 	@Override
+	@Transactional
 	public void remove(int id) {
 		dishDao.remove(id);
 	}

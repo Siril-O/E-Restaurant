@@ -9,11 +9,12 @@ public interface DishService {
 
 	public void create(Dish dish);
 
-	public void update(int id, Dish newDish);
+	public void update(int id, String name, double price,
+			DishCategory category, boolean dishtype, boolean menuitem);
 
 	public void remove(int id);
 
-	public List<Dish> findByCategory(DishCategory category);
+	public List<Dish> findByCategoryInMenu(DishCategory category);
 
 	public List<Dish> findOrderedDishByType(boolean type);
 

@@ -8,9 +8,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import com.bionic.edu.enums.Role;
 
+@NamedQueries({ @NamedQuery(name = "Customer.findByLoginAndPassword",
+query = "SELECT c FROM Customer c WHERE c.email = :login  AND c.password = :password")})
 @Entity
 public class Customer {
 

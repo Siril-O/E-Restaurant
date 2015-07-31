@@ -19,10 +19,10 @@ public class DishDaoImpl implements DishDao {
 	private EntityManager em;
 
 	@Override
-	public List<Dish> findByCategory(DishCategory category) {
-		TypedQuery<Dish> query = em
-				.createQuery("SELECT d FROM Dish d WHERE d.categoryId = "
-						+ category.getId(), Dish.class);
+	public List<Dish> findByCategoryInMenu(DishCategory category) {
+		TypedQuery<Dish> query = em.createNamedQuery("Dish.findByCategoryInMenu",
+				Dish.class);
+		query.setParameter("category", category);
 		return query.getResultList();
 	}
 
@@ -34,26 +34,17 @@ public class DishDaoImpl implements DishDao {
 	}
 
 	@Override
-	public void update(int id, Dish newDish) {
+	public void update(int id, String name, double price,
+			DishCategory category, boolean dishtype, boolean menuitem) {
 		Dish dish = em.find(Dish.class, id);
 		if (dish != null) {
-			String name = newDish.getName();
-			if (name != null) {
-				dish.setName(name);
-			}
-			double price = newDish.getPrice();
-			if (price != 0) {
-				dish.setPrice(price);
-			}
-			boolean dishtype = newDish.isDishtype();
-			if (name != null) {
-				dish.setDishtype(dishtype);
-			}
-			DishCategory category = newDish.getCategory();
-			if (category != null) {
-				dish.setCategory(category);
-			}
-
+			em.detach(dish);
+			dish.setName(name);
+			dish.setPrice(price);
+			dish.setCategory(category);
+			dish.setDishtype(dishtype);
+			dish.setMenuitem(menuitem);
+			em.merge(dish);
 		}
 	}
 

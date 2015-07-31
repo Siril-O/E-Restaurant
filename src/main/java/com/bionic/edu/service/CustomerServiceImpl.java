@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bionic.edu.dao.CustomerDao;
 import com.bionic.edu.entities.Customer;
+import com.bionic.edu.enums.Role;
 
 @Named
 public class CustomerServiceImpl implements CustomerService {
@@ -15,15 +16,33 @@ public class CustomerServiceImpl implements CustomerService {
 	@Named("customerDaoImpl")
 	private CustomerDao userDao;
 
-	@Override
-	@Transactional
-	public void create(Customer user) {
-		userDao.create(user);
+	private void create(Customer customer) {
+		userDao.create(customer);
 	}
 
 	@Override
 	public Customer findById(int id) {
 		return userDao.find(id);
+	}
+
+	@Transactional
+	@Override
+	public void createStuff(Customer customer) {
+		customer.setRole(Role.STUFF);
+		create(customer);
+	}
+
+	@Transactional
+	@Override
+	public void createCustomer(Customer customer) {
+		customer.setRole(Role.USER);
+		create(customer);
+	}
+
+	@Transactional
+	@Override
+	public Customer findByLoginAndPassword(String login, String password) {
+		return userDao.findByLoginAndPassword(login, password);
 	}
 
 }

@@ -4,7 +4,7 @@ import com.bionic.edu.entities.Customer;
 
 public interface CustomerDao {
 
-	public void create(Customer user);
+	public void create(Customer customer);
 
 	public Customer find(int id);
 
