@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.bionic.edu.entities.Dish;
 import com.bionic.edu.entities.DishCategory;
 import com.bionic.edu.enums.Status;
+import com.bionic.edu.extra.KitchenPeningListItem;
 
 @Repository
 public class DishDaoImpl implements DishDao {
@@ -20,8 +21,8 @@ public class DishDaoImpl implements DishDao {
 
 	@Override
 	public List<Dish> findByCategoryInMenu(DishCategory category) {
-		TypedQuery<Dish> query = em.createNamedQuery("Dish.findByCategoryInMenu",
-				Dish.class);
+		TypedQuery<Dish> query = em.createNamedQuery(
+				"Dish.findByCategoryInMenu", Dish.class);
 		query.setParameter("category", category);
 		return query.getResultList();
 	}
@@ -34,18 +35,8 @@ public class DishDaoImpl implements DishDao {
 	}
 
 	@Override
-	public void update(int id, String name, double price,
-			DishCategory category, boolean dishtype, boolean menuitem) {
-		Dish dish = em.find(Dish.class, id);
-		if (dish != null) {
-			em.detach(dish);
-			dish.setName(name);
-			dish.setPrice(price);
-			dish.setCategory(category);
-			dish.setDishtype(dishtype);
-			dish.setMenuitem(menuitem);
-			em.merge(dish);
-		}
+	public void update(Dish dish) {
+		em.merge(dish);
 	}
 
 	@Override
@@ -59,12 +50,14 @@ public class DishDaoImpl implements DishDao {
 	@Override
 	public List<Dish> findOrderedDishByType(boolean type) { // kitchen made,
 															// none kitchen-made
-		TypedQuery<Dish> query = em.createQuery(
-				"SELECT d FROM Dish d,Order o, DishOrdered c  WHERE d.type = "
-						+ type + " AND o.id=c.orderId"
-						+ " AND d.id=c.dishId AND o.statusId in"
-						+ Status.COMPLETELY_NOT_DONE + " ORDER BY o.time ASC",
-				Dish.class);
+		TypedQuery<Dish> query = em
+				.createQuery(
+						"SELECT i.dish FROM OrderItem i WHERE  i.dishOrder.status = :status AND i.dish.dishtype = :type ",
+						Dish.class);
+
+		query.setParameter("status", Status.COMPLETELY_NOT_DONE).setParameter(
+				"type", type);
+
 		return query.getResultList();
 	}
 
@@ -79,14 +72,25 @@ public class DishDaoImpl implements DishDao {
 
 	@Override
 	public List<Dish> findAll() {
-		TypedQuery<Dish> query = em.createQuery("SELECT d FROM Dish d",
-				Dish.class);
+		TypedQuery<Dish> query = em
+				.createNamedQuery("Dish.FindAll", Dish.class);
 		return query.getResultList();
 	}
 
 	@Override
 	public Dish findById(int id) {
 		return em.find(Dish.class, id);
+	}
+
+	@Override
+	public List<KitchenPeningListItem> findDishAndOrdersByOrderStatusAndDishType(
+			Status status, boolean type) {
+		TypedQuery<KitchenPeningListItem> query = em.createNamedQuery(
+				"Dish.findDishAndOrdersByOrderStatusAndDishType",
+				KitchenPeningListItem.class);
+		query.setParameter("status", status).setParameter("type", type);
+
+		return query.getResultList();
 	}
 
 }

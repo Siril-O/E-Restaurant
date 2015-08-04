@@ -8,7 +8,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
-@NamedQueries({@NamedQuery(name="Dish.findByCategoryInMenu",query="SELECT d FROM Dish d WHERE d.category=:category AND d.menuitem=true")})
+@NamedQueries({@NamedQuery(name="Dish.findByCategoryInMenu",
+						   query="SELECT d FROM Dish d WHERE d.category=:category AND d.menuitem=true"),
+				@NamedQuery(name="Dish.FindAll", query="SELECT d FROM Dish d"),
+				@NamedQuery(name="Dish.findDishAndOrdersByOrderStatusAndDishType",
+				query="SELECT new com.bionic.edu.extra.KitchenPeningListItem(i.dishOrder, i.dish) FROM OrderItem i WHERE  i.dishOrder.status = :status AND i.dish.dishtype = :type ORDER BY i.dishOrder.ordertime ASC")})
 @Entity
 public class Dish {
 

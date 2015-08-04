@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -22,34 +24,54 @@ import com.bionic.edu.service.DishCategoryService;
 import com.bionic.edu.service.DishOrderService;
 import com.bionic.edu.service.DishService;
 import com.bionic.edu.service.CustomerService;
+import com.bionic.edu.service.DishServiceImpl;
 
 public class Main {
 	public static void main(String[] args) {
 
 		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"beans.xml");
+				"spring/beans.xml");
 
 		DishService dishService = context.getBean(DishService.class);
-		DishCategoryService dishCategoryService = context.getBean(DishCategoryService.class);
-		
-		Dish dish = dishService.findById(1);
-		dishService.update(dish.getId(), dish.getName(), dish.getPrice(), dish.getCategory(), dish.isDishtype(), !dish.isMenuitem());
-		System.out.println(dish = dishService.findById(1));
-		
-		findAllDishByCategory(context);
-		
-		
-		
-	//	findCustomerByLoginAndPassword(context);
-		
+		DishCategoryService dishCategoryService = context
+				.getBean(DishCategoryService.class);
+
+		// Dish dish = dishService.findById(1);
+		// dishService.update(dish.getId(), dish.getName(), dish.getPrice(),
+		// dish.getCategory(), dish.isDishtype(), !dish.isMenuitem());
+		// System.out.println(dish = dishService.findById(1));
+
+		// dishService.create(new Dish(0, "Loaded Potato Soup", 154.2,
+		// dishCategoryService.find(2), true, true));
+
+		// findAllDishByCategory(context);
+
+		System.out.println(Arrays.toString(dishService.findOrderedDishByType(
+				false).toArray()));
+
+		// for(Dish dish:dishService.findOrderedDishByType(false)){
+		// System.out.println(dish);
+		// }
+
+		for (Dish dish : dishService.findAll()) {
+			System.out.println(dish);
+		}
+
+		// System.out.println(Arrays.toString(dishService.findDishAndOrdersByOrderStatusAndDishType(Status.COMPLETELY_NOT_DONE,
+		// false).toArray()));
+
+		// System.out.println(Arrays.toString(dishService.findAll().toArray()));
+		// System.out.println(Arrays.toString(dishService.findAll().toArray()));
+
+		// findCustomerByLoginAndPassword(context);
+
 		// addCustomer(context);
 
 		// findCustomer(context);
 
-		
-		//placeOrder(context, findCustomer(context,1));
+		// placeOrder(context, findCustomer(context,1));
 		// deleteOrder(context, 1);
-		//showAllOrders(context);
+		// showAllOrders(context);
 
 		// showAlDishes(context);
 		// orderService.save(order, dishesOrdered);
@@ -60,10 +82,13 @@ public class Main {
 
 	private static void findAllDishByCategory(ApplicationContext context) {
 		DishService dishService = context.getBean(DishService.class);
-		DishCategoryService dishCategoryService = context.getBean(DishCategoryService.class);
+		DishCategoryService dishCategoryService = context
+				.getBean(DishCategoryService.class);
 
-		System.out.println("All Dishes from " + dishCategoryService.find(1) + " category");
-		for(Dish dish :dishService.findByCategoryInMenu(dishCategoryService.find(1))){
+		System.out.println("All Dishes from " + dishCategoryService.find(1)
+				+ " category");
+		for (Dish dish : dishService.findByCategoryInMenu(dishCategoryService
+				.find(1))) {
 			System.out.println(dish);
 		}
 	}
@@ -72,8 +97,9 @@ public class Main {
 			ApplicationContext context) {
 		CustomerService customerService = context
 				.getBean(CustomerService.class);
-		
-		System.out.println(customerService.findByLoginAndPassword("dude@gmail.com", "12345"));
+
+		System.out.println(customerService.findByLoginAndPassword(
+				"dude@gmail.com", "12345"));
 	}
 
 	private static Customer findCustomer(ApplicationContext context, int id) {
@@ -83,7 +109,6 @@ public class Main {
 		System.out.println(customer);
 		return customer;
 	}
-
 
 	private static void deleteOrder(ApplicationContext context, int id) {
 		DishOrderService ordrerService = context
