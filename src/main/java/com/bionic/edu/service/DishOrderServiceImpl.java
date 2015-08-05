@@ -27,6 +27,7 @@ public class DishOrderServiceImpl implements DishOrderService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void save(DishOrder order, List<OrderItem> orderItems) {
+
 		orderDao.save(order, orderItems);
 	}
 

@@ -22,28 +22,41 @@ public class OrderItem {
 
 	private boolean status;// done or not done
 	private double price;
+	private int quantity;
 
 	public OrderItem() {
 		super();
 	}
 
 	public OrderItem(int id, DishOrder dishOrder, Dish dish, boolean status,
-			double price) {
+			double price, int quantity) {
 		super();
 		this.id = id;
 		this.dishOrder = dishOrder;
 		this.dish = dish;
 		this.status = status;
 		this.price = price;
+		this.quantity = quantity;
 	}
 
-	public OrderItem(int id, DishOrder dishOrder, Dish dish) {
+	public OrderItem(int id, DishOrder dishOrder, Dish dish, int quantity) {
 		super();
 		this.id = id;
 		this.dishOrder = dishOrder;
 		this.dish = dish;
 		this.status = false;
 		this.price = dish.getPrice();
+		this.quantity = quantity;
+	}
+
+	public OrderItem(Dish dish, int quantity) {
+		super();
+		this.id = 0;
+		this.dishOrder = null;
+		this.dish = dish;
+		this.status = false;
+		this.price = dish.getPrice();
+		this.quantity = quantity;
 	}
 
 	/**
@@ -121,6 +134,21 @@ public class OrderItem {
 		this.price = price;
 	}
 
+	/**
+	 * @return the quantity
+	 */
+	public int getQuantity() {
+		return quantity;
+	}
+
+	/**
+	 * @param quantity
+	 *            the quantity to set
+	 */
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -132,6 +160,60 @@ public class OrderItem {
 				+ ", dish=" + dish + ", status="
 				+ (status ? "Order done" : "Order not done") + ", price="
 				+ price + "]";
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dish == null) ? 0 : dish.hashCode());
+		result = prime * result
+				+ ((dishOrder == null) ? 0 : dishOrder.hashCode());
+		result = prime * result + id;
+		long temp;
+		temp = Double.doubleToLongBits(price);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + (status ? 1231 : 1237);
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		OrderItem other = (OrderItem) obj;
+		if (dish == null) {
+			if (other.dish != null)
+				return false;
+		} else if (!dish.equals(other.dish))
+			return false;
+		if (dishOrder == null) {
+			if (other.dishOrder != null)
+				return false;
+		} else if (!dishOrder.equals(other.dishOrder))
+			return false;
+		if (id != other.id)
+			return false;
+		if (Double.doubleToLongBits(price) != Double
+				.doubleToLongBits(other.price))
+			return false;
+		if (status != other.status)
+			return false;
+		return true;
 	}
 
 }

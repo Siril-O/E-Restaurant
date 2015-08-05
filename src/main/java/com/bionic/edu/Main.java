@@ -138,16 +138,11 @@ public class Main {
 		DishOrderService orderService = context.getBean(DishOrderService.class);
 		DishService dishService = context.getBean(DishService.class);
 
-		Time time = Time.valueOf(LocalTime.now());
-		Date date = Date.valueOf(LocalDate.now());
+		DishOrder order = new DishOrder((customer != null ? customer.getName() : "Kirill"),
+				"Hnata Uri 16 ");
 
-		DishOrder order = new DishOrder(0, time, date,
-				(customer != null ? customer.getName() : "Kirill"),
-				"Hnata Uri 16 ", Status.COMPLETELY_NOT_DONE, customer);
-
-		List<OrderItem> orderItems = Arrays.asList(new OrderItem(0, null,
-				dishService.findById(1)),
-				new OrderItem(0, null, dishService.findById(2)));
+		List<OrderItem> orderItems = Arrays.asList(new OrderItem(dishService.findById(1),1),
+				new OrderItem(dishService.findById(2),1));
 		orderService.save(order, orderItems);
 		System.out.println("Order id = " + order.getId() + " placed");
 	}

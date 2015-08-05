@@ -1,9 +1,10 @@
 package com.bionic.edu.entities;
 
-
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Collection;
-import java.util.Date;
+import java.sql.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,8 +17,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.bionic.edu.enums.Status;
 
@@ -31,8 +30,6 @@ public class DishOrder {
 	@Column(name = "ORDERTIME")
 	private Time ordertime;
 
-	@Column(name = "DATE")
-	@Temporal(value = TemporalType.DATE)
 	private Date date;
 
 	@Column(name = "USERNAME")
@@ -53,6 +50,28 @@ public class DishOrder {
 
 	public DishOrder() {
 		super();
+	}
+
+	public DishOrder(String userName, String deliveryAddress) {
+		super();
+		this.id = 0;
+		this.ordertime = Time.valueOf(LocalTime.now());
+		this.date = Date.valueOf(LocalDate.now());
+		this.userName = userName;
+		this.deliveryAddress = deliveryAddress;
+		this.status = Status.COMPLETELY_NOT_DONE;
+		this.user = null;
+	}
+
+	public DishOrder(String deliveryAddress, Customer user) {
+		super();
+		this.id = 0;
+		this.ordertime = Time.valueOf(LocalTime.now());
+		this.date = Date.valueOf(LocalDate.now());
+		this.userName = user.getName();
+		this.deliveryAddress = deliveryAddress;
+		this.status = Status.COMPLETELY_NOT_DONE;
+		this.user = user;
 	}
 
 	public DishOrder(int id, Time ordertime, Date date, String userName,
@@ -207,6 +226,74 @@ public class DishOrder {
 				+ date + ", userName=" + userName + ", deliveryAddress="
 				+ deliveryAddress + ", status=" + status + ", user=" + user
 				+ ", dishOrdered=" + orderItems + "]";
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result
+				+ ((deliveryAddress == null) ? 0 : deliveryAddress.hashCode());
+		result = prime * result + id;
+		result = prime * result
+				+ ((ordertime == null) ? 0 : ordertime.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		result = prime * result
+				+ ((userName == null) ? 0 : userName.hashCode());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DishOrder other = (DishOrder) obj;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		if (deliveryAddress == null) {
+			if (other.deliveryAddress != null)
+				return false;
+		} else if (!deliveryAddress.equals(other.deliveryAddress))
+			return false;
+		if (id != other.id)
+			return false;
+		if (ordertime == null) {
+			if (other.ordertime != null)
+				return false;
+		} else if (!ordertime.equals(other.ordertime))
+			return false;
+		if (status != other.status)
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		if (userName == null) {
+			if (other.userName != null)
+				return false;
+		} else if (!userName.equals(other.userName))
+			return false;
+		return true;
 	}
 
 }

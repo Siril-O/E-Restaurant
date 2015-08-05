@@ -8,11 +8,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
-@NamedQueries({@NamedQuery(name="Dish.findByCategoryInMenu",
-						   query="SELECT d FROM Dish d WHERE d.category=:category AND d.menuitem=true"),
-				@NamedQuery(name="Dish.FindAll", query="SELECT d FROM Dish d"),
-				@NamedQuery(name="Dish.findDishAndOrdersByOrderStatusAndDishType",
-				query="SELECT new com.bionic.edu.extra.KitchenPeningListItem(i.dishOrder, i.dish) FROM OrderItem i WHERE  i.dishOrder.status = :status AND i.dish.dishtype = :type ORDER BY i.dishOrder.ordertime ASC")})
+
+@NamedQueries({
+		@NamedQuery(name = "Dish.findByCategoryInMenu", query = "SELECT d FROM Dish d WHERE d.category=:category AND d.menuitem=true"),
+		@NamedQuery(name = "Dish.FindAll", query = "SELECT d FROM Dish d"),
+		@NamedQuery(name = "Dish.findDishAndOrdersByOrderStatusAndDishType", query = "SELECT new com.bionic.edu.extra.KitchenPeningListItem(i.dishOrder, i.dish) FROM OrderItem i WHERE  i.dishOrder.status = :status AND i.dish.dishtype = :type ORDER BY i.dishOrder.ordertime ASC") })
 @Entity
 public class Dish {
 
@@ -145,6 +145,63 @@ public class Dish {
 				+ (dishtype ? "Kitchen_Made" : "Non_KitchenMade")
 				+ ", menuitem="
 				+ (menuitem ? " In the menu" : "Not in the menu") + "]";
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((category == null) ? 0 : category.hashCode());
+		result = prime * result + (dishtype ? 1231 : 1237);
+		result = prime * result + id;
+		result = prime * result + (menuitem ? 1231 : 1237);
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(price);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Dish other = (Dish) obj;
+		if (category == null) {
+			if (other.category != null)
+				return false;
+		} else if (!category.equals(other.category))
+			return false;
+		if (dishtype != other.dishtype)
+			return false;
+		if (id != other.id)
+			return false;
+		if (menuitem != other.menuitem)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (Double.doubleToLongBits(price) != Double
+				.doubleToLongBits(other.price))
+			return false;
+		return true;
 	}
 
 }

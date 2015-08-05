@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Cart</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body>
+	<h:form>
+		<h:commandButton action="menuCategories" value="Watch Categories" />
+		<h:dataTable value="#{cartBean.orderItems}" var="item"
+			styleClass="cartTable" headerClass="cartTableHeader"
+			rowClasses="cartTableOddRow, cartTableEvenRow">
+			<h:column>
+				<f:facet name="header">Id</f:facet>
+			#{item.dish.id}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Dish</f:facet>
+			#{item.dish.name}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Price</f:facet>
+			#{item.price}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Quantity</f:facet>
+			#{item.quantity}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Total</f:facet>
+					#{item.price * item.quantity}
+				</h:column>
+			<h:column>
+				<f:facet name="header"></f:facet>
+					<h:commandButton value="Remove from cart" action="#{cartBean.removeItem(item.dish.id)}"/>
+				</h:column>
+			<f:facet name="footer">
+				<h:panelGroup style="display:block; text-align:right">
+					<h:outputText value="Total: #{cartBean.totalPrice}" />
+					<br />
+					<h:commandButton value="Submit Order" action="cart" />
+				</h:panelGroup>
+			</f:facet>
+		</h:dataTable>
+	</h:form>
+	<h:form>
+	<h:inputText action="")/>
+	</h:form>
+</h:body>
+</html>
