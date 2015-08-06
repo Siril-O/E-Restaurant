@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bionic.edu.entities.Dish;
 import com.bionic.edu.entities.DishCategory;
@@ -46,6 +47,7 @@ public class DishDaoImpl implements DishDao {
 	}
 
 	@Override
+	@Transactional
 	public void update(Dish dish) {
 		em.merge(dish);
 	}

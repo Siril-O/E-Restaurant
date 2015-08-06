@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.bionic.edu.entities.OrderItem;
 import com.bionic.edu.entities.DishOrder;
-import com.bionic.edu.enums.Status;
 
 public interface DishOrderService {
 
@@ -14,6 +13,9 @@ public interface DishOrderService {
 
 	public void remove(int id);
 	
-	public void updateStatus(int id, Status status);
-
+	public DishOrder findById(int id);
+	
+	public void update(DishOrder dishOrder);
+	
+	public void changeOrderStatusIfAllDishesInOrderAreKitchenDone(DishOrder dishOrder);
 }

@@ -9,6 +9,7 @@
 </h:head>
 <h:body>
 #{menuManageBean.refreshCategoryList()}
+<h1>Administrator Page</h1>
     <h:form>
     <h:commandButton value="Add new Category" action="#{menuManageBean.viewAddCategoryForm()}"/>
 		<h:dataTable value="#{menuManageBean.categories}" var="dishCategory"

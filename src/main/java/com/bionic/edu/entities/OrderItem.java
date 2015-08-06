@@ -6,6 +6,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+
+@NamedQueries({
+	@NamedQuery(name = "OrderItem.findOrderItemsByOrderStatusAndDishType",
+			query = "SELECT i FROM OrderItem i WHERE  i.dishOrder.status = :status AND i.dish.dishtype = :type AND i.status=:itemStatus ORDER BY i.dishOrder.ordertime ASC") })
 
 @Entity
 public class OrderItem {
@@ -149,22 +155,7 @@ public class OrderItem {
 		this.quantity = quantity;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "OrderItem [id=" + id + ", dishOrder_ID = " + dishOrder.getId()
-				+ ", dish=" + dish + ", status="
-				+ (status ? "Order done" : "Order not done") + ", price="
-				+ price + "]";
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -178,13 +169,12 @@ public class OrderItem {
 		long temp;
 		temp = Double.doubleToLongBits(price);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + quantity;
 		result = prime * result + (status ? 1231 : 1237);
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -211,9 +201,22 @@ public class OrderItem {
 		if (Double.doubleToLongBits(price) != Double
 				.doubleToLongBits(other.price))
 			return false;
+		if (quantity != other.quantity)
+			return false;
 		if (status != other.status)
 			return false;
 		return true;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "OrderItem [id=" + id + ", dishOrder=" + dishOrder.getId() + ", dish="
+				+ dish + ", status=" + status + ", price=" + price
+				+ ", quantity=" + quantity + "]";
+	}
+
 
 }

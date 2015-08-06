@@ -66,9 +66,9 @@ public class Main {
 
 		// findCustomer(context);
 
-		// placeOrder(context, findCustomer(context,1));
-		//deleteOrder(context, 301);
-		 showAllOrders(context);
+	//	placeOrder(context, findCustomer(context,1));
+		//deleteOrder(context, 701);
+		showAllOrders(context);
 
 		// showAlDishes(context);
 		// orderService.save(order, dishesOrdered);

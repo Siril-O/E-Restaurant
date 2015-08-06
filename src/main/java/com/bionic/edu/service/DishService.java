@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.bionic.edu.entities.Dish;
 import com.bionic.edu.entities.DishCategory;
-import com.bionic.edu.enums.Status;
-import com.bionic.edu.extra.KitchenPeningListItem;
 
 public interface DishService {
 
@@ -21,8 +19,6 @@ public interface DishService {
 
 	public List<Dish> findOrderedDishByType(boolean type);
 	
-	public List<KitchenPeningListItem> findDishAndOrdersByOrderStatusAndDishType(Status status,boolean type);
-
 	public List<Dish> findAll();
 
 	public Dish findById(int id);

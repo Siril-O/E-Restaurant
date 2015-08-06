@@ -1,13 +1,8 @@
 ----------------------------------------------------------------
-Thu Aug 06 12:24:59 EEST 2015:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546): instance a816c00e-014f-0252-204b-00000f9cf210 
-on database directory C:\Users\KIRIL\Eclipse_workspace\ER with class loader WebappClassLoader
-  context: E-Restaurant
-  delegate: false
-----------> Parent Classloader:
-java.net.URLClassLoader@2626b418
- 
-Loaded from file:/C:/Users/KIRIL/Eclipse_workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp1/wtpwebapps/E-Restaurant/WEB-INF/lib/derby-10.11.1.1.jar
+Thu Aug 06 15:56:27 EEST 2015:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546): instance a816c00e-014f-0315-8366-0000051a6940 
+on database directory C:\Users\KIRIL\Eclipse_workspace\ER with class loader sun.misc.Launcher$AppClassLoader@c387f44 
+Loaded from file:/C:/Users/KIRIL/.m2/repository/org/apache/derby/derby/10.11.1.1/derby-10.11.1.1.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_45-b14
 user.dir=C:\Users\KIRIL\Eclipse_workspace\E-Restaurant

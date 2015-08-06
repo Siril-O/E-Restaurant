@@ -41,12 +41,11 @@ public class DishOrderDaoImpl implements DishOrderDao {
 	}
 
 	@Override
-	public void updateStatus(int id, Status status) {
-		DishOrder order = em.find(DishOrder.class, id);
-		if (order != null) {
-			order.setStatus(status);
-		}
+	public void update(DishOrder dishOrder) {
 
+		if (dishOrder != null && dishOrder.getId() != 0) {
+			em.merge(dishOrder);
+		}
 	}
 
 	@Override
@@ -75,4 +74,10 @@ public class DishOrderDaoImpl implements DishOrderDao {
 			em.remove(order);
 		}
 	}
+
+	@Override
+	public DishOrder findById(int id) {
+		return em.find(DishOrder.class, id);
+	}
+
 }

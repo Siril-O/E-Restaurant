@@ -8,9 +8,11 @@ import com.bionic.edu.enums.Status;
 
 public interface DishOrderDao {
 
-	public void updateStatus(int id, Status status);
+	public void update(DishOrder dishOrder);
 
 	public void save(DishOrder order, List<OrderItem> dishesOrdered);
+	
+	public DishOrder findById(int id);
 
 	public List<DishOrder> findAll();
 

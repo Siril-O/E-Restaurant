@@ -28,6 +28,11 @@ public class DishOrderServiceImpl implements DishOrderService {
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void save(DishOrder order, List<OrderItem> orderItems) {
 
+		for (OrderItem item : orderItems) {
+			if (!item.getDish().isDishtype()) {
+				item.setStatus(true);
+			}
+		}
 		orderDao.save(order, orderItems);
 	}
 
@@ -43,7 +48,31 @@ public class DishOrderServiceImpl implements DishOrderService {
 	}
 
 	@Override
-	public void updateStatus(int id, Status status) {
-		// TODO Auto-generated method stub
+	public DishOrder findById(int id) {
+		return orderDao.findById(id);
+	}
+
+	@Override
+	@Transactional
+	public void update(DishOrder dishOrder) {
+		orderDao.update(dishOrder);
+	}
+
+	@Override
+	public void changeOrderStatusIfAllDishesInOrderAreKitchenDone(
+			DishOrder dishOrder) {
+		
+		boolean changeStatus = true;
+		
+		for (OrderItem item : dishOrder.getOrderItems()) {
+			if (!item.isStatus()) {
+				changeStatus = false;
+				break;
+			}
+		}
+		if(changeStatus){
+			dishOrder.setStatus(Status.KITCHEN_DONE);
+			orderDao.update(dishOrder);
+		}
 	}
 }

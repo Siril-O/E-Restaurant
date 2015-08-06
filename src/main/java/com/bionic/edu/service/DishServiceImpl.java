@@ -10,8 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bionic.edu.dao.DishDao;
 import com.bionic.edu.entities.Dish;
 import com.bionic.edu.entities.DishCategory;
-import com.bionic.edu.enums.Status;
-import com.bionic.edu.extra.KitchenPeningListItem;
+
 
 @Named(value = "dishServiceImpl")
 public class DishServiceImpl implements DishService {
@@ -68,12 +67,6 @@ public class DishServiceImpl implements DishService {
 	public void changeInMenuStatus(Dish dish) {
 		dish.setMenuitem(!dish.isMenuitem());
 		dishDao.update(dish);
-	}
-
-	@Override
-	public List<KitchenPeningListItem> findDishAndOrdersByOrderStatusAndDishType(
-			Status status, boolean type) {
-		return dishDao.findDishAndOrdersByOrderStatusAndDishType(status, type);
 	}
 
 }

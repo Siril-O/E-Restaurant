@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import com.bionic.edu.entities.OrderItem;
+import com.bionic.edu.enums.Status;
 import com.bionic.edu.extra.ReportByCategories;
 import com.bionic.edu.extra.ReportByDays;
 
@@ -20,13 +21,11 @@ public class OrderItemDaoImpl implements OrderItemDao {
 	private EntityManager em;
 
 	@Override
-	public void updateStaus(int id, boolean status) {
-
-		OrderItem dishOrdered = em.find(OrderItem.class, id);
-
-		if (dishOrdered != null) {
-			dishOrdered.setStatus(status);
+	public void update(OrderItem orderItem) {
+		if (orderItem != null && orderItem.getId() != 0) {
+			em.merge(orderItem);
 		}
+
 	}
 
 	@Override
@@ -36,7 +35,8 @@ public class OrderItemDaoImpl implements OrderItemDao {
 				+ "  FROM Order o, DishOrdered d WHERE  (o.date BETWEEN "
 				+ ":startDate AND :endDate ) AND o.id = d.orderId   GROUP BY o.date";
 
-		TypedQuery<ReportByDays> query = em.createQuery(txt, ReportByDays.class);
+		TypedQuery<ReportByDays> query = em
+				.createQuery(txt, ReportByDays.class);
 		query.setParameter("startDate", startDate);
 		query.setParameter("startDate", startDate);
 
@@ -45,17 +45,34 @@ public class OrderItemDaoImpl implements OrderItemDao {
 	}
 
 	@Override
-	public List<ReportByCategories> getReportByCategories(Date startDate, Date endDate) {
+	public List<ReportByCategories> getReportByCategories(Date startDate,
+			Date endDate) {
 		String txt = "SELECT new com.bionic.edu.extra.ReportByCategories(c.category COUNT(o.id), SUM(do.PRICE))"
 				+ "  FROM Order o, DishOrdered do , DISH d , DISHCATEGORY c WHERE  (o.date BETWEEN "
 				+ ":startDate AND :endDate ) AND o.id = do.orderId AND do.dihsId = d.id"
 				+ " AND d.id = c.id  GROUP BY c.category";
 
-		TypedQuery<ReportByCategories> query = em.createQuery(txt, ReportByCategories.class);
+		TypedQuery<ReportByCategories> query = em.createQuery(txt,
+				ReportByCategories.class);
 		query.setParameter("startDate", startDate);
 		query.setParameter("startDate", startDate);
 
 		return query.getResultList();
+	}
+
+	@Override
+	public List<OrderItem> findOrderItemsByOrderStatusAndDishType(
+			Status status, boolean type) {
+		TypedQuery<OrderItem> query = em.createNamedQuery(
+				"OrderItem.findOrderItemsByOrderStatusAndDishType",
+				OrderItem.class);
+		query.setParameter("status", status).setParameter("type", type).setParameter("itemStatus", false);
+		return query.getResultList();
+	}
+
+	@Override
+	public OrderItem findById(int id) {
+		return em.find(OrderItem.class, id);
 	}
 
 }
