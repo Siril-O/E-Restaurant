@@ -11,6 +11,7 @@ import javax.persistence.OneToOne;
 
 @NamedQueries({
 		@NamedQuery(name = "Dish.findByCategoryInMenu", query = "SELECT d FROM Dish d WHERE d.category=:category AND d.menuitem=true"),
+		@NamedQuery(name = "Dish.findByCategory", query = "SELECT d FROM Dish d WHERE d.category=:category"),
 		@NamedQuery(name = "Dish.FindAll", query = "SELECT d FROM Dish d"),
 		@NamedQuery(name = "Dish.findDishAndOrdersByOrderStatusAndDishType", query = "SELECT new com.bionic.edu.extra.KitchenPeningListItem(i.dishOrder, i.dish) FROM OrderItem i WHERE  i.dishOrder.status = :status AND i.dish.dishtype = :type ORDER BY i.dishOrder.ordertime ASC") })
 @Entity

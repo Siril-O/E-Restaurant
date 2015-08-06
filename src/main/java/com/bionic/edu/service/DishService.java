@@ -9,13 +9,15 @@ import com.bionic.edu.extra.KitchenPeningListItem;
 
 public interface DishService {
 
-	public void create(Dish dish);
+	public void save(Dish dish);
 
 	public void update(Dish dish);
 
 	public void remove(int id);
 
 	public List<Dish> findByCategoryInMenu(DishCategory category);
+	
+	public List<Dish> findByCategory(DishCategory category);
 
 	public List<Dish> findOrderedDishByType(boolean type);
 	

@@ -25,8 +25,8 @@ public class DishCategoryServiceImpl implements DishCategoryService {
 
 	@Override
 	@Transactional
-	public void create(DishCategory category) {
-		dishCategoryDao.create(category);
+	public void save(DishCategory category) {
+		dishCategoryDao.save(category);
 	}
 
 	@Override

@@ -8,7 +8,7 @@ public interface DishCategoryDao {
 
 	public List<DishCategory> findAll();
 	
-	public void create(DishCategory category);
+	public void save(DishCategory category);
 	
 	public DishCategory find(int id);
 }

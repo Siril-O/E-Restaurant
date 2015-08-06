@@ -46,16 +46,13 @@ public class Main {
 
 		// findAllDishByCategory(context);
 
-		System.out.println(Arrays.toString(dishService.findOrderedDishByType(
-				false).toArray()));
+//		System.out.println(Arrays.toString(dishService.findOrderedDishByType(
+//				false).toArray()));
 
 		// for(Dish dish:dishService.findOrderedDishByType(false)){
 		// System.out.println(dish);
 		// }
 
-		for (Dish dish : dishService.findAll()) {
-			System.out.println(dish);
-		}
 
 		// System.out.println(Arrays.toString(dishService.findDishAndOrdersByOrderStatusAndDishType(Status.COMPLETELY_NOT_DONE,
 		// false).toArray()));
@@ -70,8 +67,8 @@ public class Main {
 		// findCustomer(context);
 
 		// placeOrder(context, findCustomer(context,1));
-		// deleteOrder(context, 1);
-		// showAllOrders(context);
+		//deleteOrder(context, 301);
+		 showAllOrders(context);
 
 		// showAlDishes(context);
 		// orderService.save(order, dishesOrdered);

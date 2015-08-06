@@ -26,9 +26,14 @@ public class DishServiceImpl implements DishService {
 	}
 
 	@Override
+	public List<Dish> findByCategory(DishCategory category) {
+		return dishDao.findByCategory(category);
+	}
+
+	@Override
 	@Transactional
-	public void create(Dish dish) {
-		dishDao.create(dish);
+	public void save(Dish dish) {
+		dishDao.save(dish);
 	}
 
 	@Override

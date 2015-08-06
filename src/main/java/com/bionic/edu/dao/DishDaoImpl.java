@@ -28,9 +28,20 @@ public class DishDaoImpl implements DishDao {
 	}
 
 	@Override
-	public void create(Dish dish) {
-		if (dish != null) {
+	public List<Dish> findByCategory(DishCategory category) {
+		TypedQuery<Dish> query = em.createNamedQuery("Dish.findByCategory",
+				Dish.class);
+		query.setParameter("category", category);
+		return query.getResultList();
+	}
+
+	@Override
+	public void save(Dish dish) {
+
+		if (dish != null && dish.getId() == 0) {
 			em.persist(dish);
+		} else if (dish != null) {
+			em.merge(dish);
 		}
 	}
 

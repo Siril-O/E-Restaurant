@@ -12,7 +12,9 @@ import javax.inject.Named;
 import org.springframework.context.annotation.Scope;
 
 import com.bionic.edu.entities.Dish;
+import com.bionic.edu.entities.DishOrder;
 import com.bionic.edu.entities.OrderItem;
+import com.bionic.edu.service.DishOrderService;
 import com.bionic.edu.service.DishService;
 
 @Named
@@ -22,8 +24,13 @@ public class CartBean {
 	@Inject
 	private DishService dishService;
 
+	@Inject
+	private DishOrderService orderService;
+
 	private List<OrderItem> orderItems = new LinkedList<>();
 	private double totalPrice;
+	private String address;
+	private String userName;
 
 	public CartBean() {
 		super();
@@ -35,8 +42,11 @@ public class CartBean {
 		Dish dish = dishService.findById(Integer.parseInt(dishId));
 		int dishQuantity = Integer.parseInt(quantity);
 
-		OrderItem item = new OrderItem(dish, dishQuantity);
+		addItemOrUpdateQuantity(dishQuantity, new OrderItem(dish, dishQuantity));
+		calculateTotalPrice();
+	}
 
+	private void addItemOrUpdateQuantity(int dishQuantity, OrderItem item) {
 		if (orderItems.contains(item)) {
 			int i = orderItems.indexOf(item);
 			int q = orderItems.get(i).getQuantity() + dishQuantity;
@@ -44,8 +54,6 @@ public class CartBean {
 		} else {
 			orderItems.add(item);
 		}
-
-		calculateTotalPrice();
 	}
 
 	public void removeItem(String dishId) {
@@ -65,6 +73,16 @@ public class CartBean {
 		}
 		totalPrice = new BigDecimal(sum).setScale(2, RoundingMode.CEILING)
 				.doubleValue();
+	}
+
+	public String submitOrder() {
+
+		DishOrder order = new DishOrder(userName, address);
+
+		System.out.println("User Name " + userName + "\n Addres: " + address);
+		
+		orderService.save(order, orderItems);
+		return "menuCategories";
 	}
 
 	/**
@@ -95,6 +113,36 @@ public class CartBean {
 	 */
 	public void setOrderItems(List<OrderItem> orderItems) {
 		this.orderItems = orderItems;
+	}
+
+	/**
+	 * @return the address
+	 */
+	public String getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address
+	 *            the address to set
+	 */
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	/**
+	 * @return the userName
+	 */
+	public String getUserName() {
+		return userName;
+	}
+
+	/**
+	 * @param userName
+	 *            the userName to set
+	 */
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 }

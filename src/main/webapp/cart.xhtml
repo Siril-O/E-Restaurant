@@ -35,19 +35,20 @@
 				</h:column>
 			<h:column>
 				<f:facet name="header"></f:facet>
-					<h:commandButton value="Remove from cart" action="#{cartBean.removeItem(item.dish.id)}"/>
-				</h:column>
+				<h:commandButton value="Remove from cart"
+					action="#{cartBean.removeItem(item.dish.id)}" />
+			</h:column>
 			<f:facet name="footer">
-				<h:panelGroup style="display:block; text-align:right">
-					<h:outputText value="Total: #{cartBean.totalPrice}" />
-					<br />
-					<h:commandButton value="Submit Order" action="cart" />
-				</h:panelGroup>
+				<h:outputText value="Total: #{cartBean.totalPrice}" />
 			</f:facet>
 		</h:dataTable>
-	</h:form>
-	<h:form>
-	<h:inputText action="")/>
+		<h:panelGrid columns="2">
+			<h:outputText value="Your Name:" />
+			<h:inputText value="#{cartBean.userName}" />
+			<h:outputText value="Delivery Address :" />
+			<h:inputText value="#{cartBean.address}" />
+			<h:commandButton value="Submit Order" action="#{cartBean.submitOrder()}" />
+		</h:panelGrid>
 	</h:form>
 </h:body>
 </html>

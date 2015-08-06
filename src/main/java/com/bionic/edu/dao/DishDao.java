@@ -9,22 +9,25 @@ import com.bionic.edu.extra.KitchenPeningListItem;
 
 public interface DishDao {
 
-	public void create(Dish dish);
+	public void save(Dish dish);
 
 	public void update(Dish dish);
 
 	public void remove(int id);
-	
+
 	public void changeMenuAccessory(int id);
-	
+
+	public List<Dish> findByCategory(DishCategory category);
+
 	public List<Dish> findByCategoryInMenu(DishCategory category);
 
 	public List<Dish> findOrderedDishByType(boolean type);
-	
-	public List<KitchenPeningListItem> findDishAndOrdersByOrderStatusAndDishType(Status status,boolean type);
-	
+
+	public List<KitchenPeningListItem> findDishAndOrdersByOrderStatusAndDishType(
+			Status status, boolean type);
+
 	public List<Dish> findAll();
-	
+
 	public Dish findById(int id);
 
 }

@@ -24,10 +24,12 @@ public class DishCategoryDaoImpl implements DishCategoryDao {
 	}
 
 	@Override
-	public void create(DishCategory category) {
+	public void save(DishCategory category) {
 
-		if (category != null) {
+		if (category != null && category.getId() == 0) {
 			em.persist(category);
+		} else if (category != null) {
+			em.merge(category);
 		}
 	}
 
