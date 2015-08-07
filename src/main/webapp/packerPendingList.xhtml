@@ -4,41 +4,37 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 <h:head>
-	<title>Kitchen Pending List</title>
+	<title>Packer Pending List</title>
 	<h:outputStylesheet library="css" name="style.css" />
 </h:head>
 
 <h:body>
-	<h2>Kitchen Pending List</h2>
-		#{kitchenPendingListBean.refreshPendingList()}
+	<h2>Packer Pending List</h2>
+		#{packerPendingListBean.refreshPendingList()}
 	<h:form>
 		<h:commandButton
-			action="#{kitchenPendingListBean.refreshPendingList()}"
+			action="#{packerPendingListBean.refreshPendingList()}"
 			value="Update List" />
-		<h:dataTable value="#{kitchenPendingListBean.orderedItems}" var="item"
+		<h:dataTable value="#{packerPendingListBean.orders}" var="order"
 			styleClass="menuTable" headerClass="menuTableHeader"
 			rowClasses="menuTableOddRow, menuTableEvenRow">
 			<h:column>
-				<f:facet name="header">Order</f:facet>
-				<h:outputText value="#{item.dishOrder.id}" />
+				<f:facet name="header">Order Id</f:facet>
+				<h:outputText value="#{order.id}" />
 			</h:column>
 			<h:column>
-				<f:facet name="header">Dish Name</f:facet>
-				<h:outputText value="#{item.dish.name}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Dish Quantity</f:facet>
-				<h:outputText value="#{item.quantity}" />
+				<f:facet name="header">Order Status</f:facet>
+				<h:outputText value="#{order.status}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">Time Ordered</f:facet>
-				<h:outputText value="#{item.dishOrder.ordertime}" />
+				<h:outputText value="#{order.ordertime}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header"></f:facet>
 				<h:commandButton
-					action="#{kitchenPendingListBean.markDishAsDone(item.id)}"
-					value="Dish Done" />
+					action="#{packerPendingListBean.markOrderAsReadyForShipment(order.id)}"
+					value="Order Packed" />
 			</h:column>
 		</h:dataTable>
 	</h:form>

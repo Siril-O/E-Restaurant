@@ -1,5 +1,6 @@
 package com.bionic.edu.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -33,6 +34,9 @@ public class DishOrderServiceImpl implements DishOrderService {
 				item.setStatus(true);
 			}
 		}
+		if (checkIfDishesInOrderAreKitchenDone(order, orderItems)) {
+			order.setStatus(Status.KITCHEN_DONE);
+		}
 		orderDao.save(order, orderItems);
 	}
 
@@ -61,18 +65,33 @@ public class DishOrderServiceImpl implements DishOrderService {
 	@Override
 	public void changeOrderStatusIfAllDishesInOrderAreKitchenDone(
 			DishOrder dishOrder) {
-		
-		boolean changeStatus = true;
-		
-		for (OrderItem item : dishOrder.getOrderItems()) {
-			if (!item.isStatus()) {
-				changeStatus = false;
-				break;
-			}
-		}
-		if(changeStatus){
+
+		if (checkIfDishesInOrderAreKitchenDone(dishOrder,
+				dishOrder.getOrderItems())) {
 			dishOrder.setStatus(Status.KITCHEN_DONE);
 			orderDao.update(dishOrder);
 		}
+	}
+
+	private boolean checkIfDishesInOrderAreKitchenDone(DishOrder dishOrder,
+			Collection<OrderItem> orderItems) {
+
+		for (OrderItem item : orderItems) {
+			if (!item.isStatus()) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public List<DishOrder> findOrdersByStatus(Status status) {
+		return orderDao.findOrdersByStatus(status);
+
+	}
+
+	@Override
+	public List<DishOrder> findOrdersByStatuses(Status status1, Status status2) {
+		return orderDao.findOrdersByStatuses(status1, status2);
 	}
 }

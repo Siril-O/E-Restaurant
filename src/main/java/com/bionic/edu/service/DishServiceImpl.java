@@ -48,11 +48,6 @@ public class DishServiceImpl implements DishService {
 	}
 
 	@Override
-	public List<Dish> findOrderedDishByType(boolean type) {
-		return dishDao.findOrderedDishByType(type);
-	}
-
-	@Override
 	public List<Dish> findAll() {
 		return dishDao.findAll();
 	}

@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bionic.edu.entities.OrderItem;
 import com.bionic.edu.entities.DishOrder;
@@ -31,33 +32,27 @@ public class DishOrderDaoImpl implements DishOrderDao {
 	}
 
 	@Override
-	public List<DishOrder> findAllOrdersForDelivery() {
+	public List<DishOrder> findOrdersByStatus(Status status) {
 
-		TypedQuery<DishOrder> query = em.createQuery(
-				"SELECT o FROM Order o WHERE o.statusId <> ("
-						+ Status.DELIVERED + " OR "
-						+ Status.COMPLETELY_NOT_DONE + ")", DishOrder.class);
-		return query.getResultList();
+		TypedQuery<DishOrder> query = em.createNamedQuery(
+				"DishOrder.findOrdersByStatus",
+				DishOrder.class);
+		return query.setParameter("status", status).getResultList();
+	}
+	
+	@Override
+	public List<DishOrder> findOrdersByStatuses(Status status1, Status status2) {
+		TypedQuery<DishOrder> query = em.createNamedQuery(
+				"DishOrder.findOrdersByStatuses",
+				DishOrder.class);
+		return query.setParameter("status1", status1).setParameter("status2", status2).getResultList();
 	}
 
 	@Override
 	public void update(DishOrder dishOrder) {
-
 		if (dishOrder != null && dishOrder.getId() != 0) {
 			em.merge(dishOrder);
 		}
-	}
-
-	@Override
-	public List<DishOrder> findAllOrdersForDeliveryByStatus(Status status) {
-
-		// TypedQuery<Order> query = em.createQuery(
-		// "SELECT o FROM Order o WHERE o.statusId <> ("
-		// + Status.DELIVERED + " OR "
-		// + Status.COMPLETELY_NOT_DONE + ") AND o.statusId =" + status.getId()
-		// , Order.class);
-		// return query.getResultList();
-		return null;
 	}
 
 	@Override

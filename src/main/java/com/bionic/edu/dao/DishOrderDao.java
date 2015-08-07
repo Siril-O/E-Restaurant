@@ -16,9 +16,9 @@ public interface DishOrderDao {
 
 	public List<DishOrder> findAll();
 
-	public List<DishOrder> findAllOrdersForDelivery();
-
-	public List<DishOrder> findAllOrdersForDeliveryByStatus(Status status);
+	public List<DishOrder> findOrdersByStatus(Status status);
+	
+	public List<DishOrder> findOrdersByStatuses(Status status1, Status status2);
 
 	public void remove(int id);
 

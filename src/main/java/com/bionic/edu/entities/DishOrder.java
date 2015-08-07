@@ -16,9 +16,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 import com.bionic.edu.enums.Status;
+
+@NamedQueries({ @NamedQuery(name = "DishOrder.findOrdersByStatus",
+						query = "SELECT o FROM DishOrder o WHERE o.status=:status ORDER BY o.ordertime ASC"),
+				@NamedQuery(name = "DishOrder.findOrdersByStatuses",
+						query = "SELECT o FROM DishOrder o WHERE o.status IN (:status1 , :status2) ORDER BY o.ordertime ASC"),})
 
 @Entity
 public class DishOrder {

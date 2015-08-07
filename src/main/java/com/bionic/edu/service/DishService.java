@@ -16,8 +16,6 @@ public interface DishService {
 	public List<Dish> findByCategoryInMenu(DishCategory category);
 	
 	public List<Dish> findByCategory(DishCategory category);
-
-	public List<Dish> findOrderedDishByType(boolean type);
 	
 	public List<Dish> findAll();
 

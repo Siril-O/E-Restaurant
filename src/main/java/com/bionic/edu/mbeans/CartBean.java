@@ -2,7 +2,6 @@ package com.bionic.edu.mbeans;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -78,9 +77,6 @@ public class CartBean {
 	public String submitOrder() {
 
 		DishOrder order = new DishOrder(userName, address);
-
-		System.out.println("User Name " + userName + "\n Addres: " + address);
-		
 		orderService.save(order, orderItems);
 		return "menuCategories";
 	}

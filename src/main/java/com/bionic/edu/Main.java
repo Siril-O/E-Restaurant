@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.bionic.edu.dao.DishOrderDao;
 import com.bionic.edu.entities.Dish;
 import com.bionic.edu.entities.DishCategory;
 import com.bionic.edu.entities.OrderItem;
@@ -36,6 +37,12 @@ public class Main {
 		DishCategoryService dishCategoryService = context
 				.getBean(DishCategoryService.class);
 
+		List<DishOrder> orders = showAllOrders(context);
+		for (DishOrder order : orders) {
+			deleteOrder(context, order.getId());
+		}
+		orders = showAllOrders(context);
+
 		// Dish dish = dishService.findById(1);
 		// dishService.update(dish.getId(), dish.getName(), dish.getPrice(),
 		// dish.getCategory(), dish.isDishtype(), !dish.isMenuitem());
@@ -46,13 +53,12 @@ public class Main {
 
 		// findAllDishByCategory(context);
 
-//		System.out.println(Arrays.toString(dishService.findOrderedDishByType(
-//				false).toArray()));
+		// System.out.println(Arrays.toString(dishService.findOrderedDishByType(
+		// false).toArray()));
 
 		// for(Dish dish:dishService.findOrderedDishByType(false)){
 		// System.out.println(dish);
 		// }
-
 
 		// System.out.println(Arrays.toString(dishService.findDishAndOrdersByOrderStatusAndDishType(Status.COMPLETELY_NOT_DONE,
 		// false).toArray()));
@@ -66,9 +72,8 @@ public class Main {
 
 		// findCustomer(context);
 
-	//	placeOrder(context, findCustomer(context,1));
-		//deleteOrder(context, 701);
-		showAllOrders(context);
+		// placeOrder(context, findCustomer(context,1));
+		// deleteOrder(context, 701);
 
 		// showAlDishes(context);
 		// orderService.save(order, dishesOrdered);
@@ -114,13 +119,15 @@ public class Main {
 		ordrerService.remove(id);
 	}
 
-	private static void showAllOrders(ApplicationContext context) {
+	private static List<DishOrder> showAllOrders(ApplicationContext context) {
 		DishOrderService ordrerService = context
 				.getBean(DishOrderService.class);
 
 		StringBuilder sb = new StringBuilder();
 
-		for (DishOrder dishOrder : ordrerService.findAll()) {
+		List<DishOrder> orders = ordrerService.findAll();
+
+		for (DishOrder dishOrder : orders) {
 			sb.append("\n").append(dishOrder)
 					.append("\n********** Ordered Items *************\n");
 			for (OrderItem orderItem : dishOrder.getOrderItems()) {
@@ -129,17 +136,19 @@ public class Main {
 			}
 			System.out.println(sb.toString());
 		}
+		return orders;
 	}
 
 	private static void placeOrder(ApplicationContext context, Customer customer) {
 		DishOrderService orderService = context.getBean(DishOrderService.class);
 		DishService dishService = context.getBean(DishService.class);
 
-		DishOrder order = new DishOrder((customer != null ? customer.getName() : "Kirill"),
-				"Hnata Uri 16 ");
+		DishOrder order = new DishOrder((customer != null ? customer.getName()
+				: "Kirill"), "Hnata Uri 16 ");
 
-		List<OrderItem> orderItems = Arrays.asList(new OrderItem(dishService.findById(1),1),
-				new OrderItem(dishService.findById(2),1));
+		List<OrderItem> orderItems = Arrays.asList(
+				new OrderItem(dishService.findById(1), 1), new OrderItem(
+						dishService.findById(2), 1));
 		orderService.save(order, orderItems);
 		System.out.println("Order id = " + order.getId() + " placed");
 	}

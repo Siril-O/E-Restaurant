@@ -11,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bionic.edu.entities.Dish;
 import com.bionic.edu.entities.DishCategory;
-import com.bionic.edu.enums.Status;
-import com.bionic.edu.extra.KitchenPeningListItem;
 
 @Repository
 public class DishDaoImpl implements DishDao {
@@ -61,29 +59,6 @@ public class DishDaoImpl implements DishDao {
 	}
 
 	@Override
-	public List<Dish> findOrderedDishByType(boolean type) { // kitchen made,
-															// none kitchen-made
-		TypedQuery<Dish> query = em
-				.createQuery(
-						"SELECT i.dish FROM OrderItem i WHERE  i.dishOrder.status = :status AND i.dish.dishtype = :type ",
-						Dish.class);
-
-		query.setParameter("status", Status.COMPLETELY_NOT_DONE).setParameter(
-				"type", type);
-
-		return query.getResultList();
-	}
-
-	@Override
-	public void changeMenuAccessory(int id) {
-		Dish dish = em.find(Dish.class, id);
-		if (dish != null) {
-			dish.setMenuitem(!dish.isMenuitem());
-		}
-
-	}
-
-	@Override
 	public List<Dish> findAll() {
 		TypedQuery<Dish> query = em
 				.createNamedQuery("Dish.FindAll", Dish.class);
@@ -95,15 +70,5 @@ public class DishDaoImpl implements DishDao {
 		return em.find(Dish.class, id);
 	}
 
-	@Override
-	public List<KitchenPeningListItem> findDishAndOrdersByOrderStatusAndDishType(
-			Status status, boolean type) {
-		TypedQuery<KitchenPeningListItem> query = em.createNamedQuery(
-				"Dish.findDishAndOrdersByOrderStatusAndDishType",
-				KitchenPeningListItem.class);
-		query.setParameter("status", status).setParameter("type", type);
-
-		return query.getResultList();
-	}
 
 }
