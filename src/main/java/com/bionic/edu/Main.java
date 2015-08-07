@@ -21,11 +21,13 @@ import com.bionic.edu.entities.DishOrder;
 import com.bionic.edu.entities.Customer;
 import com.bionic.edu.enums.Role;
 import com.bionic.edu.enums.Status;
+import com.bionic.edu.extra.ReportByDays;
 import com.bionic.edu.service.DishCategoryService;
 import com.bionic.edu.service.DishOrderService;
 import com.bionic.edu.service.DishService;
 import com.bionic.edu.service.CustomerService;
 import com.bionic.edu.service.DishServiceImpl;
+import com.bionic.edu.service.OrderItemService;
 
 public class Main {
 	public static void main(String[] args) {
@@ -38,11 +40,18 @@ public class Main {
 				.getBean(DishCategoryService.class);
 
 		List<DishOrder> orders = showAllOrders(context);
-		for (DishOrder order : orders) {
+	/*	for (DishOrder order : orders) {
 			deleteOrder(context, order.getId());
-		}
+		}*/
 		orders = showAllOrders(context);
+		
+		OrderItemService orderService = context.getBean(OrderItemService.class);
+		
+		Date startDate = Date.valueOf(LocalDate.of(2015, 8, 6));
+		Date endDate = Date.valueOf(LocalDate.of(2015, 8, 7));
+		List<ReportByDays> report = orderService.getReportByDays(startDate, endDate);
 
+		System.out.println(report);
 		// Dish dish = dishService.findById(1);
 		// dishService.update(dish.getId(), dish.getName(), dish.getPrice(),
 		// dish.getCategory(), dish.isDishtype(), !dish.isMenuitem());

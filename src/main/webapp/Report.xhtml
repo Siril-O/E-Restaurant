@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Report</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+
+<h:body>
+	<h2>Report</h2>
+	<h:form>
+		<h:panelGrid columns="2" cellpadding="5">
+			<p:outputLabel for="startDateCalendar" value="Start Date" />
+			<p:calendar id="startDateCalendar" value="#{reportBean.startDate}"
+				showOn="button" />
+			<p:outputLabel for="endDateCalendar" value="End Date" />
+			<p:calendar id="endDateCalendar" value="#{reportBean.endDate}"
+				showOn="button" />
+		</h:panelGrid>
+		<h:commandButton value="Show Report"
+			action="#{reportBean.viewReportByDays()}" />
+		<br />
+		<h:panelGrid columns="2">
+		<h:outputText value="Report by Categories"/> 		
+		<h:outputText value="Report by Days"/>
+			<h:dataTable value="#{reportBean.reportByCategories}" var="catItem"
+				styleClass="menuTable" headerClass="menuTableHeader"
+				rowClasses="menuTableOddRow, menuTableEvenRow">
+				<h:column>
+					<f:facet name="header">Category</f:facet>
+					<h:outputText value="#{catItem.category.name}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Quantity of Orders</f:facet>
+					<h:outputText value="#{catItem.orderQuantity}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Total Summ</f:facet>
+					<h:outputText value="#{catItem.totalSumm}" />
+				</h:column>
+			</h:dataTable>
+
+
+			<h:dataTable value="#{reportBean.report}" var="item"
+				styleClass="menuTable" headerClass="menuTableHeader"
+				rowClasses="menuTableOddRow, menuTableEvenRow">
+				<h:column>
+					<f:facet name="header">Date</f:facet>
+					<h:outputText value="#{item.orderDate}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Quantity of Orders</f:facet>
+					<h:outputText value="#{item.orderQuantity}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Total Summ</f:facet>
+					<h:outputText value="#{item.totalSumm}" />
+				</h:column>
+			</h:dataTable>
+
+		</h:panelGrid>
+	</h:form>
+
+</h:body>
+</html>

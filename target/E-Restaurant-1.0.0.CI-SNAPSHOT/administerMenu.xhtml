@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Menu</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+
+<h:body>
+	<h2>Menu</h2>
+	<h2>#{menuManageBean.category.name}</h2>
+	<h:form>
+		<h:commandButton action="administerMenuCategories"
+			value="Manage Categories" />
+		<h:commandButton action="#{menuManageBean.viewAddDishForm()}"
+			value="Add New Dish" />
+		<h:dataTable value="#{menuManageBean.dishes}" var="dish"
+			styleClass="menuTable" headerClass="menuTableHeader"
+			rowClasses="menuTableOddRow, menuTableEvenRow">
+
+			<h:column>
+				<f:facet name="header">Id</f:facet>
+				<h:outputText value="#{dish.id}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Name</f:facet>
+				<h:outputText value="#{dish.name}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Dish Price</f:facet>
+				<h:outputText value="#{dish.price}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Category</f:facet>
+				<h:outputText value="#{dish.category.name}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Type (kitchen made or not)</f:facet>
+				<h:outputText value="#{dish.dishtype}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Menu Item</f:facet>
+				<h:outputText value="#{dish.menuitem}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header"></f:facet>
+				<h:commandButton
+					action="#{menuManageBean.editDish(dish.id)}"
+					value="Edit Dish" />
+			</h:column>
+		</h:dataTable>
+	</h:form>
+</h:body>
+</html>

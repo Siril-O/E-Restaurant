@@ -30,34 +30,21 @@ public class OrderItemDaoImpl implements OrderItemDao {
 
 	@Override
 	public List<ReportByDays> getReportByDays(Date startDate, Date endDate) {
-
-		String txt = "SELECT new com.bionic.edu.extra.ReportByDays(o.date, COUNT(o.id), SUM(d.PRICE))"
-				+ "  FROM Order o, DishOrdered d WHERE  (o.date BETWEEN "
-				+ ":startDate AND :endDate ) AND o.id = d.orderId   GROUP BY o.date";
-
-		TypedQuery<ReportByDays> query = em
-				.createQuery(txt, ReportByDays.class);
-		query.setParameter("startDate", startDate);
-		query.setParameter("startDate", startDate);
-
-		return query.getResultList();
-
+		TypedQuery<ReportByDays> query = em.createNamedQuery(
+				"OrderItem.getReportByDays", ReportByDays.class);
+		return query.setParameter("startDate", startDate)
+				.setParameter("endDate", endDate)
+				.setParameter("status", Status.DELIVERED).getResultList();
 	}
 
 	@Override
 	public List<ReportByCategories> getReportByCategories(Date startDate,
 			Date endDate) {
-		String txt = "SELECT new com.bionic.edu.extra.ReportByCategories(c.category COUNT(o.id), SUM(do.PRICE))"
-				+ "  FROM Order o, DishOrdered do , DISH d , DISHCATEGORY c WHERE  (o.date BETWEEN "
-				+ ":startDate AND :endDate ) AND o.id = do.orderId AND do.dihsId = d.id"
-				+ " AND d.id = c.id  GROUP BY c.category";
-
-		TypedQuery<ReportByCategories> query = em.createQuery(txt,
-				ReportByCategories.class);
-		query.setParameter("startDate", startDate);
-		query.setParameter("startDate", startDate);
-
-		return query.getResultList();
+		TypedQuery<ReportByCategories> query = em.createNamedQuery(
+				"OrderItem.getReportByCategories", ReportByCategories.class);
+		return query.setParameter("startDate", startDate)
+				.setParameter("endDate", endDate)
+				.setParameter("status", Status.DELIVERED).getResultList();
 	}
 
 	@Override
@@ -66,7 +53,8 @@ public class OrderItemDaoImpl implements OrderItemDao {
 		TypedQuery<OrderItem> query = em.createNamedQuery(
 				"OrderItem.findOrderItemsByOrderStatusAndDishType",
 				OrderItem.class);
-		query.setParameter("status", status).setParameter("type", type).setParameter("itemStatus", false);
+		query.setParameter("status", status).setParameter("type", type)
+				.setParameter("itemStatus", false);
 		return query.getResultList();
 	}
 

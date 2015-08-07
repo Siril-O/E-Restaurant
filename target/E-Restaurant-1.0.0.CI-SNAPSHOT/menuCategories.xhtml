@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Menu Categories</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body>
+#{menuListBean.refreshCategoryList()}
+<h1>Main Page</h1>
+<h2>Select Category to choose dish from it</h2>
+    <h:form>
+		<h:dataTable value="#{menuListBean.categories}" var="dishCategory"
+			styleClass="menuCategoryTable" headerClass="menuCategoryTableHeader"
+			rowClasses="menuCategoryTableOddRow, menuCategoryTableEvenRow">
+			<h:column>
+				<f:facet name="header">Id</f:facet> 
+	#{dishCategory.id} 	
+</h:column>
+			<h:column>
+				<f:facet name="header">Category</f:facet>
+				#{dishCategory.name}
+</h:column>
+			<h:column>
+				<f:facet name="header"></f:facet>
+				<h:commandButton
+					action="#{menuListBean.refreshDishesByCategoryList(dishCategory.id)}"
+					value="Show Dishes" />
+			</h:column>
+		</h:dataTable>
+	</h:form>
+
+</h:body>
+</html>

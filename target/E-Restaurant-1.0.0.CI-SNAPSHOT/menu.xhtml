@@ -9,29 +9,41 @@
 </h:head>
 
 <h:body>
-	<h2>Menu</h2> 
-    #{menuListBean.refreshList()}
-    <h:form>
-		<h:dataTable value="#{menuListBean.dishes}" var="dish"
-			styleClass="menuTable" headerClass="menuTableHeader"
+	<h2>Menu</h2>
+	<h2>#{menuListBean.category.name}</h2>
+	<h:form>
+		<h:commandButton action="menuCategories" value="Watch Categories" />
+		<h:commandButton action="cart" value="Go To Cart" />
+		<h:dataTable value="#{menuListBean.dishes.entrySet().toArray()}"
+			var="item" styleClass="menuTable" headerClass="menuTableHeader"
 			rowClasses="menuTableOddRow, menuTableEvenRow">
 
 			<h:column>
-				<f:facet name="header">Id</f:facet> 
-	#{dish.id} 
-</h:column>
+				<f:facet name="header">Id</f:facet>
+				<h:outputText value="#{item.key.id}" />
+			</h:column>
 			<h:column>
-				<f:facet name="header">Name</f:facet> 
-	#{dish.name} 
-	</h:column>
+				<f:facet name="header">Name</f:facet>
+				<h:outputText value="#{item.key.name}" />
+			</h:column>
 			<h:column>
-				<f:facet name="header">Price</f:facet> 
-	#{dish.price} 
-	</h:column>
+				<f:facet name="header">Dish Price</f:facet>
+				<h:outputText value="#{item.key.price}" />
+			</h:column>
 			<h:column>
-				<f:facet name="header">Category</f:facet> 
-	#{dish.category} 
-	</h:column>
+				<f:facet name="header">Category</f:facet>
+				<h:outputText value="#{item.key.category.name}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Quantity</f:facet>
+				<h:inputText value="#{menuListBean.dishes[item.key]}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header"></f:facet>
+				<h:commandButton
+					action="#{cartBean.addOrderItem(item.key.id, item.value)}"
+					value="Add To Cart" />
+			</h:column>
 		</h:dataTable>
 	</h:form>
 </h:body>

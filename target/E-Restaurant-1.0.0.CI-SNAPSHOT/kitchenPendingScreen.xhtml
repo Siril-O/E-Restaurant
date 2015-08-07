@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Kitchen Pending List</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+
+<h:body>
+	<h2>Kitchen Pending List</h2>
+		#{kitchenPendingListBean.refreshPendingList()}
+	<h:form>
+		<h:commandButton
+			action="#{kitchenPendingListBean.refreshPendingList()}"
+			value="Update List" />
+		<h:dataTable value="#{kitchenPendingListBean.orderedItems}" var="item"
+			styleClass="menuTable" headerClass="menuTableHeader"
+			rowClasses="menuTableOddRow, menuTableEvenRow">
+			<h:column>
+				<f:facet name="header">Order</f:facet>
+				<h:outputText value="#{item.dishOrder.id}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Dish Name</f:facet>
+				<h:outputText value="#{item.dish.name}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Dish Quantity</f:facet>
+				<h:outputText value="#{item.quantity}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Time Ordered</f:facet>
+				<h:outputText value="#{item.dishOrder.ordertime}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header"></f:facet>
+				<h:commandButton
+					action="#{kitchenPendingListBean.markDishAsDone(item.id)}"
+					value="Dish Done" />
+			</h:column>
+		</h:dataTable>
+	</h:form>
+</h:body>
+</html>

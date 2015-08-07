@@ -11,8 +11,17 @@ import javax.persistence.NamedQuery;
 
 @NamedQueries({
 	@NamedQuery(name = "OrderItem.findOrderItemsByOrderStatusAndDishType",
-			query = "SELECT i FROM OrderItem i WHERE  i.dishOrder.status = :status AND i.dish.dishtype = :type AND i.status=:itemStatus ORDER BY i.dishOrder.ordertime ASC") })
-
+			query = "SELECT i FROM OrderItem i WHERE  i.dishOrder.status = :status AND"
+					+ " i.dish.dishtype = :type AND i.status=:itemStatus ORDER BY i.dishOrder.ordertime ASC"),
+	@NamedQuery(name = "OrderItem.getReportByDays",
+			query = "SELECT new com.bionic.edu.extra.ReportByDays(i.dishOrder.date, COUNT(DISTINCT  i.dishOrder.id),"
+					+ " SUM(i.price * i.quantity))  FROM OrderItem i WHERE i.dishOrder.date BETWEEN "
+					+ ":startDate AND :endDate AND i.dishOrder.status = :status GROUP BY i.dishOrder.date"),
+	@NamedQuery(name = "OrderItem.getReportByCategories",
+			query = "SELECT new com.bionic.edu.extra.ReportByCategories(i.dish.category , COUNT(DISTINCT  i.dishOrder.id),"
+							+ " SUM(i.price * i.quantity))  FROM OrderItem i WHERE i.dishOrder.date BETWEEN "
+							+ ":startDate AND :endDate AND i.dishOrder.status = :status GROUP BY i.dish.category")})
+			
 @Entity
 public class OrderItem {
 

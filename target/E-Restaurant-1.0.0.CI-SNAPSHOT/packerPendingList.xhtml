@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Packer Pending List</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+
+<h:body>
+	<h2>Packer Pending List</h2>
+		#{packerPendingListBean.refreshPendingList()}
+	<h:form>
+		<h:commandButton
+			action="#{packerPendingListBean.refreshPendingList()}"
+			value="Update List" />
+		<h:dataTable value="#{packerPendingListBean.orders}" var="order"
+			styleClass="menuTable" headerClass="menuTableHeader"
+			rowClasses="menuTableOddRow, menuTableEvenRow">
+			<h:column>
+				<f:facet name="header">Order Id</f:facet>
+				<h:outputText value="#{order.id}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Order Status</f:facet>
+				<h:outputText value="#{order.status}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Time Ordered</f:facet>
+				<h:outputText value="#{order.ordertime}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header"></f:facet>
+				<h:commandButton
+					action="#{packerPendingListBean.markOrderAsReadyForShipment(order.id)}"
+					value="Order Packed" />
+			</h:column>
+		</h:dataTable>
+	</h:form>
+</h:body>
+</html>

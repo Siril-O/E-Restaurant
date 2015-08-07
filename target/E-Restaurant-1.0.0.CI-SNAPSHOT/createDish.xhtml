@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Menu</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body>
+	<h:form>
+		<h:panelGrid columns="2">
+			<h:outputText value="Dish Name:"></h:outputText>
+			<h:inputText value="#{menuManageBean.dish.name}"></h:inputText>
+			<h:outputText value="Price:"></h:outputText>
+			<h:inputText value="#{menuManageBean.dish.price}"></h:inputText>
+			<h:outputText value="Category"></h:outputText>
+			<h:selectOneMenu value="#{menuManageBean.categoryId}">
+				<f:selectItems var="cat"  itemValue="#{cat.id}" itemLabel="#{cat.name}" value="#{menuManageBean.categories}" />
+			</h:selectOneMenu>
+			<h:outputText value="Type (kitchen made or not)"></h:outputText>
+						<h:selectOneMenu value="#{menuManageBean.dish.dishtype}">
+						<f:selectItem itemValue="true" itemLabel="Kitchen made"  />
+						<f:selectItem itemValue="false" itemLabel="Non Kitchen made"  />
+			</h:selectOneMenu>
+			<h:outputText value="Is dish in menu"></h:outputText>
+						<h:selectOneMenu value="#{menuManageBean.dish.menuitem}">
+						<f:selectItem itemValue="true" itemLabel="In Menu"  />
+						<f:selectItem itemValue="false" itemLabel="Not in Menu"  />
+			</h:selectOneMenu>
+		</h:panelGrid>
+		<h:commandButton value="Submit"
+			action="#{menuManageBean.addDish()}" />
+	</h:form>
+</h:body>
+</html>
