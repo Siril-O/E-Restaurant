@@ -3,6 +3,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
+
+<f:metadata>
+	<f:event listener="#{checkRightsBean.isPacker}" type="preRenderView" />
+</f:metadata>
+
 <h:head>
 	<title>Packer Pending List</title>
 	<h:outputStylesheet library="css" name="style.css" />

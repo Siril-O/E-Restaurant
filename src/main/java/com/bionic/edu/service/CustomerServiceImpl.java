@@ -25,17 +25,11 @@ public class CustomerServiceImpl implements CustomerService {
 		return userDao.find(id);
 	}
 
-	@Transactional
-	@Override
-	public void createStuff(Customer customer) {
-		customer.setRole(Role.STUFF);
-		create(customer);
-	}
 
 	@Transactional
 	@Override
-	public void createCustomer(Customer customer) {
-		customer.setRole(Role.USER);
+	public void createCustomer(Customer customer, Role role) {
+		customer.setRole(role);
 		create(customer);
 	}
 

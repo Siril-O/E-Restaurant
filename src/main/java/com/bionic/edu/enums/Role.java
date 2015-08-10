@@ -2,5 +2,5 @@ package com.bionic.edu.enums;
 
 public enum Role {
 
-	USER, ADMIN, STUFF;
+	USER, ADMIN, KITCHEN_SUFF, PACKER, DELIVERY, SUPER_USER;
 }

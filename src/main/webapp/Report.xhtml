@@ -4,6 +4,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+	<f:event listener="#{checkRightsBean.isAdmin}" type="preRenderView" />
+</f:metadata>
+
+
 <h:head>
 	<title>Report</title>
 	<h:outputStylesheet library="css" name="style.css" />
@@ -21,11 +27,13 @@
 				showOn="button" />
 		</h:panelGrid>
 		<h:commandButton value="Show Report"
-			action="#{reportBean.viewReportByDays()}" />
+			action="#{reportBean.viewReport()}" />
+		<h:commandButton value="View Chart"
+			action="#{reportBean.viewReportChart()}" />
 		<br />
 		<h:panelGrid columns="2">
-		<h:outputText value="Report by Categories"/> 		
-		<h:outputText value="Report by Days"/>
+			<h:outputText value="Report by Categories" />
+			<h:outputText value="Report by Days" />
 			<h:dataTable value="#{reportBean.reportByCategories}" var="catItem"
 				styleClass="menuTable" headerClass="menuTableHeader"
 				rowClasses="menuTableOddRow, menuTableEvenRow">

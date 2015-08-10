@@ -3,6 +3,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
+
+<f:metadata>
+	<f:event listener="#{checkRightsBean.isDelivery}" type="preRenderView" />
+</f:metadata>
+
 <h:head>
 	<title>Delivery Pending List</title>
 	<h:outputStylesheet library="css" name="style.css" />
@@ -15,8 +20,9 @@
 		<h:commandButton
 			action="#{deliveryPendingListBean.refreshPendingList()}"
 			value="Update List" />
-		<h:dataTable value="#{deliveryPendingListBean.orders.entrySet().toArray()}" var="order"
-			styleClass="menuTable" headerClass="menuTableHeader"
+		<h:dataTable
+			value="#{deliveryPendingListBean.orders.entrySet().toArray()}"
+			var="order" styleClass="menuTable" headerClass="menuTableHeader"
 			rowClasses="menuTableOddRow, menuTableEvenRow">
 			<h:column>
 				<f:facet name="header">Order Id</f:facet>

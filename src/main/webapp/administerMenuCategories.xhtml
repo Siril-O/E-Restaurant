@@ -3,15 +3,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
+
+<f:metadata>
+	<f:event listener="#{checkRightsBean.isAdmin}" type="preRenderView" />
+</f:metadata>
+
 <h:head>
 	<title>Menu Categories</title>
 	<h:outputStylesheet library="css" name="style.css" />
 </h:head>
 <h:body>
+
 #{menuManageBean.refreshCategoryList()}
 <h1>Administrator Page</h1>
-    <h:form>
-    <h:commandButton value="Add new Category" action="#{menuManageBean.viewAddCategoryForm()}"/>
+	<h:form>
+		<h:commandButton value="Add new Category"
+			action="#{menuManageBean.viewAddCategoryForm()}" />
 		<h:dataTable value="#{menuManageBean.categories}" var="dishCategory"
 			styleClass="menuCategoryTable" headerClass="menuCategoryTableHeader"
 			rowClasses="menuCategoryTableOddRow, menuCategoryTableEvenRow">
@@ -35,7 +42,7 @@
 					action="#{menuManageBean.editCategory(dishCategory.id)}"
 					value="Edit Category" />
 			</h:column>
-			
+
 		</h:dataTable>
 	</h:form>
 

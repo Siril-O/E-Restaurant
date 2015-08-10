@@ -52,6 +52,11 @@ public class Main {
 		List<ReportByDays> report = orderService.getReportByDays(startDate, endDate);
 
 		System.out.println(report);
+		CustomerService userService = context.getBean(CustomerService.class);
+
+		System.out.println(userService.findById(301));
+	//	addCustomer(context);
+		
 		// Dish dish = dishService.findById(1);
 		// dishService.update(dish.getId(), dish.getName(), dish.getPrice(),
 		// dish.getCategory(), dish.isDishtype(), !dish.isMenuitem());
@@ -173,19 +178,15 @@ public class Main {
 
 	private static void addCustomer(ApplicationContext context) {
 		CustomerService userService = context.getBean(CustomerService.class);
-		Date date = Date.valueOf(LocalDate.of(1993, 07, 25));
-		Customer user = new Customer(0, "Kiril", "Kyiv Hnata Uri",
-				"dude@gmail.com", date, null, "12345");
+		Date date = Date.valueOf(LocalDate.of(1992, 07, 4));
+		Customer user = new Customer(0, "Anton Petrov", "Kyiv Kurbasa 34",
+				"paker45@gmail.com", date, null, "12345");
 
-		userService.createCustomer(user);
+		userService.createCustomer(user, Role.PACKER);
 
 		System.out.println(userService.findById(user.getId()));
 	}
 
-	private static void showCustomer(ApplicationContext context, int id) {
-		CustomerService userService = context.getBean(CustomerService.class);
-		System.out.println(userService.findById(id));
-	}
 
 	private static void showCategoriesList(ApplicationContext context) {
 		DishCategoryService dishCatService = context

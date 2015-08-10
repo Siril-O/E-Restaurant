@@ -7,8 +7,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.bionic.edu.entities.OrderItem;
 import com.bionic.edu.entities.DishOrder;
 import com.bionic.edu.enums.Status;

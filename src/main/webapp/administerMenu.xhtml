@@ -3,6 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
+<f:metadata>
+	<f:event listener="#{checkRightsBean.isAdmin}" type="preRenderView" />
+</f:metadata>
+
 <h:head>
 	<title>Menu</title>
 	<h:outputStylesheet library="css" name="style.css" />
@@ -46,8 +50,7 @@
 			</h:column>
 			<h:column>
 				<f:facet name="header"></f:facet>
-				<h:commandButton
-					action="#{menuManageBean.editDish(dish.id)}"
+				<h:commandButton action="#{menuManageBean.editDish(dish.id)}"
 					value="Edit Dish" />
 			</h:column>
 		</h:dataTable>

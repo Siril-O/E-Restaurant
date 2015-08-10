@@ -13,7 +13,7 @@ import javax.persistence.NamedQuery;
 
 import com.bionic.edu.enums.Role;
 
-@NamedQueries({ @NamedQuery(name = "Customer.findByLoginAndPassword", query = "SELECT c FROM Customer c WHERE c.email = :login  AND c.password = :password") })
+@NamedQueries({ @NamedQuery(name = "Customer.findByLoginAndPassword", query = "SELECT c FROM Customer c WHERE c.email = :login AND c.password = :password") })
 @Entity
 public class Customer {
 

@@ -3,6 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
+<f:metadata>
+	<f:event listener="#{checkRightsBean.isAdmin}" type="preRenderView" />
+</f:metadata>
+
 <h:head>
 	<title>Menu</title>
 	<h:outputStylesheet library="css" name="style.css" />
@@ -13,7 +17,8 @@
 			<h:outputText value="Category Name:"></h:outputText>
 			<h:inputText value="#{menuManageBean.category.name}"></h:inputText>
 		</h:panelGrid>
-		<h:commandButton value="Submit" action="#{menuManageBean.addCategory()}" />
+		<h:commandButton value="Submit"
+			action="#{menuManageBean.addCategory()}" />
 	</h:form>
 </h:body>
 </html>

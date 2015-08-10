@@ -3,6 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
+<f:metadata>
+	<f:event listener="#{checkRightsBean.isAdmin}" type="preRenderView" />
+</f:metadata>
+
 <h:head>
 	<title>Menu</title>
 	<h:outputStylesheet library="css" name="style.css" />
@@ -16,21 +20,21 @@
 			<h:inputText value="#{menuManageBean.dish.price}"></h:inputText>
 			<h:outputText value="Category"></h:outputText>
 			<h:selectOneMenu value="#{menuManageBean.categoryId}">
-				<f:selectItems var="cat"  itemValue="#{cat.id}" itemLabel="#{cat.name}" value="#{menuManageBean.categories}" />
+				<f:selectItems var="cat" itemValue="#{cat.id}"
+					itemLabel="#{cat.name}" value="#{menuManageBean.categories}" />
 			</h:selectOneMenu>
 			<h:outputText value="Type (kitchen made or not)"></h:outputText>
-						<h:selectOneMenu value="#{menuManageBean.dish.dishtype}">
-						<f:selectItem itemValue="true" itemLabel="Kitchen made"  />
-						<f:selectItem itemValue="false" itemLabel="Non Kitchen made"  />
+			<h:selectOneMenu value="#{menuManageBean.dish.dishtype}">
+				<f:selectItem itemValue="true" itemLabel="Kitchen made" />
+				<f:selectItem itemValue="false" itemLabel="Non Kitchen made" />
 			</h:selectOneMenu>
 			<h:outputText value="Is dish in menu"></h:outputText>
-						<h:selectOneMenu value="#{menuManageBean.dish.menuitem}">
-						<f:selectItem itemValue="true" itemLabel="In Menu"  />
-						<f:selectItem itemValue="false" itemLabel="Not in Menu"  />
+			<h:selectOneMenu value="#{menuManageBean.dish.menuitem}">
+				<f:selectItem itemValue="true" itemLabel="In Menu" />
+				<f:selectItem itemValue="false" itemLabel="Not in Menu" />
 			</h:selectOneMenu>
 		</h:panelGrid>
-		<h:commandButton value="Submit"
-			action="#{menuManageBean.addDish()}" />
+		<h:commandButton value="Submit" action="#{menuManageBean.addDish()}" />
 	</h:form>
 </h:body>
 </html>
