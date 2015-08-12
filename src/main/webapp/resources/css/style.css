@@ -1,67 +1,14 @@
 @CHARSET "UTF-8";
 
-.menuTable {
-	border-collapse: collapse;
-	border: 1px solid #000000;
-}
-
-.menuTableHeader {
+.footertext {
+	margin-top: 40px;
 	text-align: center;
-	background: none repeat scroll 0 0 #B5B5B5;
-	border-bottom: 1px solid #000000;
-	padding: 2px;
+	font-weight: 400px;
+	font-size: 20px;
+	color: black;
+text-shadow: 2px 2px 0px #fff, 2px 2px 0px rgba(0,0,0,0.15);
 }
 
-.menuTableOddRow {
-	text-align: center;
-	background: none repeat scroll 0 0 #FFFFFFF;
-}
-
-.menuTableEvenRow {
-	text-align: center;
-	background: none repeat scroll 0 0 #D3D3D3;
-}
-
-.menuCategoryTable {
-	border-collapse: collapse;
-	border: 1px solid #000000;
-}
-
-.menuCategoryTableHeader {
-	text-align: center;
-	background: none repeat scroll 0 0 #B5B5B5;
-	border-bottom: 1px solid #000000;
-	padding: 2px;
-}
-
-.menuCategoryTableOddRow {
-	text-align: center;
-	background: none repeat scroll 0 0 #FFFFFFF;
-}
-
-.menuCategoryTableEvenRow {
-	text-align: center;
-	background: none repeat scroll 0 0 #D3D3D3;
-}
-
-.cartTable {
-	border-collapse: collapse;
-	border: 1px solid #000000;
-}
-
-.cartTableHeader {
-	text-align: center;
-	background: none repeat scroll 0 0 #B5B5B5;
-	border-bottom: 1px solid #000000;
-	padding: 2px;
-}
-
-.cartTableOddRow {
-	text-align: center;
-	background: none repeat scroll 0 0 #FFFFFFF;
-}
-
-.cartTableEvenRow {
-	text-align: center;
-	background: none repeat scroll 0 0 #D3D3D3;
+.footer {
+	min-height: 100px
 }

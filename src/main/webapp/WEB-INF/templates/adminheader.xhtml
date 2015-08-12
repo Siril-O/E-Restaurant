@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+	<ui:composition>
+		<h:form>
+			<div class="page-header">
+				<div class="row">
+					<div class="col-sm-2">
+						<h:link outcome="administerMenuCategories">
+							<h:graphicImage value="resources/logo.jpg" height="140"
+								width="150" title="Main" />
+						</h:link>
+
+					</div>
+					<div class="col-sm-8">
+						<div class="btn-group btn-group-justified">
+							<h:link value="Menu" outcome="administerMenuCategories"
+								styleClass="btn btn-primary" />
+							<h:link value="Customers" outcome="manageCustomers"
+								styleClass="btn btn-primary" />
+							<h:link value="Kitchen" outcome="kitchenPendingScreen"
+								styleClass="btn btn-primary" />
+							<h:link value="Packing" outcome="packerPendingList"
+								styleClass="btn btn-primary" />
+							<h:link value="Delivery" outcome="deliveryPendingList"
+								styleClass="btn btn-primary" />
+							<h:commandLink value="Report"
+								action="#{reportBean.viewReportPage()}"
+								styleClass="btn btn-primary" />
+						</div>
+						<div style="float: right; text-align: right;">
+
+							<h:panelGrid columns="2">
+								<h:outputText value=" Customer:" />
+								<h:outputText value="#{checkRightsBean.customer.name}" />
+								<h:outputText value=" Role:" />
+								<h:outputText value="#{checkRightsBean.customer.role}" />
+								<h:outputText />
+								<h:commandButton value="SignOut" styleClass="btn btn-default"
+									action="#{checkRightsBean.signOut()}" />
+							</h:panelGrid>
+						</div>
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</ui:composition>
+</h:body>
+</html>

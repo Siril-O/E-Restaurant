@@ -1,54 +1,85 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title>Cart</title>
-	<h:outputStylesheet library="css" name="style.css" />
 </h:head>
-<h:body>
-	<h:form>
-		<h:commandButton action="menuCategories" value="Watch Categories" />
-		<h:dataTable value="#{cartBean.orderItems}" var="item"
-			styleClass="cartTable" headerClass="cartTableHeader"
-			rowClasses="cartTableOddRow, cartTableEvenRow">
-			<h:column>
-				<f:facet name="header">Id</f:facet>
+<ui:composition template="WEB-INF/templates/restautantTemplate.xhtml">
+	<ui:define name="content">
+		<h:form class="form-horizontal" role="form">
+			<div class="row">
+				<div class="col-sm-6">
+					<h:dataTable value="#{cartBean.orderItems}" var="item"
+						styleClass="table table-hover">
+						<h:column>
+							<f:facet name="header">Id</f:facet>
 			#{item.dish.id}
 			</h:column>
-			<h:column>
-				<f:facet name="header">Dish</f:facet>
+						<h:column>
+							<f:facet name="header">Dish</f:facet>
 			#{item.dish.name}
 			</h:column>
-			<h:column>
-				<f:facet name="header">Price</f:facet>
+						<h:column>
+							<f:facet name="header">Price</f:facet>
 			#{item.price}
 			</h:column>
-			<h:column>
-				<f:facet name="header">Quantity</f:facet>
+						<h:column>
+							<f:facet name="header">Quantity</f:facet>
 			#{item.quantity}
 			</h:column>
-			<h:column>
-				<f:facet name="header">Total</f:facet>
+						<h:column>
+							<f:facet name="header">Total</f:facet>
 					#{item.price * item.quantity}
 				</h:column>
-			<h:column>
-				<f:facet name="header"></f:facet>
-				<h:commandButton value="Remove from cart"
-					action="#{cartBean.removeItem(item.dish.id)}" />
-			</h:column>
-			<f:facet name="footer">
-				<h:outputText value="Total: #{cartBean.totalPrice}" />
-			</f:facet>
-		</h:dataTable>
-		<h:panelGrid columns="2">
-			<h:outputText value="Your Name:" />
-			<h:inputText value="#{cartBean.userName}" />
-			<h:outputText value="Delivery Address :" />
-			<h:inputText value="#{cartBean.address}" />
-			<h:commandButton value="Submit Order" action="#{cartBean.submitOrder()}" />
-		</h:panelGrid>
-	</h:form>
-</h:body>
+						<h:column>
+							<f:facet name="header"></f:facet>
+							<h:commandButton value="Remove from cart"
+								action="#{cartBean.removeItem(item.dish.id)}" />
+						</h:column>
+						<f:facet name="footer">
+							<h:outputText value="Total: #{cartBean.totalPrice}" />
+						</f:facet>
+					</h:dataTable>
+				</div>
+				<div class="col-sm-6"></div>
+			</div>
+			<p:tabView>
+				<p:tab title="Submit order in one click(no registration)">
+					<h:panelGrid columns="2" cellpadding="5" cellspacing="5">
+						<h:outputText value="Your Name:" />
+						<h:inputText styleClass="form-control"
+							value="#{cartBean.userName}" />
+						<h:outputText value="Delivery Address :" />
+						<h:inputText styleClass="form-control" value="#{cartBean.address}" />
+						<h:commandButton styleClass="btn btn-primary" value="Submit Order"
+							action="#{cartBean.submitOrder()}" />
+					</h:panelGrid>
+				</p:tab>
+				<p:tab title="Register and Submit Order">
+					<h:panelGrid columns="2" cellpadding="5" cellspacing="5">
+						<h:outputText value="Delivery Address :" />
+						<h:inputText styleClass="form-control" value="#{cartBean.address}" />
+						<h:outputText value="Deliver to Address from account "></h:outputText>
+						<h:selectBooleanCheckbox styleClass="form-control" 
+							value="#{cartBean.fetchAddressFromAccount}" />
+						<h:commandButton value="Register" action="register"
+							rendered="#{checkRightsBean.customer==null}" />
+						<h:commandButton value="Sign in to system" action="login"
+							rendered="#{checkRightsBean.customer==null}" />
+						<h:commandButton styleClass="btn btn-primary" value="Submit Order"
+							action="#{cartBean.submitOrderFromRegisteredCustomer(checkRightsBean.customer.id)}"
+							rendered="#{checkRightsBean.customer!=null}" />
+					</h:panelGrid>
+				</p:tab>
+			</p:tabView>
+
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>
 </html>

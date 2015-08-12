@@ -1,8 +1,11 @@
 package com.bionic.edu.mbeans;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -11,6 +14,7 @@ import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.DateAxis;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
+import org.primefaces.model.chart.PieChartModel;
 import org.springframework.context.annotation.Scope;
 
 import com.bionic.edu.extra.ReportByCategories;
@@ -24,7 +28,10 @@ public class ReportBean {
 	@Inject
 	private OrderItemService orderItemService;
 
-	private LineChartModel quantityDateModel;
+	private LineChartModel quantityDateModel = new LineChartModel();
+	private LineChartModel summDateModel = new LineChartModel();
+	private PieChartModel quantityCategoryModel = new PieChartModel();
+	private PieChartModel summCategoryModel = new PieChartModel();
 
 	private List<ReportByDays> report;
 	private List<ReportByCategories> reportByCategories;
@@ -32,36 +39,59 @@ public class ReportBean {
 	private Date endDate;
 
 	private void createQuantityDateModel() {
-		quantityDateModel = new LineChartModel();
-		LineChartSeries quantitySeries = new LineChartSeries();
-		quantitySeries.setLabel("Order Quantity");
-
+		Map<Date, Number> map = new HashMap<>();
 		for (ReportByDays item : report) {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			String stringDate = sdf.format(item.getOrderDate());
-
-			quantitySeries.set(stringDate, item.getOrderQuantity());
+			map.put(item.getOrderDate(), item.getOrderQuantity());
 		}
+		createDateModel(map, quantityDateModel, "Orders Quantity");
+	}
 
-		// LineChartSeries summSeries = new LineChartSeries();
-		// summSeries.setLabel("Order Summs");
-		//
-		// for (ReportByDays item : report) {
-		// quantitySeries.set(item.getOrderDate(), item.getTotalSumm());
-		// }
-		quantityDateModel.addSeries(quantitySeries);
-		// quantityDateModel.addSeries(summSeries);
+	private void createSummDateModel() {
+		Map<Date, Number> map = new HashMap<>();
+		for (ReportByDays item : report) {
+			map.put(item.getOrderDate(), item.getTotalSumm());
+		}
+		createDateModel(map, summDateModel, "Orders Total Summ");
+	}
 
-		quantityDateModel.setTitle("Zoom for Details");
-		quantityDateModel.setZoom(true);
-		quantityDateModel.getAxis(AxisType.Y).setLabel("Values");
+	private void createQuantityCategoryModel() {
+		for (ReportByCategories item : reportByCategories) {
+			quantityCategoryModel.set(item.getCategory().getName(),
+					item.getOrderQuantity());
+		}
+		quantityCategoryModel.setTitle("OrdersQuantity by categories");
+		quantityCategoryModel.setLegendPosition("w");
+		quantityCategoryModel.setShowDataLabels(true);
+	}
+
+	private void createSummCategoryModel() {
+		for (ReportByCategories item : reportByCategories) {
+			summCategoryModel.set(item.getCategory().getName(),
+					item.getTotalSumm());
+		}
+		summCategoryModel.setTitle("Orders Total Summ by categories");
+		summCategoryModel.setLegendPosition("w");
+		summCategoryModel.setShowDataLabels(true);
+	}
+
+	private void createDateModel(Map<Date, Number> map, LineChartModel model,
+			String label) {
+		LineChartSeries series = new LineChartSeries();
+		series.setLabel(label);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		for (Map.Entry<Date, Number> item : map.entrySet()) {
+			series.set(sdf.format(item.getKey()), item.getValue());
+		}
+		model.addSeries(series);
+		model.setTitle(label);
+		model.getAxis(AxisType.Y).setLabel(label);
 		DateAxis axis = new DateAxis("Dates");
 		axis.setTickAngle(-50);
-		Date maxDate = new Date(new Date().getDay() + 1);
-		axis.setMax("2015-08-07");
-		axis.setTickFormat("%b , %y");
-
-		quantityDateModel.getAxes().put(AxisType.X, axis);
+		Date maxDate = java.sql.Date.valueOf(LocalDate.now().plusDays(2));
+		axis.setMax(sdf.format(maxDate));
+		axis.setTickFormat("%b %#d, %y");
+		model.getAxes().put(AxisType.X, axis);
 	}
 
 	public void viewReport() {
@@ -71,12 +101,14 @@ public class ReportBean {
 		report = orderItemService.getReportByDays(sDate, eDate);
 		reportByCategories = orderItemService.getReportByCategories(sDate,
 				eDate);
+		createQuantityDateModel();
+		createSummDateModel();
+		createQuantityCategoryModel();
+		createSummCategoryModel();
 	}
 
-	public String viewReportChart() {
-		viewReport();
-		createQuantityDateModel();
-		return "reportChart";
+	public String viewReportPage() {
+		return "report";
 	}
 
 	/**
@@ -153,6 +185,51 @@ public class ReportBean {
 	 */
 	public void setQuantityDateModel(LineChartModel quantityDateModel) {
 		this.quantityDateModel = quantityDateModel;
+	}
+
+	/**
+	 * @return the summDateModel
+	 */
+	public LineChartModel getSummDateModel() {
+		return summDateModel;
+	}
+
+	/**
+	 * @param summDateModel
+	 *            the summDateModel to set
+	 */
+	public void setSummDateModel(LineChartModel summDateModel) {
+		this.summDateModel = summDateModel;
+	}
+
+	/**
+	 * @return the quantityCategoryModel
+	 */
+	public PieChartModel getQuantityCategoryModel() {
+		return quantityCategoryModel;
+	}
+
+	/**
+	 * @param quantityCategoryModel
+	 *            the quantityCategoryModel to set
+	 */
+	public void setQuantityCategoryModel(PieChartModel quantityCategoryModel) {
+		this.quantityCategoryModel = quantityCategoryModel;
+	}
+
+	/**
+	 * @return the summCategoryModel
+	 */
+	public PieChartModel getSummCategoryModel() {
+		return summCategoryModel;
+	}
+
+	/**
+	 * @param summCategoryModel
+	 *            the summCategoryModel to set
+	 */
+	public void setSummCategoryModel(PieChartModel summCategoryModel) {
+		this.summCategoryModel = summCategoryModel;
 	}
 
 }

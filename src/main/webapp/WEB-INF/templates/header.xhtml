@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+	<ui:composition>
+		<div class="page-header">
+			<h:form>
+
+				<div class="row">
+					<div class="col-sm-2">
+						<h:link outcome="menuCategories">
+							<h:graphicImage value="resources/logo.jpg" height="140"
+								width="150" title="Main" />
+						</h:link>
+
+					</div>
+					<div class="col-sm-6">
+						<div class="btn-group btn-group-justified">
+							<h:link value="Menu page" outcome="menuCategories"
+								styleClass="btn btn-primary" />
+							<h:link value="Login page" outcome="login"
+								styleClass="btn btn-primary" />
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<h:panelGrid columns="2">
+							<h:outputText value="Total:" />
+							<h:outputLabel />
+							<h:outputText value="#{cartBean.totalPrice}" />
+							<h:link styleClass="btn btn-primary" outcome="cart"
+								value="Go To Cart" />
+						</h:panelGrid>
+					</div>
+				</div>
+				<div style="float: right; text-align: right;">
+					<h:panelGrid columns="2">
+						<h:outputText value=" Customer:" />
+						<h:outputText value="#{checkRightsBean.customer.name}" />
+						<h:outputText />
+						<h:commandButton value="SignOut" styleClass="btn btn-default"
+							action="#{checkRightsBean.signOut()}"
+							rendered="#{checkRightsBean.customer!=null}" />
+					</h:panelGrid>
+				</div>
+			</h:form>
+
+		</div>
+
+	</ui:composition>
+</h:body>
+</html>

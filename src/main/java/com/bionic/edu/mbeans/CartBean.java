@@ -10,9 +10,11 @@ import javax.inject.Named;
 
 import org.springframework.context.annotation.Scope;
 
+import com.bionic.edu.entities.Customer;
 import com.bionic.edu.entities.Dish;
 import com.bionic.edu.entities.DishOrder;
 import com.bionic.edu.entities.OrderItem;
+import com.bionic.edu.service.CustomerService;
 import com.bionic.edu.service.DishOrderService;
 import com.bionic.edu.service.DishService;
 
@@ -25,11 +27,15 @@ public class CartBean {
 
 	@Inject
 	private DishOrderService orderService;
+	
+	@Inject
+	private CustomerService customerService;
 
 	private List<OrderItem> orderItems = new LinkedList<>();
 	private double totalPrice;
 	private String address;
 	private String userName;
+	private boolean fetchAddressFromAccount;
 
 	public CartBean() {
 		super();
@@ -63,6 +69,7 @@ public class CartBean {
 				orderItems.remove(item);
 			}
 		}
+		calculateTotalPrice();
 	}
 
 	private void calculateTotalPrice() {
@@ -78,9 +85,20 @@ public class CartBean {
 
 		DishOrder order = new DishOrder(userName, address);
 		orderService.save(order, orderItems);
+		orderItems.clear();
+		calculateTotalPrice();
 		return "menuCategories";
 	}
 
+	
+	public String submitOrderFromRegisteredCustomer(String customerId){
+		Customer customer = customerService.findById(Integer.parseInt(customerId));
+		DishOrder order = new DishOrder(customer.getName(), fetchAddressFromAccount ? customer.getAddress(): address);
+		orderService.save(order, orderItems);
+		orderItems.clear();
+		calculateTotalPrice();
+		return "menuCategories";
+	}
 	/**
 	 * @return the totalPrice
 	 */
@@ -139,6 +157,22 @@ public class CartBean {
 	 */
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+
+	/**
+	 * @return the fetchAddressFromAccount
+	 */
+	public boolean isFetchAddressFromAccount() {
+		return fetchAddressFromAccount;
+	}
+
+	/**
+	 * @param fetchAddressFromAccount
+	 *            the fetchAddressFromAccount to set
+	 */
+	public void setFetchAddressFromAccount(boolean fetchAddressFromAccount) {
+		this.fetchAddressFromAccount = fetchAddressFromAccount;
 	}
 
 }

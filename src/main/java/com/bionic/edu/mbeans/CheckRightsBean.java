@@ -1,5 +1,7 @@
 package com.bionic.edu.mbeans;
 
+import java.util.Date;
+
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
@@ -22,6 +24,23 @@ public class CheckRightsBean {
 	private String login;
 	private String password;
 	private String previousPage;
+	private Date date;
+
+	public void viewRegisterForm() {
+		if (customer == null) {
+			customer = new Customer();
+		}
+	}
+
+	public String registerCustomer() {
+		customer.setBirthDate(new java.sql.Date(date.getTime()));
+		cutomerService.createCustomer(customer, Role.USER);
+		return "menuCategories";
+	}
+
+	public void signOut() {
+		customer = null;
+	}
 
 	public String signIn() {
 
@@ -34,19 +53,23 @@ public class CheckRightsBean {
 	}
 
 	public void isDelivery(ComponentSystemEvent event) {
-		checkByRole(event, Role.DELIVERY);
+		checkByRole(event, Role.DELIVERY, Role.SUPER_USER);
 	}
 
 	public void isKitchenStuff(ComponentSystemEvent event) {
-		checkByRole(event, Role.KITCHEN_SUFF);
+		checkByRole(event, Role.KITCHEN_SUFF, Role.SUPER_USER);
 	}
 
 	public void isAdmin(ComponentSystemEvent event) {
-		checkByRole(event, Role.ADMIN);
+		checkByRole(event, Role.ADMIN, Role.SUPER_USER);
 	}
 
 	public void isPacker(ComponentSystemEvent event) {
-		checkByRole(event, Role.PACKER);
+		checkByRole(event, Role.PACKER, Role.SUPER_USER);
+	}
+
+	public void isSuperUser(ComponentSystemEvent event) {
+		checkByRole(event, Role.SUPER_USER);
 	}
 
 	private void checkByRole(ComponentSystemEvent event, Role... roles) {
@@ -133,6 +156,21 @@ public class CheckRightsBean {
 	 */
 	public void setPreviousPage(String previousPage) {
 		this.previousPage = previousPage;
+	}
+
+	/**
+	 * @return the date
+	 */
+	public Date getDate() {
+		return date;
+	}
+
+	/**
+	 * @param date
+	 *            the date to set
+	 */
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 }

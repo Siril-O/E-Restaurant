@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<f:metadata>
+	<f:event listener="#{checkRightsBean.isSuperUser}" type="preRenderView" />
+</f:metadata>
+<h:head>
+	<title>Create customer</title>
+</h:head>
+<ui:composition
+	template="WEB-INF/templates/adminRestaurantTemplate.xhtml">
+	<ui:define name="content">
+		<div class="panel panel-primary">
+			<div class="panel-heading">Edit or add new category</div>
+			<div class="panel-body">
+				<h:form styleClass="form-horizontal">
+					<h:panelGrid columns="2">
+						<h:outputText value="Customer Name:"></h:outputText>
+						<h:inputText styleClass="form-control" value="#{customerManageBean.customer.name}"></h:inputText>
+						<h:outputText value="Address"></h:outputText>
+						<h:inputText  styleClass="form-control" value="#{customerManageBean.customer.address}"></h:inputText>
+						<h:outputText value="Email"></h:outputText>
+						<h:inputText styleClass="form-control" value="#{customerManageBean.customer.email}"></h:inputText>
+						<h:outputText value="Birth Date"></h:outputText>
+						<p:calendar id="startDateCalendar"
+							value="#{customerManageBean.date}" showOn="button" />
+						<h:outputText value="Customer Role"></h:outputText>
+						<h:selectOneMenu styleClass="form-control" value="#{customerManageBean.customer.role}">
+							<f:selectItems var="role" itemValue="#{role}" itemLabel="#{role}"
+								value="#{customerManageBean.roles}" />
+						</h:selectOneMenu>
+						<h:outputText value="Password" />
+						<h:inputText styleClass="form-control" value="#{customerManageBean.customer.password}" />
+					</h:panelGrid>
+					<h:commandButton value="Submit" styleClass="btn btn-primary"
+						action="#{customerManageBean.saveUser()}" />
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

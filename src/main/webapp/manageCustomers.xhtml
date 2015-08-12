@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<f:metadata>
+	<f:event listener="#{checkRightsBean.isSuperUser}" type="preRenderView" />
+</f:metadata>
+
+<h:head>
+	<title>Menu Categories</title>
+</h:head>
+<ui:composition
+	template="WEB-INF/templates/adminRestaurantTemplate.xhtml">
+	<ui:define name="content"> 
+#{customerManageBean.refreshCustomerList()}
+<h1>Administer Customers</h1>
+		<h:form>
+			
+			<h:dataTable value="#{customerManageBean.customers}" var="customer"
+				styleClass="table table-hover" headerClass="danger">
+				<h:column>
+					<f:facet name="header">Id</f:facet>
+					<h:outputText value="#{customer.id} "></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Name</f:facet>
+					<h:outputText value="#{customer.name} "></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Address</f:facet>
+					<h:outputText value="#{customer.address} "></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Email</f:facet>
+					<h:outputText value="#{customer.email} "></h:outputText>
+				</h:column>
+				<h:column>
+				<f:facet name="header">Birth Date</f:facet>
+				<h:outputText value="#{customer.birthDate} "></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Role</f:facet>
+					<h:outputText value="#{customer.role} "></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Password</f:facet>
+					<h:outputText value="#{customer.password} "></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header"></f:facet>
+					<h:commandButton
+						action="#{customerManageBean.editCustomer(customer.id)}"
+						value="Edit Customer" styleClass="btn btn-primary" />
+				</h:column>
+				<h:column>
+					<f:facet name="header"></f:facet>
+					<h:commandButton
+						action="#{customerManageBean.removeCustomer(customer.id)}"
+						value="Remove Customer" styleClass="btn btn-primary" />
+				</h:column>
+			</h:dataTable>
+			<h:commandButton value="Add new Customer" styleClass="btn btn-primary"
+				action="#{customerManageBean.viewAddCustomerPage()}" />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

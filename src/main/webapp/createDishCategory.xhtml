@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
 <f:metadata>
 	<f:event listener="#{checkRightsBean.isAdmin}" type="preRenderView" />
 </f:metadata>
-
 <h:head>
-	<title>Menu</title>
-	<h:outputStylesheet library="css" name="style.css" />
+	<title>Create category</title>
 </h:head>
-<h:body>
-	<h:form>
-		<h:panelGrid columns="2">
-			<h:outputText value="Category Name:"></h:outputText>
-			<h:inputText value="#{menuManageBean.category.name}"></h:inputText>
-		</h:panelGrid>
-		<h:commandButton value="Submit"
-			action="#{menuManageBean.addCategory()}" />
-	</h:form>
-</h:body>
+<ui:composition
+	template="WEB-INF/templates/adminRestaurantTemplate.xhtml">
+	<ui:define name="content">
+		<div class="panel panel-primary">
+			<div class="panel-heading">Edit or add new category</div>
+			<div class="panel-body">
+				<h:form styleClass="form-inline">
+						<h:outputText value="Category Name:"></h:outputText>
+						<h:inputText styleClass="form-control"
+							value="#{menuManageBean.category.name}"></h:inputText>
+					<h:commandButton value="Submit" styleClass="btn btn-primary"
+						action="#{menuManageBean.addCategory()}" />
+				</h:form>
+
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
 </html>

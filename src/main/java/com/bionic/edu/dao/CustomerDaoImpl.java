@@ -1,5 +1,7 @@
 package com.bionic.edu.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -8,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import com.bionic.edu.entities.Customer;
 
-
 @Repository
 public class CustomerDaoImpl implements CustomerDao {
 
@@ -16,9 +17,11 @@ public class CustomerDaoImpl implements CustomerDao {
 	private EntityManager em;
 
 	@Override
-	public void create(Customer customer) {
-		if (customer != null) {
+	public void save(Customer customer) {
+		if (customer != null && customer.getId() == 0) {
 			em.persist(customer);
+		} else if (customer != null) {
+			em.merge(customer);
 		}
 	}
 
@@ -35,6 +38,19 @@ public class CustomerDaoImpl implements CustomerDao {
 		query.setParameter("login", login);
 		query.setParameter("password", password);
 		return query.getSingleResult();
+	}
+
+	@Override
+	public List<Customer> findAllCustomers() {
+		TypedQuery<Customer> query = em.createNamedQuery(
+				"Customer.findAllCustomers", Customer.class);
+		return query.getResultList();
+	}
+
+	@Override
+	public void remove(int id) {
+		Customer customer = em.find(Customer.class, id);
+		em.remove(customer);
 	}
 
 }

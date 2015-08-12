@@ -40,23 +40,28 @@ public class Main {
 				.getBean(DishCategoryService.class);
 
 		List<DishOrder> orders = showAllOrders(context);
-	/*	for (DishOrder order : orders) {
-			deleteOrder(context, order.getId());
-		}*/
+		/*
+		 * for (DishOrder order : orders) { if(order.getUserName() == null ||
+		 * order.getDeliveryAddress()==null){ deleteOrder(context,
+		 * order.getId()); }}
+		 */
+		deleteOrder(context, 2002);
+		deleteOrder(context, 2001);
 		orders = showAllOrders(context);
-		
+
 		OrderItemService orderService = context.getBean(OrderItemService.class);
-		
+
 		Date startDate = Date.valueOf(LocalDate.of(2015, 8, 6));
 		Date endDate = Date.valueOf(LocalDate.of(2015, 8, 7));
-		List<ReportByDays> report = orderService.getReportByDays(startDate, endDate);
+		List<ReportByDays> report = orderService.getReportByDays(startDate,
+				endDate);
 
 		System.out.println(report);
 		CustomerService userService = context.getBean(CustomerService.class);
 
-		System.out.println(userService.findById(301));
-	//	addCustomer(context);
-		
+		// System.out.println(userService.findById(501));
+		// addCustomer(context);
+
 		// Dish dish = dishService.findById(1);
 		// dishService.update(dish.getId(), dish.getName(), dish.getPrice(),
 		// dish.getCategory(), dish.isDishtype(), !dish.isMenuitem());
@@ -186,7 +191,6 @@ public class Main {
 
 		System.out.println(userService.findById(user.getId()));
 	}
-
 
 	private static void showCategoriesList(ApplicationContext context) {
 		DishCategoryService dishCatService = context

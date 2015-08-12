@@ -1,5 +1,7 @@
 package com.bionic.edu.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -17,14 +19,13 @@ public class CustomerServiceImpl implements CustomerService {
 	private CustomerDao userDao;
 
 	private void create(Customer customer) {
-		userDao.create(customer);
+		userDao.save(customer);
 	}
 
 	@Override
 	public Customer findById(int id) {
 		return userDao.find(id);
 	}
-
 
 	@Transactional
 	@Override
@@ -37,6 +38,17 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public Customer findByLoginAndPassword(String login, String password) {
 		return userDao.findByLoginAndPassword(login, password);
+	}
+
+	@Override
+	public List<Customer> findAllCustomers() {
+		return userDao.findAllCustomers();
+	}
+
+	@Override
+	@Transactional
+	public void remove(int id) {
+		userDao.remove(id);		
 	}
 
 }

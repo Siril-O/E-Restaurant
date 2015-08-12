@@ -1,50 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-	<title>Menu</title>
-	<h:outputStylesheet library="css" name="style.css" />
+	<title>Menu Categories</title>
+
 </h:head>
-
-<h:body>
-	<h2>Menu</h2>
-	<h2>#{menuListBean.category.name}</h2>
-	<h:form>
-		<h:commandButton action="menuCategories" value="Watch Categories" />
-		<h:commandButton action="cart" value="Go To Cart" />
-		<h:dataTable value="#{menuListBean.dishes.entrySet().toArray()}"
-			var="item" styleClass="menuTable" headerClass="menuTableHeader"
-			rowClasses="menuTableOddRow, menuTableEvenRow">
-
-			<h:column>
-				<f:facet name="header">Id</f:facet>
-				<h:outputText value="#{item.key.id}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Name</f:facet>
-				<h:outputText value="#{item.key.name}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Dish Price</f:facet>
-				<h:outputText value="#{item.key.price}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Category</f:facet>
-				<h:outputText value="#{item.key.category.name}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Quantity</f:facet>
-				<h:inputText value="#{menuListBean.dishes[item.key]}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header"></f:facet>
-				<h:commandButton
-					action="#{cartBean.addOrderItem(item.key.id, item.value)}"
-					value="Add To Cart" />
-			</h:column>
-		</h:dataTable>
-	</h:form>
-</h:body>
+<ui:composition template="WEB-INF/templates/restautantTemplate.xhtml">
+	<ui:define name="content">
+		<div class="panel panel-primary">
+			<div class="panel-heading">Menu->#{menuListBean.category.name}</div>
+			<div class="panel-body">
+				<h2>#{menuListBean.category.name}</h2>
+				<h:form>
+					<h:dataTable value="#{menuListBean.dishes.entrySet().toArray()}"
+						var="item" styleClass="table table-hover">
+						<h:column>
+							<f:facet name="header">Name</f:facet>
+							<h:outputText value="#{item.key.name}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Dish Price</f:facet>
+							<h:outputText value="#{item.key.price}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Category</f:facet>
+							<h:outputText value="#{item.key.category.name}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Quantity</f:facet>
+							<h:inputText value="#{menuListBean.dishes[item.key]}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header"></f:facet>
+							<h:commandButton styleClass="btn btn-primary"
+								action="#{cartBean.addOrderItem(item.key.id, item.value)}"
+								value="Add To Cart" />
+						</h:column>
+					</h:dataTable>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
 </html>
