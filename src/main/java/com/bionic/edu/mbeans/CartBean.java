@@ -5,6 +5,8 @@ import java.math.RoundingMode;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -27,7 +29,7 @@ public class CartBean {
 
 	@Inject
 	private DishOrderService orderService;
-	
+
 	@Inject
 	private CustomerService customerService;
 
@@ -35,7 +37,6 @@ public class CartBean {
 	private double totalPrice;
 	private String address;
 	private String userName;
-	private boolean fetchAddressFromAccount;
 
 	public CartBean() {
 		super();
@@ -59,6 +60,8 @@ public class CartBean {
 		} else {
 			orderItems.add(item);
 		}
+		showMessage("Success", "Dish: " + item.getDish().getName()
+				+ " Added to Cart");
 	}
 
 	public void removeItem(String dishId) {
@@ -69,6 +72,7 @@ public class CartBean {
 				orderItems.remove(item);
 			}
 		}
+
 		calculateTotalPrice();
 	}
 
@@ -81,24 +85,28 @@ public class CartBean {
 				.doubleValue();
 	}
 
-	public String submitOrder() {
-
-		DishOrder order = new DishOrder(userName, address);
+	public String submitOrder(String customerId) {
+		DishOrder order = null;
+		if (!customerId.isEmpty()) {
+			Customer customer = customerService.findById(Integer
+					.parseInt(customerId));
+			order = new DishOrder(customer.getName(),
+					address.isEmpty() ? customer.getAddress() : address);
+		} else {
+			order = new DishOrder(userName, address);
+		}
 		orderService.save(order, orderItems);
 		orderItems.clear();
 		calculateTotalPrice();
+		showMessage("Success", (customerId.isEmpty()? userName : order.getUser().getName()) +" Your Order Submitted");
 		return "menuCategories";
 	}
 
-	
-	public String submitOrderFromRegisteredCustomer(String customerId){
-		Customer customer = customerService.findById(Integer.parseInt(customerId));
-		DishOrder order = new DishOrder(customer.getName(), fetchAddressFromAccount ? customer.getAddress(): address);
-		orderService.save(order, orderItems);
-		orderItems.clear();
-		calculateTotalPrice();
-		return "menuCategories";
+	private void showMessage(String summary, String detail) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(summary, detail));
 	}
+
 	/**
 	 * @return the totalPrice
 	 */
@@ -157,22 +165,6 @@ public class CartBean {
 	 */
 	public void setUserName(String userName) {
 		this.userName = userName;
-	}
-
-
-	/**
-	 * @return the fetchAddressFromAccount
-	 */
-	public boolean isFetchAddressFromAccount() {
-		return fetchAddressFromAccount;
-	}
-
-	/**
-	 * @param fetchAddressFromAccount
-	 *            the fetchAddressFromAccount to set
-	 */
-	public void setFetchAddressFromAccount(boolean fetchAddressFromAccount) {
-		this.fetchAddressFromAccount = fetchAddressFromAccount;
 	}
 
 }

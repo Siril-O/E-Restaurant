@@ -51,4 +51,9 @@ public class CustomerServiceImpl implements CustomerService {
 		userDao.remove(id);		
 	}
 
+	@Override
+	public Customer findByLogin(String login) {
+		return userDao.findByLogin(login);
+	}
+
 }

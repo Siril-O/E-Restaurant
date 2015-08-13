@@ -10,16 +10,22 @@
 </head>
 <ui:composition template="WEB-INF/templates/restautantTemplate.xhtml">
 	<ui:define name="content">
-		<h1>Login Page</h1>
 		<h:form>
-			<h:panelGrid columns="2" cellpadding="5" >
-				<h:outputText value="Login"></h:outputText>
-				<h:inputText value="#{checkRightsBean.login}"></h:inputText>
-				<h:outputText value="Password"></h:outputText>
-				<h:inputSecret value="#{checkRightsBean.password}" />
-				<h:commandButton value="Login"  styleClass="btn btn-primary" action="#{checkRightsBean.signIn()}" />
-				<h:commandLink value="Register" action="register" />
+			<h:panelGrid columns="3" cellpadding="5">
+				<h:outputText value="#{lbl['login']}" />
+				<h:inputText id="login" value="#{checkRightsBean.login}"
+					required="true" requiredMessage="#{msg['loginRequired']}" />
+				<h:message for="login" style="color:red" />
+				<h:outputText value="#{lbl['password']}" />
+				<h:inputSecret id="password" value="#{checkRightsBean.password}"
+					required="true" requiredMessage="#{msg['passwordRequired']}" />
+				<h:message for="password" style="color:red" />
+				<h:commandButton value="#{lbl['signIn']}"
+					styleClass="btn btn-primary" action="#{checkRightsBean.signIn()}" />
 			</h:panelGrid>
+		</h:form>
+		<h:form>
+		<h:commandLink value="#{lbl['register']}" action="register" />
 		</h:form>
 	</ui:define>
 </ui:composition>

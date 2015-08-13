@@ -16,7 +16,9 @@ import com.bionic.edu.enums.Role;
 @NamedQueries({ @NamedQuery(name = "Customer.findByLoginAndPassword",
 				query = "SELECT c FROM Customer c WHERE c.email = :login AND c.password = :password"),
 				@NamedQuery(name = "Customer.findAllCustomers",
-				query = "SELECT c FROM Customer c")})
+				query = "SELECT c FROM Customer c"),
+				@NamedQuery(name = "Customer.findByLogin",
+				query = "SELECT c FROM Customer c WHERE c.email = :login")})
 @Entity
 public class Customer {
 

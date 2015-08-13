@@ -35,9 +35,8 @@ public class CustomerDaoImpl implements CustomerDao {
 
 		TypedQuery<Customer> query = em.createNamedQuery(
 				"Customer.findByLoginAndPassword", Customer.class);
-		query.setParameter("login", login);
-		query.setParameter("password", password);
-		return query.getSingleResult();
+		return query.setParameter("login", login)
+				.setParameter("password", password).getSingleResult();
 	}
 
 	@Override
@@ -51,6 +50,13 @@ public class CustomerDaoImpl implements CustomerDao {
 	public void remove(int id) {
 		Customer customer = em.find(Customer.class, id);
 		em.remove(customer);
+	}
+
+	@Override
+	public Customer findByLogin(String login) {
+		TypedQuery<Customer> query = em.createNamedQuery(
+				"Customer.findByLogin", Customer.class);
+		return query.setParameter("login", login).getSingleResult();
 	}
 
 }

@@ -3,6 +3,7 @@ package com.bionic.edu.mbeans;
 import java.util.Date;
 
 import javax.faces.application.ConfigurableNavigationHandler;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
@@ -33,13 +34,25 @@ public class CheckRightsBean {
 	}
 
 	public String registerCustomer() {
-		customer.setBirthDate(new java.sql.Date(date.getTime()));
-		cutomerService.createCustomer(customer, Role.USER);
-		return "menuCategories";
+		try {
+			cutomerService.findByLogin(customer.getEmail());
+		} catch (javax.persistence.NoResultException e) {
+			customer.setBirthDate(new java.sql.Date(date.getTime()));
+			cutomerService.createCustomer(customer, Role.USER);
+			showMessage("Success", "Customer: " + customer.getName()
+					+ " registered in system");
+			return "menuCategories";
+		}
+		showMessage("Info", "Customer: with login:" + customer.getEmail()
+				+ " Already exsist");
+		return "login";
 	}
 
 	public void signOut() {
+		showMessage("Success", "Customer: " + customer.getName()
+				+ " SignOut from the system with role:" + customer.getRole());
 		customer = null;
+
 	}
 
 	public String signIn() {
@@ -47,25 +60,29 @@ public class CheckRightsBean {
 		try {
 			customer = cutomerService.findByLoginAndPassword(login, password);
 		} catch (javax.persistence.NoResultException e) {
+			showMessage("Error", "Such login and password dont found in system");
 			return "login";
 		}
+
+		showMessage("Success", "Customer: " + customer.getName()
+				+ " SignIn to system with role:" + customer.getRole());
 		return previousPage == null ? "menuCategories" : previousPage;
 	}
 
 	public void isDelivery(ComponentSystemEvent event) {
-		checkByRole(event, Role.DELIVERY, Role.SUPER_USER);
+		checkByRole(event, Role.DELIVERY);
 	}
 
 	public void isKitchenStuff(ComponentSystemEvent event) {
-		checkByRole(event, Role.KITCHEN_SUFF, Role.SUPER_USER);
+		checkByRole(event, Role.KITCHEN_SUFF);
 	}
 
 	public void isAdmin(ComponentSystemEvent event) {
-		checkByRole(event, Role.ADMIN, Role.SUPER_USER);
+		checkByRole(event, Role.ADMIN);
 	}
 
 	public void isPacker(ComponentSystemEvent event) {
-		checkByRole(event, Role.PACKER, Role.SUPER_USER);
+		checkByRole(event, Role.PACKER);
 	}
 
 	public void isSuperUser(ComponentSystemEvent event) {
@@ -86,6 +103,7 @@ public class CheckRightsBean {
 		previousPage = fc.getViewRoot().getViewId();
 
 		if (customer == null) {
+			showMessage("Info", "SignIn to enter this page");
 			return "login";
 		}
 
@@ -96,6 +114,11 @@ public class CheckRightsBean {
 		}
 
 		return "access-denied";
+	}
+
+	private void showMessage(String summary, String detail) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage(summary, detail));
 	}
 
 	/**

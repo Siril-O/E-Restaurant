@@ -18,23 +18,34 @@
 			<div class="panel-heading">Edit or add new category</div>
 			<div class="panel-body">
 				<h:form styleClass="form-horizontal">
-					<h:panelGrid columns="2">
-						<h:outputText value="Customer Name:"></h:outputText>
-						<h:inputText styleClass="form-control" value="#{customerManageBean.customer.name}"></h:inputText>
-						<h:outputText value="Address"></h:outputText>
-						<h:inputText  styleClass="form-control" value="#{customerManageBean.customer.address}"></h:inputText>
-						<h:outputText value="Email"></h:outputText>
-						<h:inputText styleClass="form-control" value="#{customerManageBean.customer.email}"></h:inputText>
-						<h:outputText value="Birth Date"></h:outputText>
-						<p:calendar id="startDateCalendar"
-							value="#{customerManageBean.date}" showOn="button" />
-						<h:outputText value="Customer Role"></h:outputText>
+					<h:panelGrid columns="3">
+						<h:outputText value="Customer Name:"/>
+						<h:inputText styleClass="form-control" value="#{customerManageBean.customer.name}"
+						id="name" required="true" requiredMessage="#{msg['nameRequired']}"/>
+						<h:message for="name" style="color:red"/>
+						<h:outputText value="Address"/>
+						<h:inputText  styleClass="form-control" value="#{customerManageBean.customer.address}"
+						 id="address" required="true" requiredMessage="#{msg['customerAddressRequired']}"/>
+						<h:message for="address" style="color:red"/>
+						<h:outputText value="Email"/>
+						<h:inputText styleClass="form-control" value="#{customerManageBean.customer.email}"
+						id="email" required="true" requiredMessage="#{msg['emailRequired']}"/>
+						<h:message for="email" style="color:red"/>
+						<h:outputText value="Birth Date"/>
+						<p:calendar id="dateCalendar"
+							value="#{customerManageBean.date}" showOn="button" 
+							 required="true" requiredMessage="#{msg['dateRequired']}"/>
+							<h:message for="dateCalendar" style="color:red"/>
+						<h:outputText value="Customer Role"/>
 						<h:selectOneMenu styleClass="form-control" value="#{customerManageBean.customer.role}">
 							<f:selectItems var="role" itemValue="#{role}" itemLabel="#{role}"
 								value="#{customerManageBean.roles}" />
 						</h:selectOneMenu>
+						<h:outputText/>
 						<h:outputText value="Password" />
-						<h:inputText styleClass="form-control" value="#{customerManageBean.customer.password}" />
+						<h:inputText styleClass="form-control" value="#{customerManageBean.customer.password}" 
+						id="password" required="true" requiredMessage="#{msg['passwordRequired']}"/>
+						<h:message for="password" style="color:red"/>
 					</h:panelGrid>
 					<h:commandButton value="Submit" styleClass="btn btn-primary"
 						action="#{customerManageBean.saveUser()}" />

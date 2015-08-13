@@ -14,13 +14,15 @@
 	<ui:define name="content">
 		<h2>Report</h2>
 		<h:form>
-			<h:panelGrid columns="2">
+			<h:panelGrid columns="3">
 				<p:outputLabel for="startDateCalendar" value="Start Date" />
 				<p:calendar id="startDateCalendar" value="#{reportBean.startDate}"
-					showOn="button" />
+					showOn="button"	 required="true" requiredMessage="#{msg['dateRequired']}"/>
+							<h:message for="startDateCalendar" style="color:red"/>
 				<p:outputLabel for="endDateCalendar" value="End Date" />
 				<p:calendar id="endDateCalendar" value="#{reportBean.endDate}"
-					showOn="button" />
+					showOn="button"  required="true" requiredMessage="#{msg['dateRequired']}"/>
+					<h:message for="endDateCalendar" style="color:red"/>
 
 				<h:commandButton value="Show Report" styleClass="btn btn-primary"
 					action="#{reportBean.viewReport()}" />

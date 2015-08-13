@@ -2,12 +2,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 <h:body>
 	<ui:composition>
 		<div class="page-header">
 			<h:form>
-
 				<div class="row">
 					<div class="col-sm-2">
 						<h:link outcome="menuCategories">
@@ -23,31 +23,24 @@
 							<h:link value="Login page" outcome="login"
 								styleClass="btn btn-primary" />
 						</div>
+						<div class="navbar-text navbar-right">
+					<h:outputText value="Signed in as:" rendered="#{checkRightsBean.customer!=null}"/>
+					 <a class="navbar-link">#{checkRightsBean.customer.name}</a>
+					<h:commandButton value="SignOut" styleClass="btn btn-default"
+						action="#{checkRightsBean.signOut()}"
+						rendered="#{checkRightsBean.customer!=null}" />
+				</div>
 					</div>
-					<div class="col-sm-2">
-						<h:panelGrid columns="2">
+					<div class="col-sm-4">
 							<h:outputText value="Total:" />
-							<h:outputLabel />
 							<h:outputText value="#{cartBean.totalPrice}" />
 							<h:link styleClass="btn btn-primary" outcome="cart"
 								value="Go To Cart" />
-						</h:panelGrid>
 					</div>
 				</div>
-				<div style="float: right; text-align: right;">
-					<h:panelGrid columns="2">
-						<h:outputText value=" Customer:" />
-						<h:outputText value="#{checkRightsBean.customer.name}" />
-						<h:outputText />
-						<h:commandButton value="SignOut" styleClass="btn btn-default"
-							action="#{checkRightsBean.signOut()}"
-							rendered="#{checkRightsBean.customer!=null}" />
-					</h:panelGrid>
-				</div>
 			</h:form>
-
 		</div>
-
+		    <p:growl id="infoMsg" showDetail="true" />
 	</ui:composition>
 </h:body>
 </html>

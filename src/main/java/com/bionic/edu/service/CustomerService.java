@@ -16,5 +16,7 @@ public interface CustomerService {
 	public List<Customer> findAllCustomers ();
 	
 	public void remove(int id);
+	
+	public Customer findByLogin(String login);
 
 }

@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 <h:body>
 	<ui:composition>
 		<h:form>
@@ -31,22 +32,18 @@
 								action="#{reportBean.viewReportPage()}"
 								styleClass="btn btn-primary" />
 						</div>
-						<div style="float: right; text-align: right;">
-
-							<h:panelGrid columns="2">
-								<h:outputText value=" Customer:" />
-								<h:outputText value="#{checkRightsBean.customer.name}" />
-								<h:outputText value=" Role:" />
-								<h:outputText value="#{checkRightsBean.customer.role}" />
-								<h:outputText />
-								<h:commandButton value="SignOut" styleClass="btn btn-default"
-									action="#{checkRightsBean.signOut()}" />
-							</h:panelGrid>
+						<div class="navbar-text navbar-right">
+							Signed in as <a class="navbar-link">#{checkRightsBean.customer.name}</a>
+							Role: <a class="navbar-link">#{checkRightsBean.customer.role}</a>
+							<h:commandButton value="SignOut" styleClass="btn btn-default"
+								action="#{checkRightsBean.signOut()}"
+								rendered="#{checkRightsBean.customer!=null}" />
 						</div>
 					</div>
 				</div>
 			</div>
 		</h:form>
+		<p:growl id="infoMsg" showDetail="true" />
 	</ui:composition>
 </h:body>
 </html>

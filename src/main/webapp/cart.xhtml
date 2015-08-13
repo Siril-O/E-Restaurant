@@ -47,38 +47,31 @@
 				</div>
 				<div class="col-sm-6"></div>
 			</div>
-			<p:tabView>
-				<p:tab title="Submit order in one click(no registration)">
-					<h:panelGrid columns="2" cellpadding="5" cellspacing="5">
-						<h:outputText value="Your Name:" />
-						<h:inputText styleClass="form-control"
-							value="#{cartBean.userName}" />
-						<h:outputText value="Delivery Address :" />
-						<h:inputText styleClass="form-control" value="#{cartBean.address}" />
-						<h:commandButton styleClass="btn btn-primary" value="Submit Order"
-							action="#{cartBean.submitOrder()}" />
-					</h:panelGrid>
-				</p:tab>
-				<p:tab title="Register and Submit Order">
-					<h:panelGrid columns="2" cellpadding="5" cellspacing="5">
-						<h:outputText value="Delivery Address :" />
-						<h:inputText styleClass="form-control" value="#{cartBean.address}" />
-						<h:outputText value="Deliver to Address from account "></h:outputText>
-						<h:selectBooleanCheckbox styleClass="form-control" 
-							value="#{cartBean.fetchAddressFromAccount}" />
-						<h:commandButton value="Register" action="register"
-							rendered="#{checkRightsBean.customer==null}" />
-						<h:commandButton value="Sign in to system" action="login"
-							rendered="#{checkRightsBean.customer==null}" />
-						<h:commandButton styleClass="btn btn-primary" value="Submit Order"
-							action="#{cartBean.submitOrderFromRegisteredCustomer(checkRightsBean.customer.id)}"
-							rendered="#{checkRightsBean.customer!=null}" />
-					</h:panelGrid>
-				</p:tab>
-			</p:tabView>
+			<h3>Register and Submit Order</h3>
+			<h:panelGrid columns="3" cellpadding="5" cellspacing="5">
 
-
-
+				<h:outputText value="Your Name:"
+					rendered="#{checkRightsBean.customer==null}" />
+				<h:inputText id="name" styleClass="form-control"
+					value="#{cartBean.userName}"
+					rendered="#{checkRightsBean.customer==null}" required="true"
+					requiredMessage="#{msg['customerNameRequired']}" />
+				<h:message for="name" style="color:red" />
+						Delivery Address<br />
+				<em>(leave empty to deliver<br /> to address from account)
+				</em>
+				<h:inputText id="address" styleClass="form-control"
+					value="#{cartBean.address}"
+					required="#{checkRightsBean.customer==null}"
+					requiredMessage="#{msg['addressRequired']}" />
+				<h:message for="address" style="color:red" />
+				<h:commandButton styleClass="btn btn-primary" value="Submit Order"
+					action="#{cartBean.submitOrder(checkRightsBean.customer.id)}" />
+			</h:panelGrid>		</h:form><h:form>
+				
+				<h:commandLink 
+					value="Sign in to system" action="login"
+					rendered="#{checkRightsBean.customer==null}" />
 		</h:form>
 	</ui:define>
 </ui:composition>

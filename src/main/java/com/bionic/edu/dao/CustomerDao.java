@@ -14,5 +14,7 @@ public interface CustomerDao {
 
 	public Customer findByLoginAndPassword(String login, String password);
 	
+	public Customer findByLogin(String login);
+	
 	public List<Customer> findAllCustomers();
 }

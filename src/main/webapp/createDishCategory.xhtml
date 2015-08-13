@@ -17,13 +17,14 @@
 			<div class="panel-heading">Edit or add new category</div>
 			<div class="panel-body">
 				<h:form styleClass="form-inline">
-						<h:outputText value="Category Name:"></h:outputText>
-						<h:inputText styleClass="form-control"
-							value="#{menuManageBean.category.name}"></h:inputText>
+					<h:outputText value="Category Name:" />
+					<h:inputText styleClass="form-control"
+						value="#{menuManageBean.category.name}" id="name" required="true"
+						requiredMessage="#{msg['nameRequired']}" />
+					<h:message for="name" style="color:red" />
 					<h:commandButton value="Submit" styleClass="btn btn-primary"
 						action="#{menuManageBean.addCategory()}" />
 				</h:form>
-
 			</div>
 		</div>
 	</ui:define>

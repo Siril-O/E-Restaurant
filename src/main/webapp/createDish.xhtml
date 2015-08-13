@@ -17,26 +17,38 @@
 			<div class="panel-heading">Edit or add new category</div>
 			<div class="panel-body">
 				<h:form styleClass="form-horizontal">
-					<h:panelGrid columns="2">
-						<h:outputText value="Dish Name:"></h:outputText>
-						<h:inputText styleClass="form-control"  value="#{menuManageBean.dish.name}"></h:inputText>
-						<h:outputText value="Price:"></h:outputText>
-						<h:inputText styleClass="form-control" value="#{menuManageBean.dish.price}"></h:inputText>
-						<h:outputText value="Category"></h:outputText>
+					<h:panelGrid columns="3">
+						<h:outputText value="Dish Name:"/>
+						<h:inputText styleClass="form-control" id="name"  value="#{menuManageBean.dish.name}"
+						required="true" requiredMessage="#{msg['nameRequired']}"/>
+						<h:message for="name" style="color:red" />
+						
+						<h:outputText value="Price:"/>
+						<h:inputText styleClass="form-control" value="#{menuManageBean.dish.price}"
+						id="price"  required="true" requiredMessage="#{msg['priceRequired']}"
+						validatorMessage="#{msg['priceInValid']}">
+						<f:convertNumber maxFractionDigits="2" />
+						</h:inputText>
+						<h:message for="price" style="color:red" />
+						
+						<h:outputText value="Category"/>
 						<h:selectOneMenu styleClass="form-control" value="#{menuManageBean.categoryId}">
 							<f:selectItems var="cat" itemValue="#{cat.id}"
 								itemLabel="#{cat.name}" value="#{menuManageBean.categories}" />
 						</h:selectOneMenu>
-						<h:outputText value="Type (kitchen made or not)"></h:outputText>
+						<h:outputText/>
+						<h:outputText value="Type (kitchen made or not)"/>
 						<h:selectOneMenu styleClass="form-control" value="#{menuManageBean.dish.dishtype}">
 							<f:selectItem itemValue="true" itemLabel="Kitchen made" />
 							<f:selectItem itemValue="false" itemLabel="Non Kitchen made" />
 						</h:selectOneMenu>
-						<h:outputText value="Is dish in menu"></h:outputText>
+												<h:outputText/>
+						<h:outputText value="Is dish in menu"/>
 						<h:selectOneMenu styleClass="form-control" value="#{menuManageBean.dish.menuitem}">
 							<f:selectItem itemValue="true" itemLabel="In Menu" />
 							<f:selectItem itemValue="false" itemLabel="Not in Menu" />
 						</h:selectOneMenu>
+						
 					</h:panelGrid>
 					<h:commandButton value="Submit"  styleClass="btn btn-primary"
 						action="#{menuManageBean.addDish()}" />

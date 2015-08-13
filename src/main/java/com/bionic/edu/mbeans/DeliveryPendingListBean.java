@@ -28,19 +28,15 @@ public class DeliveryPendingListBean {
 				Status.READY_FOR_SHIPMENT, Status.DELIVERING);
 		orders.clear();
 		for (DishOrder order : orderList) {
-			orders.put(
-					order,
-					(order.getStatus() == Status.READY_FOR_SHIPMENT ? DELIVERING_LABEL
+			orders.put(	order, (order.getStatus() == Status.READY_FOR_SHIPMENT ? DELIVERING_LABEL
 							: DELIVERED_LABEL));
 		}
 	}
 
 	public void changeOrderStatus(String orderId) {
 		DishOrder order = orderService.findById(Integer.parseInt(orderId));
-		System.out.println(order);
 		order.setStatus(order.getStatus() == Status.READY_FOR_SHIPMENT ? Status.DELIVERING
 				: Status.DELIVERED);
-		System.out.println(order);
 		orderService.update(order);
 		refreshPendingList();
 	}

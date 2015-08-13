@@ -31,16 +31,11 @@ public class KitchenPendingListBean {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void markDishAsDone(String itemId) {
 
-		System.out.println("ITEM ID =" + itemId);
 		OrderItem orderItem = orderItemService.findById(Integer
 				.parseInt(itemId));
-		System.out.println("ITEM = " + orderItem);
 		orderItem.setStatus(true);
 		orderItemService.update(orderItem);
-		System.out.println("ITEM AFTER = " + orderItem);
-		orderService
-				.changeOrderStatusIfAllDishesInOrderAreKitchenDone(orderItem
-						.getDishOrder());
+		orderService.changeOrderStatusIfAllDishesInOrderAreKitchenDone(orderItem.getDishOrder());
 		refreshPendingList();
 	}
 
