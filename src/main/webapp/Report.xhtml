@@ -5,13 +5,13 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<f:metadata>
-	<f:event listener="#{checkRightsBean.isAdmin}" type="preRenderView" />
+	<f:metadata>
+	<f:event listener="#{checkRightsBean.isBusinessAnalytic}" type="preRenderView" />
 </f:metadata>
-<ui:define name="title">Report</ui:define>
 <ui:composition
 	template="WEB-INF/templates/adminRestaurantTemplate.xhtml">
 	<ui:define name="content">
+
 		<h2>Report</h2>
 		<h:form>
 			<h:panelGrid columns="3">

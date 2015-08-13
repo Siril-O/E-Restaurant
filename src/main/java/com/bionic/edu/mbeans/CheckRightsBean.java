@@ -88,7 +88,11 @@ public class CheckRightsBean {
 	public void isSuperUser(ComponentSystemEvent event) {
 		checkByRole(event, Role.SUPER_USER);
 	}
-
+	
+	public void isBusinessAnalytic(ComponentSystemEvent event) {
+		checkByRole(event, Role.BUSINESS_ANALYTIC);
+	}
+	
 	private void checkByRole(ComponentSystemEvent event, Role... roles) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) FacesContext
