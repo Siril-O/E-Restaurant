@@ -11,39 +11,38 @@
 </h:head>
 <ui:composition template="WEB-INF/templates/restautantTemplate.xhtml">
 	<ui:define name="content">
-		<h1>Login Page</h1>
-	#{checkRightsBean.viewRegisterForm()}
+		<h1>Register</h1>
 	<h:form>
 			<h:panelGrid columns="3">
 				<h:outputText value="Email - Login" />
 				<h:inputText styleClass="form-control"
-					value="#{checkRightsBean.customer.email}" id="email"
+					value="#{registerCustomerBean.customer.email}" id="email"
 					required="true" requiredMessage="#{msg['emailRequired']}" />
 				<h:message for="email" style="color:red" />
 				<h:outputText value="Name" />
 				<h:inputText styleClass="form-control"
-					value="#{checkRightsBean.customer.name}" id="name" required="true"
+					value="#{registerCustomerBean.customer.name}" id="name" required="true"
 					requiredMessage="#{msg['nameRequired']}" />
 				<h:message for="name" style="color:red" />
 				<h:outputText value="Address" />
 				<h:inputText styleClass="form-control"
-					value="#{checkRightsBean.customer.address}" id="address"
+					value="#{registerCustomerBean.customer.address}" id="address"
 					required="true" requiredMessage="#{msg['customerAddressRequired']}" />
 				<h:message for="address" style="color:red" />
 				<h:outputText value="Birth Date"></h:outputText>
-				<p:calendar id="dateCalendar" value="#{checkRightsBean.date}"
+				<p:calendar id="dateCalendar" value="#{registerCustomerBean.date}"
 					showOn="button" required="true"
 					requiredMessage="#{msg['dateRequired']}" />
 				<h:message for="dateCalendar" style="color:red" />
 				<h:outputText value="Password" />
 				<h:inputSecret styleClass="form-control"
-					value="#{checkRightsBean.customer.password}" id="password"
+					value="#{registerCustomerBean.customer.password}" id="password"
 					required="true" requiredMessage="#{msg['passwordRequired']}" />
 				<h:message for="password" style="color:red" />
 
 			</h:panelGrid>
 			<h:commandButton value="Register" styleClass="btn btn-primary"
-				action="#{checkRightsBean.registerCustomer()}" />
+				action="#{registerCustomerBean.registerCustomer()}" />
 		</h:form>
 	</ui:define>
 </ui:composition>

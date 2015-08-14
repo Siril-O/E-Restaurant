@@ -1,9 +1,7 @@
 package com.bionic.edu.mbeans;
 
-import java.util.Date;
 
 import javax.faces.application.ConfigurableNavigationHandler;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
@@ -17,7 +15,7 @@ import com.bionic.edu.service.CustomerService;
 
 @Named
 @Scope("session")
-public class CheckRightsBean {
+public class CheckRightsBean extends AbstractManageBean {
 
 	@Inject
 	private CustomerService cutomerService;
@@ -25,28 +23,6 @@ public class CheckRightsBean {
 	private String login;
 	private String password;
 	private String previousPage;
-	private Date date;
-
-	public void viewRegisterForm() {
-		if (customer == null) {
-			customer = new Customer();
-		}
-	}
-
-	public String registerCustomer() {
-		try {
-			cutomerService.findByLogin(customer.getEmail());
-		} catch (javax.persistence.NoResultException e) {
-			customer.setBirthDate(new java.sql.Date(date.getTime()));
-			cutomerService.createCustomer(customer, Role.USER);
-			showMessage("Success", "Customer: " + customer.getName()
-					+ " registered in system");
-			return "menuCategories";
-		}
-		showMessage("Info", "Customer: with login:" + customer.getEmail()
-				+ " Already exsist");
-		return "login";
-	}
 
 	public void signOut() {
 		showMessage("Success", "Customer: " + customer.getName()
@@ -88,11 +64,11 @@ public class CheckRightsBean {
 	public void isSuperUser(ComponentSystemEvent event) {
 		checkByRole(event, Role.SUPER_USER);
 	}
-	
+
 	public void isBusinessAnalytic(ComponentSystemEvent event) {
 		checkByRole(event, Role.BUSINESS_ANALYTIC);
 	}
-	
+
 	private void checkByRole(ComponentSystemEvent event, Role... roles) {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		ConfigurableNavigationHandler nav = (ConfigurableNavigationHandler) FacesContext
@@ -118,11 +94,6 @@ public class CheckRightsBean {
 		}
 
 		return "access-denied";
-	}
-
-	private void showMessage(String summary, String detail) {
-		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage(null, new FacesMessage(summary, detail));
 	}
 
 	/**
@@ -183,21 +154,6 @@ public class CheckRightsBean {
 	 */
 	public void setPreviousPage(String previousPage) {
 		this.previousPage = previousPage;
-	}
-
-	/**
-	 * @return the date
-	 */
-	public Date getDate() {
-		return date;
-	}
-
-	/**
-	 * @param date
-	 *            the date to set
-	 */
-	public void setDate(Date date) {
-		this.date = date;
 	}
 
 }

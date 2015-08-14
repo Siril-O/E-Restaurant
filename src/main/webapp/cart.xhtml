@@ -10,9 +10,9 @@
 </h:head>
 <ui:composition template="WEB-INF/templates/restautantTemplate.xhtml">
 	<ui:define name="content">
-		<h:form class="form-horizontal" role="form">
 			<div class="row">
-				<div class="col-sm-8">
+				<div class="col-sm-8">		<h:form class="form-horizontal" role="form">
+				
 					<h:dataTable value="#{cartBean.orderItems}" var="item"
 						styleClass="table table-hover">
 						<h:column>
@@ -44,10 +44,13 @@
 							<h:outputText value="Total: #{cartBean.totalPrice}" />
 						</f:facet>
 					</h:dataTable>
+					</h:form>
 				</div>
 				<div class="col-sm-4"></div>
 			</div>
 			<h3>Register and Submit Order</h3>
+								<h:form>
+			
 			<h:panelGrid columns="3" cellpadding="5" cellspacing="5">
 
 				<h:outputText value="Your Name:"
