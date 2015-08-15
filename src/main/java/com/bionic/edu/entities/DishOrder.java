@@ -72,7 +72,6 @@ public class DishOrder {
 
 	public DishOrder(String deliveryAddress, Customer user) {
 		super();
-		this.id = 0;
 		this.ordertime = Time.valueOf(LocalTime.now());
 		this.date = Date.valueOf(LocalDate.now());
 		this.userName = user.getName();

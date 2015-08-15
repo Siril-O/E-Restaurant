@@ -69,7 +69,7 @@
 					requiredMessage="#{msg['addressRequired']}" />
 				<h:message for="address" style="color:red" />
 				<h:commandButton styleClass="btn btn-primary" value="Submit Order"
-					action="#{cartBean.submitOrder(checkRightsBean.customer.id)}" />
+					action="#{cartBean.submitOrder()}" />
 			</h:panelGrid>		</h:form><h:form>
 				
 				<h:commandLink 

@@ -22,7 +22,7 @@ import com.bionic.edu.service.DishService;
 
 @Named
 @Scope("session")
-public class CartBean {
+public class CartBean extends AbstractManageBean {
 
 	@Inject
 	private DishService dishService;
@@ -32,6 +32,9 @@ public class CartBean {
 
 	@Inject
 	private CustomerService customerService;
+
+	@Inject
+	private CheckRightsBean checkRightsBean;
 
 	private List<OrderItem> orderItems = new LinkedList<>();
 	private double totalPrice;
@@ -85,26 +88,25 @@ public class CartBean {
 				.doubleValue();
 	}
 
-	public String submitOrder(String customerId) {
+	public String submitOrder() {
 		DishOrder order = null;
-		if (!customerId.isEmpty()) {
-			Customer customer = customerService.findById(Integer
-					.parseInt(customerId));
-			order = new DishOrder(customer.getName(),
-					address.isEmpty() ? customer.getAddress() : address);
+		Customer customer = null;
+
+		if (checkRightsBean != null && checkRightsBean.getCustomer() != null) {
+			customer = customerService.findById(checkRightsBean.getCustomer()
+					.getId());
+		}
+
+		if (customer != null) {
+			order = new DishOrder(address.isEmpty() ? customer.getAddress() : address, customer);
 		} else {
 			order = new DishOrder(userName, address);
 		}
 		orderService.save(order, orderItems);
 		orderItems.clear();
 		calculateTotalPrice();
-		showMessage("Success", (customerId.isEmpty()? userName : order.getUser().getName()) +" Your Order Submitted");
+		showMessage("Success", order.getUserName() + " your order Submitted");
 		return "menuCategories";
-	}
-
-	private void showMessage(String summary, String detail) {
-		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage(null, new FacesMessage(summary, detail));
 	}
 
 	/**
