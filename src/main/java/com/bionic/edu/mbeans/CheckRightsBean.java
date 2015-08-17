@@ -1,6 +1,5 @@
 package com.bionic.edu.mbeans;
 
-
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
@@ -55,10 +54,6 @@ public class CheckRightsBean extends AbstractManageBean {
 
 	public void isAdmin(ComponentSystemEvent event) {
 		checkByRole(event, Role.ADMIN);
-	}
-
-	public void isPacker(ComponentSystemEvent event) {
-		checkByRole(event, Role.PACKER);
 	}
 
 	public void isSuperUser(ComponentSystemEvent event) {

@@ -45,20 +45,21 @@ public class Main {
 		 * order.getDeliveryAddress()==null){ deleteOrder(context,
 		 * order.getId()); }}
 		 */
-		deleteOrder(context, 2002);
-		deleteOrder(context, 2001);
-		orders = showAllOrders(context);
+	//	deleteOrder(context, 2002);
+	//	deleteOrder(context, 2001);
+	//	orders = showAllOrders(context);
 
 		OrderItemService orderService = context.getBean(OrderItemService.class);
 
-		Date startDate = Date.valueOf(LocalDate.of(2015, 8, 6));
-		Date endDate = Date.valueOf(LocalDate.of(2015, 8, 7));
+		Date startDate = Date.valueOf(LocalDate.of(2015, 8, 1));
+		Date endDate = Date.valueOf(LocalDate.of(2015, 8, 18));
 		List<ReportByDays> report = orderService.getReportByDays(startDate,
 				endDate);
 
-		System.out.println(report);
+		System.out.println("REPORTS" + report);
 		CustomerService userService = context.getBean(CustomerService.class);
 
+		
 		// System.out.println(userService.findById(501));
 		// addCustomer(context);
 
@@ -187,7 +188,7 @@ public class Main {
 		Customer user = new Customer(0, "Anton Petrov", "Kyiv Kurbasa 34",
 				"paker45@gmail.com", date, null, "12345");
 
-		userService.createCustomer(user, Role.PACKER);
+		userService.createCustomer(user, Role.ADMIN);
 
 		System.out.println(userService.findById(user.getId()));
 	}

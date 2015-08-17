@@ -99,6 +99,7 @@ public class ReportBean {
 		java.sql.Date eDate = new java.sql.Date(endDate.getTime());
 
 		report = orderItemService.getReportByDays(sDate, eDate);
+		System.out.println(report);
 		reportByCategories = orderItemService.getReportByCategories(sDate,
 				eDate);
 		createQuantityDateModel();
