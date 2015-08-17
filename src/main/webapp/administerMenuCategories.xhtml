@@ -8,38 +8,45 @@
 	<f:event listener="#{checkRightsBean.isAdmin}" type="preRenderView" />
 </f:metadata>
 <h:head>
-	<title>Menu Categories</title>
+	<title><h:outputText
+			value="#{lbl['title.menuCategoriesAdminister']}" /></title>
 </h:head>
 <ui:composition
 	template="WEB-INF/templates/adminRestaurantTemplate.xhtml">
 	<ui:define name="content"> 
 #{menuManageBean.refreshCategoryList()}
-<h1>Administer Menu Page</h1>
+<h1>
+			<h:outputText value="#{lbl['title.menuCategoriesAdminister']}" />
+		</h1>
 		<h:form>
 			<h:dataTable value="#{menuManageBean.categories}" var="dishCategory"
 				styleClass="table table-hover" headerClass="danger">
 				<h:column>
-					<f:facet name="header">Id</f:facet>
+					<f:facet name="header">
+						<h:outputText value="#{lbl['id']}" />
+					</f:facet>
 					<h:outputText value="#{dishCategory.id} "></h:outputText>
 				</h:column>
 				<h:column>
-					<f:facet name="header">Category</f:facet>
+					<f:facet name="header">
+						<h:outputText value="#{lbl['category']}" />
+					</f:facet>
 					<h:outputText value="#{dishCategory.name} "></h:outputText>
 				</h:column>
 				<h:column>
 					<f:facet name="header"></f:facet>
 					<h:commandButton
 						action="#{menuManageBean.refreshDishesByCategoryList(dishCategory.id)}"
-						styleClass="btn btn-primary" value="Manage Dishes" />
+						styleClass="btn btn-primary" value="#{lbl['administerMenuCategories.manageDishes']}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header"></f:facet>
 					<h:commandButton
 						action="#{menuManageBean.editCategory(dishCategory.id)}"
-						styleClass="btn btn-primary" value="Edit Category" />
+						styleClass="btn btn-primary" value="#{lbl['administerMenuCategories.editCategory']}" />
 				</h:column>
 			</h:dataTable>
-			<h:commandButton value="Add new Category"
+			<h:commandButton value="#{lbl['administerMenuCategories.addCategory']}"
 				styleClass="btn btn-primary"
 				action="#{menuManageBean.viewAddCategoryForm()}" />
 		</h:form>

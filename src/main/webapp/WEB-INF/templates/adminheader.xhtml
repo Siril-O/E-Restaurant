@@ -12,29 +12,29 @@
 					<div class="col-sm-2">
 						<h:link outcome="administerMenuCategories">
 							<h:graphicImage value="resources/logo.jpg" height="140"
-								width="150" title="Main" />
+								width="150" title="#{lbl['title.main']}" />
 						</h:link>
 
 					</div>
 					<div class="col-sm-8">
 						<div class="btn-group btn-group-justified">
-							<h:link value="Menu" outcome="administerMenuCategories"
+							<h:link value="#{lbl['header.menu']}" outcome="administerMenuCategories"
 								styleClass="btn btn-primary" />
-							<h:link value="Customers" outcome="manageCustomers"
+							<h:link value="#{lbl['header.customers']}" outcome="manageCustomers"
 								styleClass="btn btn-primary" />
-							<h:link value="Kitchen" outcome="kitchenPendingScreen"
+							<h:link value="#{lbl['header.kitchen']}" outcome="kitchenPendingScreen"
 								styleClass="btn btn-primary" />
-							<h:link value="Packing" outcome="packerPendingList"
+							<h:link value="#{lbl['header.packing']}" outcome="packerPendingList"
 								styleClass="btn btn-primary" />
-							<h:link value="Delivery" outcome="deliveryPendingList"
+							<h:link value="#{lbl['header.delivery']}" outcome="deliveryPendingList"
 								styleClass="btn btn-primary" />
-							<h:commandLink value="Report"
+							<h:commandLink value="#{lbl['header.report']}"
 								action="#{reportBean.viewReportPage()}"
 								styleClass="btn btn-primary" />
 						</div>
 						<div class="navbar-text navbar-right">
-							Signed in as <a class="navbar-link">#{checkRightsBean.customer.name}</a>
-							Role: <a class="navbar-link">#{checkRightsBean.customer.role}</a>
+							<h:outputText value="#{lbl['header.signedAs']}"/><a class="navbar-link">#{checkRightsBean.customer.name}</a>
+							<h:outputText value="#{lbl['header.role']}"/> <a class="navbar-link">#{checkRightsBean.customer.role}</a>
 							<h:commandButton value="SignOut" styleClass="btn btn-default"
 								action="#{checkRightsBean.signOut()}"
 								rendered="#{checkRightsBean.customer!=null}" />

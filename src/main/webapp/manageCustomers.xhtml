@@ -9,59 +9,59 @@
 </f:metadata>
 
 <h:head>
-	<title>Menu Categories</title>
+	<title><h:outputText value="#{lbl['title.manageCustomers']}" /></title>
 </h:head>
 <ui:composition
 	template="WEB-INF/templates/adminRestaurantTemplate.xhtml">
 	<ui:define name="content"> 
 #{customerManageBean.refreshCustomerList()}
-<h1>Administer Customers</h1>
+<h1><h:outputText value="#{lbl['pageName.manageCustomers']}" /></h1>
 		<h:form>
 			
 			<h:dataTable value="#{customerManageBean.customers}" var="customer"
 				styleClass="table table-hover" headerClass="danger">
 				<h:column>
-					<f:facet name="header">Id</f:facet>
+					<f:facet name="header"><h:outputText value="#{lbl['manageCustomers.id']}" /></f:facet>
 					<h:outputText value="#{customer.id} "></h:outputText>
 				</h:column>
 				<h:column>
-					<f:facet name="header">Name</f:facet>
+					<f:facet name="header"><h:outputText value="#{lbl['manageCustomers.name']}" /></f:facet>
 					<h:outputText value="#{customer.name} "></h:outputText>
 				</h:column>
 				<h:column>
-					<f:facet name="header">Address</f:facet>
+					<f:facet name="header"><h:outputText value="#{lbl['manageCustomers.address']}" /></f:facet>
 					<h:outputText value="#{customer.address} "></h:outputText>
 				</h:column>
 				<h:column>
-					<f:facet name="header">Email</f:facet>
+					<f:facet name="header"><h:outputText value="#{lbl['manageCustomers.email']}" /></f:facet>
 					<h:outputText value="#{customer.email} "></h:outputText>
 				</h:column>
 				<h:column>
-				<f:facet name="header">Birth Date</f:facet>
+				<f:facet name="header"><h:outputText value="#{lbl['manageCustomers.birthDate']}" /></f:facet>
 				<h:outputText value="#{customer.birthDate} "></h:outputText>
 				</h:column>
 				<h:column>
-					<f:facet name="header">Role</f:facet>
+					<f:facet name="header"><h:outputText value="#{lbl['manageCustomers.role']}" /></f:facet>
 					<h:outputText value="#{customer.role} "></h:outputText>
 				</h:column>
 				<h:column>
-					<f:facet name="header">Password</f:facet>
+					<f:facet name="header"><h:outputText value="#{lbl['manageCustomers.password']}" /></f:facet>
 					<h:outputText value="#{customer.password} "></h:outputText>
 				</h:column>
 				<h:column>
 					<f:facet name="header"></f:facet>
 					<h:commandButton
 						action="#{customerManageBean.editCustomer(customer.id)}"
-						value="Edit Customer" styleClass="btn btn-primary" />
+						value="#{lbl['manageCustomers.edit']}" styleClass="btn btn-primary" />
 				</h:column>
 				<h:column>
 					<f:facet name="header"></f:facet>
 					<h:commandButton
 						action="#{customerManageBean.removeCustomer(customer.id)}"
-						value="Remove Customer" styleClass="btn btn-primary" />
+						value="#{lbl['manageCustomers.remove']}" styleClass="btn btn-primary" />
 				</h:column>
 			</h:dataTable>
-			<h:commandButton value="Add new Customer" styleClass="btn btn-primary"
+			<h:commandButton value="#{lbl['manageCustomers.add']}" styleClass="btn btn-primary"
 				action="#{customerManageBean.viewAddCustomerPage()}" />
 		</h:form>
 	</ui:define>

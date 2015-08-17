@@ -7,41 +7,41 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Insert title here</title>
+	<title><h:outputText value="#{lbl['title.register']}" /></title>
 </h:head>
 <ui:composition template="WEB-INF/templates/restautantTemplate.xhtml">
 	<ui:define name="content">
-		<h1>Register</h1>
+		<h1><h:outputText value="#{lbl['pageName.register']}" /></h1>
 	<h:form>
 			<h:panelGrid columns="3">
-				<h:outputText value="Email - Login" />
+				<h:outputText value="#{lbl['register.email']}" />
 				<h:inputText styleClass="form-control"
 					value="#{registerCustomerBean.customer.email}" id="email"
 					required="true" requiredMessage="#{msg['emailRequired']}" />
 				<h:message for="email" style="color:red" />
-				<h:outputText value="Name" />
+				<h:outputText value="#{lbl['register.name']}" />
 				<h:inputText styleClass="form-control"
 					value="#{registerCustomerBean.customer.name}" id="name" required="true"
 					requiredMessage="#{msg['nameRequired']}" />
 				<h:message for="name" style="color:red" />
-				<h:outputText value="Address" />
+				<h:outputText value="#{lbl['register.address']}" />
 				<h:inputText styleClass="form-control"
 					value="#{registerCustomerBean.customer.address}" id="address"
 					required="true" requiredMessage="#{msg['customerAddressRequired']}" />
 				<h:message for="address" style="color:red" />
-				<h:outputText value="Birth Date"></h:outputText>
+				<h:outputText value="#{lbl['register.birthDate']}"></h:outputText>
 				<p:calendar id="dateCalendar" value="#{registerCustomerBean.date}"
 					showOn="button" required="true"
 					requiredMessage="#{msg['dateRequired']}" />
 				<h:message for="dateCalendar" style="color:red" />
-				<h:outputText value="Password" />
+				<h:outputText value="#{lbl['register.password']}" />
 				<h:inputSecret styleClass="form-control"
 					value="#{registerCustomerBean.customer.password}" id="password"
 					required="true" requiredMessage="#{msg['passwordRequired']}" />
 				<h:message for="password" style="color:red" />
 
 			</h:panelGrid>
-			<h:commandButton value="Register" styleClass="btn btn-primary"
+			<h:commandButton value="#{lbl['register.submit']}" styleClass="btn btn-primary"
 				action="#{registerCustomerBean.registerCustomer()}" />
 		</h:form>
 	</ui:define>

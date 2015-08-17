@@ -8,36 +8,36 @@
 	<f:event listener="#{checkRightsBean.isPacker}" type="preRenderView" />
 </f:metadata>
 <h:head>
-	<title>Packer Pending List</title>
+	<title><h:outputText value="#{lbl['title.packerPendingList']}" /></title>
 </h:head>
 <ui:composition
 	template="WEB-INF/templates/adminRestaurantTemplate.xhtml">
 	<ui:define name="content">
-	<h2>Packer Pending List</h2>
+	<h2><h:outputText value="#{lbl['pageName.packerPendingList']}" /></h2>
 		#{packerPendingListBean.refreshPendingList()}
 	<h:form>
 		<h:commandButton
 			action="#{packerPendingListBean.refreshPendingList()}"
-			value="Update List"  styleClass="btn btn-primary" />
+			value="#{lbl['packerPendingList.update']}"  styleClass="btn btn-primary" />
 		<h:dataTable value="#{packerPendingListBean.orders}" var="order"
 			styleClass="table table-hover" headerClass="danger">
 			<h:column>
-				<f:facet name="header">Order Id</f:facet>
+				<f:facet name="header"><h:outputText value="#{lbl['packerPendingList.orderId']}" /></f:facet>
 				<h:outputText value="#{order.id}" />
 			</h:column>
 			<h:column>
-				<f:facet name="header">Order Status</f:facet>
+				<f:facet name="header"><h:outputText value="#{lbl['packerPendingList.status']}" /></f:facet>
 				<h:outputText value="#{order.status}" />
 			</h:column>
 			<h:column>
-				<f:facet name="header">Time Ordered</f:facet>
+				<f:facet name="header"><h:outputText value="#{lbl['packerPendingList.time']}" /></f:facet>
 				<h:outputText value="#{order.ordertime}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header"></f:facet>
 				<h:commandButton
 					action="#{packerPendingListBean.markOrderAsReadyForShipment(order.id)}"
-					value="Order Packed" styleClass="btn btn-primary"  />
+					value="#{lbl['packerPendingList.packed']}" styleClass="btn btn-primary"  />
 			</h:column>
 		</h:dataTable>
 	</h:form>

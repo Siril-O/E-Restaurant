@@ -6,75 +6,93 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>Cart</title>
+	<title><h:outputText value="#{lbl['title.cart']}" /></title>
 </h:head>
 <ui:composition template="WEB-INF/templates/restautantTemplate.xhtml">
 	<ui:define name="content">
-			<div class="row">
-				<div class="col-sm-8">		<h:form class="form-horizontal" role="form">
-				
+		<div class="row">
+			<h:outputText value="#{lbl['pageName.cart']}" />
+			<div class="col-sm-8">
+				<h:form class="form-horizontal" role="form">
+
 					<h:dataTable value="#{cartBean.orderItems}" var="item"
 						styleClass="table table-hover">
 						<h:column>
-							<f:facet name="header">Id</f:facet>
+							<f:facet name="header">
+								<h:outputText value="#{lbl['id']}" />
+							</f:facet>
 			#{item.dish.id}
 			</h:column>
 						<h:column>
-							<f:facet name="header">Dish</f:facet>
+							<f:facet name="header">
+								<h:outputText value="#{lbl['dish']}" />
+							</f:facet>
 			#{item.dish.name}
 			</h:column>
 						<h:column>
-							<f:facet name="header">Price</f:facet>
+							<f:facet name="header">
+								<h:outputText value="#{lbl['price']}" />
+							</f:facet>
 			#{item.price}
 			</h:column>
 						<h:column>
-							<f:facet name="header">Quantity</f:facet>
+							<f:facet name="header">
+								<h:outputText value="#{lbl['quantity']}" />
+							</f:facet>
 			#{item.quantity}
 			</h:column>
 						<h:column>
-							<f:facet name="header">Total</f:facet>
+							<f:facet name="header">
+								<h:outputText value="#{lbl['total']}" />
+							</f:facet>
 					#{item.price * item.quantity}
 				</h:column>
 						<h:column>
 							<f:facet name="header"></f:facet>
-							<h:commandButton value="Remove from cart"
+							<h:commandButton value="#{lbl['cart.removeFromCart']}"
 								action="#{cartBean.removeItem(item.dish.id)}" />
 						</h:column>
 						<f:facet name="footer">
-							<h:outputText value="Total: #{cartBean.totalPrice}" />
+							<h:outputFormat value="#{lbl['cart.totalpropertie']} ">
+								<f:param value="#{cartBean.totalPrice}" />
+							</h:outputFormat>
 						</f:facet>
 					</h:dataTable>
-					</h:form>
-				</div>
-				<div class="col-sm-4"></div>
+				</h:form>
 			</div>
-			<h3>Register and Submit Order</h3>
-								<h:form>
-			
+			<div class="col-sm-4"></div>
+		</div>
+		<h3>
+			<h:outputText value="#{lbl['registerAndSubmit']}" />
+		</h3>
+		<h:form>
+
 			<h:panelGrid columns="3" cellpadding="5" cellspacing="5">
 
-				<h:outputText value="Your Name:"
+				<h:outputText value="#{lbl['cart.name']}"
 					rendered="#{checkRightsBean.customer==null}" />
 				<h:inputText id="name" styleClass="form-control"
 					value="#{cartBean.userName}"
 					rendered="#{checkRightsBean.customer==null}" required="true"
 					requiredMessage="#{msg['customerNameRequired']}" />
 				<h:message for="name" style="color:red" />
-						Delivery Address<br />
-				<em>(leave empty to deliver<br /> to address from account)
+				<h:outputText value="#{lbl['deliveryAddress']}" />
+				<br />
+				<em><h:outputText value="#{lbl['deliveryAddressExplanation']}" />
 				</em>
 				<h:inputText id="address" styleClass="form-control"
 					value="#{cartBean.address}"
 					required="#{checkRightsBean.customer==null}"
 					requiredMessage="#{msg['addressRequired']}" />
 				<h:message for="address" style="color:red" />
-				<h:commandButton styleClass="btn btn-primary" value="Submit Order"
+				<h:commandButton styleClass="btn btn-primary"
+					value="#{lbl['cart.submitOrder']}"
 					action="#{cartBean.submitOrder()}" />
-			</h:panelGrid>		</h:form><h:form>
-				
-				<h:commandLink 
-					value="Sign in to system" action="login"
-					rendered="#{checkRightsBean.customer==null}" />
+			</h:panelGrid>
+		</h:form>
+		<h:form>
+			<h:commandLink value="#{lbl['cart.signIn']}" action="login"
+				rendered="#{checkRightsBean.customer==null}" />
 		</h:form>
 	</ui:define>
 </ui:composition>

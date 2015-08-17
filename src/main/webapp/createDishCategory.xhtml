@@ -8,21 +8,21 @@
 	<f:event listener="#{checkRightsBean.isAdmin}" type="preRenderView" />
 </f:metadata>
 <h:head>
-	<title>Create category</title>
+	<title><h:outputText value="#{lbl['title.createDishCategory']}" /></title>
 </h:head>
 <ui:composition
 	template="WEB-INF/templates/adminRestaurantTemplate.xhtml">
 	<ui:define name="content">
 		<div class="panel panel-primary">
-			<div class="panel-heading">Edit or add new category</div>
+			<div class="panel-heading"><h:outputText value="#{lbl['createDishCategory.info']}" /></div>
 			<div class="panel-body">
 				<h:form styleClass="form-inline">
-					<h:outputText value="Category Name:" />
+					<h:outputText value="#{lbl['createDishCategory.name']}" />
 					<h:inputText styleClass="form-control"
 						value="#{menuManageBean.category.name}" id="name" required="true"
 						requiredMessage="#{msg['nameRequired']}" />
 					<h:message for="name" style="color:red" />
-					<h:commandButton value="Submit" styleClass="btn btn-primary"
+					<h:commandButton value="#{lbl['createDishCategory.submit']}" styleClass="btn btn-primary"
 						action="#{menuManageBean.addCategory()}" />
 				</h:form>
 			</div>

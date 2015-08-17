@@ -6,32 +6,32 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>Menu Categories</title>
+	<title><h:outputText value="#{lbl['title.menu']}" /></title>
 
 </h:head>
 <ui:composition template="WEB-INF/templates/restautantTemplate.xhtml">
 	<ui:define name="content">
 		<div class="panel panel-primary">
-			<div class="panel-heading">Menu->#{menuListBean.category.name}</div>
+			<div class="panel-heading"><h:outputText value="#{lbl['menu.info']}" />#{menuListBean.category.name}</div>
 			<div class="panel-body">
 				<h2>#{menuListBean.category.name}</h2>
 				<h:form>
 					<h:dataTable value="#{menuListBean.dishes.entrySet().toArray()}"
 						var="item" styleClass="table table-hover">
 						<h:column>
-							<f:facet name="header">Name</f:facet>
+							<f:facet name="header"><h:outputText value="#{lbl['menu.name']}" /></f:facet>
 							<h:outputText value="#{item.key.name}" />
 						</h:column>
 						<h:column>
-							<f:facet name="header">Dish Price</f:facet>
+							<f:facet name="header"><h:outputText value="#{lbl['menu.price']}" /></f:facet>
 							<h:outputText value="#{item.key.price}" />
 						</h:column>
 						<h:column>
-							<f:facet name="header">Category</f:facet>
+							<f:facet name="header"><h:outputText value="#{lbl['menu.category']}" /></f:facet>
 							<h:outputText value="#{item.key.category.name}" />
 						</h:column>
 						<h:column>
-							<f:facet name="header">Quantity</f:facet>
+							<f:facet name="header"><h:outputText value="#{lbl['menu.quantity']}" /></f:facet>
 							
 						<h:inputText value="#{menuListBean.dishes[item.key]}"
 								required="true" id="quantity"
@@ -45,7 +45,7 @@
 							<f:facet name="header"></f:facet>
 							<h:commandButton styleClass="btn btn-primary"
 								action="#{cartBean.addOrderItem(item.key.id, item.value)}"
-								value="Add To Cart" />
+								value="#{lbl['menu.addToCart']}" />
 						</h:column>
 					</h:dataTable>
 					<h:message for="quantity" style="color:red" />

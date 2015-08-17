@@ -11,78 +11,77 @@
 <ui:composition
 	template="WEB-INF/templates/adminRestaurantTemplate.xhtml">
 	<ui:define name="content">
-
-		<h2>Report</h2>
+		<h2><h:outputText value="#{lbl['pageName.report']}" /></h2>
 		<h:form>
 			<h:panelGrid columns="3">
-				<p:outputLabel for="startDateCalendar" value="Start Date" />
+				<p:outputLabel for="startDateCalendar" value="#{lbl['report.from']}" />
 				<p:calendar id="startDateCalendar" value="#{reportBean.startDate}"
 					showOn="button"	 required="true" requiredMessage="#{msg['dateRequired']}"/>
 							<h:message for="startDateCalendar" style="color:red"/>
-				<p:outputLabel for="endDateCalendar" value="End Date" />
+				<p:outputLabel for="endDateCalendar" value="#{lbl['report.to']}" />
 				<p:calendar id="endDateCalendar" value="#{reportBean.endDate}"
 					showOn="button"  required="true" requiredMessage="#{msg['dateRequired']}"/>
 					<h:message for="endDateCalendar" style="color:red"/>
 
-				<h:commandButton value="Show Report" styleClass="btn btn-primary"
+				<h:commandButton value="#{lbl['report.showReport']}" styleClass="btn btn-primary"
 					action="#{reportBean.viewReport()}" />
 			</h:panelGrid>
 		</h:form>
 		<p:tabView>
-			<p:tab title="Categories">
+			<p:tab title="#{lbl['report.categories']}">
 				<h:dataTable value="#{reportBean.reportByCategories}" var="catItem"
 					styleClass="table table-hover">
 					<h:column>
-						<f:facet name="header">Category</f:facet>
+						<f:facet name="header"><h:outputText value="#{lbl['report.category']}"/></f:facet>
 						<h:outputText value="#{catItem.category.name}" />
 					</h:column>
 					<h:column>
-						<f:facet name="header">Quantity of Orders</f:facet>
+						<f:facet name="header"><h:outputText value="#{lbl['report.quantityOfOrders']}"/></f:facet>
 						<h:outputText value="#{catItem.orderQuantity}" />
 					</h:column>
 					<h:column>
-						<f:facet name="header">Total Summ</f:facet>
+						<f:facet name="header"><h:outputText value="#{lbl['report.totalSum']}"/></f:facet>
 						<h:outputText value="#{catItem.totalSumm}" />
 					</h:column>
 				</h:dataTable>
 			</p:tab>
-			<p:tab title="Days">
-				<h:outputText value="Report by Days" />
+			<p:tab title="#{lbl['report.days']}">
+				<h:outputText value="#{lbl['report.reportBydays']}" />
 				<h:dataTable value="#{reportBean.report}" var="item"
 					styleClass="table table-hover">
 					<h:column>
-						<f:facet name="header">Date</f:facet>
+						<f:facet name="header"><h:outputText value="#{lbl['report.date']}"/></f:facet>
 						<h:outputText value="#{item.orderDate}" />
 					</h:column>
 					<h:column>
-						<f:facet name="header">Quantity of Orders</f:facet>
+						<f:facet name="header"><h:outputText value="#{lbl['report.quantityOfOrders']}"/></f:facet>
 						<h:outputText value="#{item.orderQuantity}" />
 					</h:column>
 					<h:column>
-						<f:facet name="header">Total Summ</f:facet>
+						<f:facet name="header"><h:outputText value="#{lbl['report.totalSum']}"/></f:facet>
 						<h:outputText value="#{item.totalSumm}" />
 					</h:column>
 				</h:dataTable>
 			</p:tab>
-			<p:tab title="Chart By Quantity">
+			<p:tab title="#{lbl['report.chartByQuantity']}">
 				<p:panel>
 					<p:chart type="line" model="#{reportBean.quantityDateModel}"
 						style="height:400px;" />
 				</p:panel>
 			</p:tab>
-			<p:tab title="Chart By Total">
+			<p:tab title="#{lbl['report.chartByTotal']}">
 				<p:panel>
 					<p:chart type="line" model="#{reportBean.summDateModel}"
 						style="height:400px;" />
 				</p:panel>
 			</p:tab>
-			<p:tab title="PieChart by Quantity">
+			<p:tab title="#{lbl['report.pieChartByQuantity']}">
 				<p:panel>
 					<p:chart type="pie" model="#{reportBean.quantityCategoryModel}"
 						style="width:800px;height:500px" />	
 				</p:panel>
 			</p:tab>
-			<p:tab title="PieChart by Total">
+			<p:tab title="#{lbl['report.pieChartByTotal']}">
 				<p:panel>
 					<p:chart type="pie" model="#{reportBean.summCategoryModel}"
 						style="width:800px;height:500px" />

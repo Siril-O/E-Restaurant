@@ -10,12 +10,12 @@
 </f:metadata>
 
 <h:head>
-	<title>Menu Categories</title>
+	<title><h:outputText value="#{lbl['title.menuAdminister']}"/></title>
 </h:head>
 <ui:composition
 	template="WEB-INF/templates/adminRestaurantTemplate.xhtml">
 	<ui:define name="content">
-		<h2>Menu</h2>
+		<h2><h:outputText value="#{lbl['pageName.menuAdminister']}"/></h2>
 		<h2>#{menuManageBean.category.name}</h2>
 		<h:form>
 			
@@ -23,37 +23,37 @@
 				styleClass="table table-hover" headerClass="danger">
 
 				<h:column>
-					<f:facet name="header">Id</f:facet>
+					<f:facet name="header"><h:outputText value="#{lbl['id']}"/></f:facet>
 					<h:outputText value="#{dish.id}" />
 				</h:column>
 				<h:column>
-					<f:facet name="header">Name</f:facet>
+					<f:facet name="header"><h:outputText value="#{lbl['name']}"/></f:facet>
 					<h:outputText value="#{dish.name}" />
 				</h:column>
 				<h:column>
-					<f:facet name="header">Dish Price</f:facet>
+					<f:facet name="header"><h:outputText value="#{lbl['dishPrice']}"/></f:facet>
 					<h:outputText value="#{dish.price}" />
 				</h:column>
 				<h:column>
-					<f:facet name="header">Category</f:facet>
+					<f:facet name="header"><h:outputText value="#{lbl['category']}"/></f:facet>
 					<h:outputText value="#{dish.category.name}" />
 				</h:column>
 				<h:column>
-					<f:facet name="header">Type (kitchen made or not)</f:facet>
+					<f:facet name="header"><h:outputText value="#{lbl['dishType']}"/></f:facet>
 					<h:outputText value="#{dish.dishtype}" />
 				</h:column>
 				<h:column>
-					<f:facet name="header">Menu Item</f:facet>
+					<f:facet name="header"><h:outputText value="#{lbl['menuItem']}"/></f:facet>
 					<h:outputText value="#{dish.menuitem}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header"></f:facet>
 					<h:commandButton action="#{menuManageBean.editDish(dish.id)}"
-						value="Edit Dish"  styleClass="btn btn-primary"/>
+						value="#{lbl['administerMenu.editDish']}"  styleClass="btn btn-primary"/>
 				</h:column>
 			</h:dataTable>
 			<h:commandButton action="#{menuManageBean.viewAddDishForm()}"
-				value="Add New Dish" styleClass="btn btn-primary"/>
+				value="#{lbl['administerMenu.addDish']}" styleClass="btn btn-primary"/>
 		</h:form>
 	</ui:define>
 </ui:composition>

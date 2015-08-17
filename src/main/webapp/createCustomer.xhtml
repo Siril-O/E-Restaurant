@@ -9,45 +9,45 @@
 	<f:event listener="#{checkRightsBean.isSuperUser}" type="preRenderView" />
 </f:metadata>
 <h:head>
-	<title>Create customer</title>
+	<title><h:outputText value="#{lbl['title.createCustomer']}" /></title>
 </h:head>
 <ui:composition
 	template="WEB-INF/templates/adminRestaurantTemplate.xhtml">
 	<ui:define name="content">
 		<div class="panel panel-primary">
-			<div class="panel-heading">Edit or add new category</div>
+			<div class="panel-heading"><h:outputText value="#{lbl['createCustomer.editCustomer']}" /></div>
 			<div class="panel-body">
 				<h:form styleClass="form-horizontal">
 					<h:panelGrid columns="3">
-						<h:outputText value="Customer Name:"/>
+						<h:outputText value="#{lbl['createCustomer.name']}"/>
 						<h:inputText styleClass="form-control" value="#{customerManageBean.customer.name}"
 						id="name" required="true" requiredMessage="#{msg['nameRequired']}"/>
 						<h:message for="name" style="color:red"/>
-						<h:outputText value="Address"/>
+						<h:outputText value="#{lbl['createCustomer.address']}"/>
 						<h:inputText  styleClass="form-control" value="#{customerManageBean.customer.address}"
 						 id="address" required="true" requiredMessage="#{msg['customerAddressRequired']}"/>
 						<h:message for="address" style="color:red"/>
-						<h:outputText value="Email"/>
+						<h:outputText value="#{lbl['createCustomer.email']}"/>
 						<h:inputText styleClass="form-control" value="#{customerManageBean.customer.email}"
 						id="email" required="true" requiredMessage="#{msg['emailRequired']}"/>
 						<h:message for="email" style="color:red"/>
-						<h:outputText value="Birth Date"/>
+						<h:outputText value="#{lbl['createCustomer.birthDate']}"/>
 						<p:calendar id="dateCalendar"
 							value="#{customerManageBean.date}" showOn="button" 
 							 required="true" requiredMessage="#{msg['dateRequired']}"/>
 							<h:message for="dateCalendar" style="color:red"/>
-						<h:outputText value="Customer Role"/>
+						<h:outputText value="#{lbl['createCustomer.customerRole']}"/>
 						<h:selectOneMenu styleClass="form-control" value="#{customerManageBean.customer.role}">
 							<f:selectItems var="role" itemValue="#{role}" itemLabel="#{role}"
 								value="#{customerManageBean.roles}" />
 						</h:selectOneMenu>
 						<h:outputText/>
-						<h:outputText value="Password" />
+						<h:outputText value="#{lbl['createCustomer.password']}" />
 						<h:inputText styleClass="form-control" value="#{customerManageBean.customer.password}" 
 						id="password" required="true" requiredMessage="#{msg['passwordRequired']}"/>
 						<h:message for="password" style="color:red"/>
 					</h:panelGrid>
-					<h:commandButton value="Submit" styleClass="btn btn-primary"
+					<h:commandButton value="#{lbl['createCustomer.submit']}" styleClass="btn btn-primary"
 						action="#{customerManageBean.saveUser()}" />
 				</h:form>
 			</div>

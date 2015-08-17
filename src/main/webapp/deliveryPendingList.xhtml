@@ -8,30 +8,30 @@
 	<f:event listener="#{checkRightsBean.isDelivery}" type="preRenderView" />
 </f:metadata>
 <h:head>
-	<title>Delivery Pending List</title>
+	<title><h:outputText value="#{lbl['title.deliveryPendinList']}" /></title>
 </h:head>
 <ui:composition
 	template="WEB-INF/templates/adminRestaurantTemplate.xhtml">
 	<ui:define name="content">
-	<h2>Delivery Pending List</h2>
+	<h2><h:outputText value="#{lbl['pageName.deliveryPendinList']}" /></h2>
 		#{deliveryPendingListBean.refreshPendingList()}
 	<h:form>
 		<h:commandButton
 			action="#{deliveryPendingListBean.refreshPendingList()}"
-			value="Update List"  styleClass="btn btn-primary"/>
+			value="#{lbl['deliveryPendinList.update']}"  styleClass="btn btn-primary"/>
 		<h:dataTable
 			value="#{deliveryPendingListBean.orders.entrySet().toArray()}"
 			var="order" styleClass="table table-hover" headerClass="danger">
 			<h:column>
-				<f:facet name="header">Order Id</f:facet>
+				<f:facet name="header"><h:outputText value="#{lbl['deliveryPendinList.orderId']}" /></f:facet>
 				<h:outputText value="#{order.key.id}" />
 			</h:column>
 			<h:column>
-				<f:facet name="header">Order Status</f:facet>
+				<f:facet name="header"><h:outputText value="#{lbl['deliveryPendinList.orderStatus']}" /></f:facet>
 				<h:outputText value="#{order.key.status}" />
 			</h:column>
 			<h:column>
-				<f:facet name="header">Time Ordered</f:facet>
+				<f:facet name="header"><h:outputText value="#{lbl['deliveryPendinList.time']}" /></f:facet>
 				<h:outputText value="#{order.key.ordertime}" />
 			</h:column>
 			<h:column>

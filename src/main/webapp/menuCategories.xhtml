@@ -5,7 +5,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-	<title>Menu Categories</title>
+	<title><h:outputText value="#{lbl['title.menuCategories']}" /></title>
 
 </h:head>
 <ui:composition template="WEB-INF/templates/restautantTemplate.xhtml">
@@ -14,7 +14,7 @@
     <div class="panel panel-primary">
 			<div class="panel-heading"><h:outputText value="#{lbl['menu']}"/></div>
 			<div class="panel-body">
-				<h2>Select Category to choose dish from it</h2>
+				<h2><h:outputText value="#{lbl['menuCategories.info']}" /></h2>
 				<div class="row">
 					<div class="col-sm-2"></div>
 					<div class="col-sm-6">
@@ -23,14 +23,14 @@
 								var="dishCategory" styleClass="table table-hover"
 								headerClass="danger">
 								<h:column>
-									<f:facet name="header">Category</f:facet>
+									<f:facet name="header"><h:outputText value="#{lbl['menuCategories.category']}" /></f:facet>
 				#{dishCategory.name}
 	</h:column>
 								<h:column>
 									<f:facet name="header"></f:facet>
 									<h:commandButton styleClass="btn btn-primary"
 										action="#{menuListBean.refreshDishesByCategoryList(dishCategory.id)}"
-										value="Show Dishes" />
+										value="#{lbl['menuCategories.showDishes']}" />
 								</h:column>
 							</h:dataTable>
 						</h:form>

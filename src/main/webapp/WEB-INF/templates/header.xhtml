@@ -12,30 +12,30 @@
 					<div class="col-sm-2">
 						<h:link outcome="menuCategories">
 							<h:graphicImage value="resources/logo.jpg" height="140"
-								width="150" title="Main" />
+								width="150" title="#{lbl['title.main']}" />
 						</h:link>
 
 					</div>
 					<div class="col-sm-6">
 						<div class="btn-group btn-group-justified">
-							<h:link value="Menu page" outcome="menuCategories"
+							<h:link value="#{lbl['header.menuPage']}" outcome="menuCategories"
 								styleClass="btn btn-primary" />
-							<h:link value="Login page" outcome="login"
+							<h:link value="#{lbl['header.loginPage']}" outcome="login"
 								styleClass="btn btn-primary" />
 						</div>
 						<div class="navbar-text navbar-right">
-					<h:outputText value="Signed in as:" rendered="#{checkRightsBean.customer!=null}"/>
+					<h:outputText value="#{lbl['header.signedAs']}" rendered="#{checkRightsBean.customer!=null}"/>
 					 <a class="navbar-link">#{checkRightsBean.customer.name}</a>
-					<h:commandButton value="SignOut" styleClass="btn btn-default"
+					<h:commandButton value="#{lbl['header.signOut']}" styleClass="btn btn-default"
 						action="#{checkRightsBean.signOut()}"
 						rendered="#{checkRightsBean.customer!=null}" />
 				</div>
 					</div>
 					<div class="col-sm-4">
-							<h:outputText value="Total:" />
+							<h:outputText value="#{lbl['header.total']}" />
 							<h:outputText value="#{cartBean.totalPrice}" />
 							<h:link styleClass="btn btn-primary" outcome="cart"
-								value="Go To Cart" />
+								value="#{lbl['header.goToCart']}" />
 					</div>
 				</div>
 			</h:form>
