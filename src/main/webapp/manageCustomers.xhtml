@@ -7,12 +7,11 @@
 <f:metadata>
 	<f:event listener="#{checkRightsBean.isSuperUser}" type="preRenderView" />
 </f:metadata>
-
-<h:head>
-	<title><h:outputText value="#{lbl['title.manageCustomers']}" /></title>
-</h:head>
 <ui:composition
 	template="WEB-INF/templates/adminRestaurantTemplate.xhtml">
+	<ui:define name="title">
+		<h:outputText value="#{lbl['title.manageCustomers']}" />
+	</ui:define>
 	<ui:define name="content"> 
 #{customerManageBean.refreshCustomerList()}
 <h1><h:outputText value="#{lbl['pageName.manageCustomers']}" /></h1>

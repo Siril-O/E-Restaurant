@@ -7,41 +7,50 @@
 <f:metadata>
 	<f:event listener="#{checkRightsBean.isDelivery}" type="preRenderView" />
 </f:metadata>
-<h:head>
-	<title><h:outputText value="#{lbl['title.deliveryPendinList']}" /></title>
-</h:head>
 <ui:composition
 	template="WEB-INF/templates/adminRestaurantTemplate.xhtml">
+	<ui:define name="title">
+		<h:outputText value="#{lbl['title.deliveryPendinList']}" />
+	</ui:define>
 	<ui:define name="content">
-	<h2><h:outputText value="#{lbl['pageName.deliveryPendinList']}" /></h2>
+		<h2>
+			<h:outputText value="#{lbl['pageName.deliveryPendinList']}" />
+		</h2>
 		#{deliveryPendingListBean.refreshPendingList()}
 	<h:form>
-		<h:commandButton
-			action="#{deliveryPendingListBean.refreshPendingList()}"
-			value="#{lbl['deliveryPendinList.update']}"  styleClass="btn btn-primary"/>
-		<h:dataTable
-			value="#{deliveryPendingListBean.orders.entrySet().toArray()}"
-			var="order" styleClass="table table-hover" headerClass="danger">
-			<h:column>
-				<f:facet name="header"><h:outputText value="#{lbl['deliveryPendinList.orderId']}" /></f:facet>
-				<h:outputText value="#{order.key.id}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header"><h:outputText value="#{lbl['deliveryPendinList.orderStatus']}" /></f:facet>
-				<h:outputText value="#{order.key.status}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header"><h:outputText value="#{lbl['deliveryPendinList.time']}" /></f:facet>
-				<h:outputText value="#{order.key.ordertime}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header"></f:facet>
-				<h:commandButton
-					action="#{deliveryPendingListBean.changeOrderStatus(order.key.id)}"
-					value="#{order.value}" styleClass="btn btn-primary"/>
-			</h:column>
-		</h:dataTable>
-	</h:form>
+			<h:commandButton
+				action="#{deliveryPendingListBean.refreshPendingList()}"
+				value="#{lbl['deliveryPendinList.update']}"
+				styleClass="btn btn-primary" />
+			<h:dataTable
+				value="#{deliveryPendingListBean.orders.entrySet().toArray()}"
+				var="order" styleClass="table table-hover" headerClass="danger">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{lbl['deliveryPendinList.orderId']}" />
+					</f:facet>
+					<h:outputText value="#{order.key.id}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{lbl['deliveryPendinList.orderStatus']}" />
+					</f:facet>
+					<h:outputText value="#{order.key.status}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{lbl['deliveryPendinList.time']}" />
+					</f:facet>
+					<h:outputText value="#{order.key.ordertime}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header"></f:facet>
+					<h:commandButton
+						action="#{deliveryPendingListBean.changeOrderStatus(order.key.id)}"
+						value="#{order.value}" styleClass="btn btn-primary" />
+				</h:column>
+			</h:dataTable>
+		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

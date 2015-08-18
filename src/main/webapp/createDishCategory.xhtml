@@ -7,11 +7,11 @@
 <f:metadata>
 	<f:event listener="#{checkRightsBean.isAdmin}" type="preRenderView" />
 </f:metadata>
-<h:head>
-	<title><h:outputText value="#{lbl['title.createDishCategory']}" /></title>
-</h:head>
 <ui:composition
 	template="WEB-INF/templates/adminRestaurantTemplate.xhtml">
+	<ui:define name="title">
+		<h:outputText value="#{lbl['title.createDishCategory']}" />
+	</ui:define>
 	<ui:define name="content">
 		<div class="panel panel-primary">
 			<div class="panel-heading"><h:outputText value="#{lbl['createDishCategory.info']}" /></div>

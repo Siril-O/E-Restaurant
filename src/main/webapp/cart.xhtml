@@ -5,10 +5,10 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<title><h:outputText value="#{lbl['title.cart']}" /></title>
-</h:head>
 <ui:composition template="WEB-INF/templates/restautantTemplate.xhtml">
+	<ui:define name="title">
+		<h:outputText value="#{lbl['title.cart']}" />
+	</ui:define>
 	<ui:define name="content">
 		<div class="row">
 			<h:outputText value="#{lbl['pageName.cart']}" />
@@ -53,7 +53,7 @@
 								action="#{cartBean.removeItem(item.dish.id)}" />
 						</h:column>
 						<f:facet name="footer">
-							<h:outputFormat value="#{lbl['cart.totalpropertie']} ">
+							<h:outputFormat value="#{lbl['cart.total.param']}">
 								<f:param value="#{cartBean.totalPrice}" />
 							</h:outputFormat>
 						</f:facet>

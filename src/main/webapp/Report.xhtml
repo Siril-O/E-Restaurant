@@ -5,31 +5,35 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-	
-	<f:metadata>
-	<f:event listener="#{checkRightsBean.isBusinessAnalytic}" type="preRenderView" />
+
+<f:metadata>
+	<f:event listener="#{checkRightsBean.isBusinessAnalytic}"
+		type="preRenderView" />
 </f:metadata>
-
-<h:head>
-</h:head>
-
 <ui:composition
 	template="WEB-INF/templates/adminRestaurantTemplate.xhtml">
+	<ui:define name="title">
+		<h:outputText value="#{lbl['title.report']}" />
+	</ui:define>
 	<ui:define name="content">
-		<h2><h:outputText value="#{lbl['pageName.report']}" /></h2>
+		<h2>
+			<h:outputText value="#{lbl['pageName.report']}" />
+		</h2>
 		<h:form>
 			<h:panelGrid columns="3">
 				<p:outputLabel for="startDateCalendar" value="#{lbl['report.from']}" />
 				<p:calendar id="startDateCalendar" value="#{reportBean.startDate}"
-					showOn="button"	 required="true" requiredMessage="#{msg['dateRequired']}"/>
-							<h:message for="startDateCalendar" style="color:red"/>
+					showOn="button" required="true"
+					requiredMessage="#{msg['dateRequired']}" />
+				<h:message for="startDateCalendar" style="color:red" />
 				<p:outputLabel for="endDateCalendar" value="#{lbl['report.to']}" />
 				<p:calendar id="endDateCalendar" value="#{reportBean.endDate}"
-					showOn="button"  required="true" requiredMessage="#{msg['dateRequired']}"/>
-					<h:message for="endDateCalendar" style="color:red"/>
+					showOn="button" required="true"
+					requiredMessage="#{msg['dateRequired']}" />
+				<h:message for="endDateCalendar" style="color:red" />
 
-				<h:commandButton value="#{lbl['report.showReport']}" styleClass="btn btn-primary"
-					action="#{reportBean.viewReport()}" />
+				<h:commandButton value="#{lbl['report.showReport']}"
+					styleClass="btn btn-primary" action="#{reportBean.viewReport()}" />
 			</h:panelGrid>
 		</h:form>
 		<p:tabView>
@@ -37,15 +41,21 @@
 				<h:dataTable value="#{reportBean.reportByCategories}" var="catItem"
 					styleClass="table table-hover">
 					<h:column>
-						<f:facet name="header"><h:outputText value="#{lbl['report.category']}"/></f:facet>
+						<f:facet name="header">
+							<h:outputText value="#{lbl['report.category']}" />
+						</f:facet>
 						<h:outputText value="#{catItem.category.name}" />
 					</h:column>
 					<h:column>
-						<f:facet name="header"><h:outputText value="#{lbl['report.quantityOfOrders']}"/></f:facet>
+						<f:facet name="header">
+							<h:outputText value="#{lbl['report.quantityOfOrders']}" />
+						</f:facet>
 						<h:outputText value="#{catItem.orderQuantity}" />
 					</h:column>
 					<h:column>
-						<f:facet name="header"><h:outputText value="#{lbl['report.totalSum']}"/></f:facet>
+						<f:facet name="header">
+							<h:outputText value="#{lbl['report.totalSum']}" />
+						</f:facet>
 						<h:outputText value="#{catItem.totalSumm}" />
 					</h:column>
 				</h:dataTable>
@@ -55,15 +65,21 @@
 				<h:dataTable value="#{reportBean.report}" var="item"
 					styleClass="table table-hover">
 					<h:column>
-						<f:facet name="header"><h:outputText value="#{lbl['report.date']}"/></f:facet>
+						<f:facet name="header">
+							<h:outputText value="#{lbl['report.date']}" />
+						</f:facet>
 						<h:outputText value="#{item.orderDate}" />
 					</h:column>
 					<h:column>
-						<f:facet name="header"><h:outputText value="#{lbl['report.quantityOfOrders']}"/></f:facet>
+						<f:facet name="header">
+							<h:outputText value="#{lbl['report.quantityOfOrders']}" />
+						</f:facet>
 						<h:outputText value="#{item.orderQuantity}" />
 					</h:column>
 					<h:column>
-						<f:facet name="header"><h:outputText value="#{lbl['report.totalSum']}"/></f:facet>
+						<f:facet name="header">
+							<h:outputText value="#{lbl['report.totalSum']}" />
+						</f:facet>
 						<h:outputText value="#{item.totalSumm}" />
 					</h:column>
 				</h:dataTable>
@@ -83,7 +99,7 @@
 			<p:tab title="#{lbl['report.pieChartByQuantity']}">
 				<p:panel>
 					<p:chart type="pie" model="#{reportBean.quantityCategoryModel}"
-						style="width:800px;height:500px" />	
+						style="width:800px;height:500px" />
 				</p:panel>
 			</p:tab>
 			<p:tab title="#{lbl['report.pieChartByTotal']}">

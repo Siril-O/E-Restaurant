@@ -4,17 +4,19 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
-<h:head>
-	<title><h:outputText value="#{lbl['title.menuCategories']}" /></title>
-
-</h:head>
 <ui:composition template="WEB-INF/templates/restautantTemplate.xhtml">
+	<ui:define name="title">
+		<h:outputText value="#{lbl['title.menuCategories']}" />
+	</ui:define>
 	<ui:define name="content"> #{menuListBean.refreshCategoryList()}
-	
     <div class="panel panel-primary">
-			<div class="panel-heading"><h:outputText value="#{lbl['menu']}"/></div>
+			<div class="panel-heading">
+				<h:outputText value="#{lbl['menu']}" />
+			</div>
 			<div class="panel-body">
-				<h2><h:outputText value="#{lbl['menuCategories.info']}" /></h2>
+				<h2>
+					<h:outputText value="#{lbl['menuCategories.info']}" />
+				</h2>
 				<div class="row">
 					<div class="col-sm-2"></div>
 					<div class="col-sm-6">
@@ -23,7 +25,9 @@
 								var="dishCategory" styleClass="table table-hover"
 								headerClass="danger">
 								<h:column>
-									<f:facet name="header"><h:outputText value="#{lbl['menuCategories.category']}" /></f:facet>
+									<f:facet name="header">
+										<h:outputText value="#{lbl['menuCategories.category']}" />
+									</f:facet>
 				#{dishCategory.name}
 	</h:column>
 								<h:column>

@@ -5,11 +5,10 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title><h:outputText value="#{lbl['title.register']}" /></title>
-</h:head>
 <ui:composition template="WEB-INF/templates/restautantTemplate.xhtml">
+	<ui:define name="title">
+		<h:outputText value="#{lbl['title.register']}" />
+	</ui:define>
 	<ui:define name="content">
 		<h1><h:outputText value="#{lbl['pageName.register']}" /></h1>
 	<h:form>

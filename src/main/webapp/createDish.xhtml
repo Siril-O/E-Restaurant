@@ -7,51 +7,62 @@
 <f:metadata>
 	<f:event listener="#{checkRightsBean.isAdmin}" type="preRenderView" />
 </f:metadata>
-<h:head>
-	<title><h:outputText value="#{lbl['title.createDish']}" /></title>
-</h:head>
 <ui:composition
 	template="WEB-INF/templates/adminRestaurantTemplate.xhtml">
 	<ui:define name="content">
+		<ui:define name="title">
+			<h:outputText value="#{lbl['title.createDish']}" />
+		</ui:define>
 		<div class="panel panel-primary">
-			<div class="panel-heading"><h:outputText value="#{lbl['editDish']}" /></div>
+			<div class="panel-heading">
+				<h:outputText value="#{lbl['editDish']}" />
+			</div>
 			<div class="panel-body">
 				<h:form styleClass="form-horizontal">
 					<h:panelGrid columns="3">
-						<h:outputText value="#{lbl['createDish.name']}"/>
-						<h:inputText styleClass="form-control" id="name"  value="#{menuManageBean.dish.name}"
-						required="true" requiredMessage="#{msg['nameRequired']}"/>
+						<h:outputText value="#{lbl['createDish.name']}" />
+						<h:inputText styleClass="form-control" id="name"
+							value="#{menuManageBean.dish.name}" required="true"
+							requiredMessage="#{msg['nameRequired']}" />
 						<h:message for="name" style="color:red" />
-						
-						<h:outputText value="#{lbl['createDish.price']}"/>
-						<h:inputText styleClass="form-control" value="#{menuManageBean.dish.price}"
-						id="price"  required="true" requiredMessage="#{msg['priceRequired']}"
-						validatorMessage="#{msg['priceInValid']}">
-						<f:convertNumber maxFractionDigits="2" />
+
+						<h:outputText value="#{lbl['createDish.price']}" />
+						<h:inputText styleClass="form-control"
+							value="#{menuManageBean.dish.price}" id="price" required="true"
+							requiredMessage="#{msg['priceRequired']}"
+							validatorMessage="#{msg['priceInValid']}">
+							<f:convertNumber maxFractionDigits="2" />
 						</h:inputText>
 						<h:message for="price" style="color:red" />
-						
-						<h:outputText value="#{lbl['createDish.category']}"/>
-						<h:selectOneMenu styleClass="form-control" value="#{menuManageBean.categoryId}">
+
+						<h:outputText value="#{lbl['createDish.category']}" />
+						<h:selectOneMenu styleClass="form-control"
+							value="#{menuManageBean.categoryId}">
 							<f:selectItems var="cat" itemValue="#{cat.id}"
 								itemLabel="#{cat.name}" value="#{menuManageBean.categories}" />
 						</h:selectOneMenu>
-						<h:outputText/>
-						<h:outputText value="#{lbl['createDish.type']}"/>
-						<h:selectOneMenu styleClass="form-control" value="#{menuManageBean.dish.dishtype}">
-							<f:selectItem itemValue="true" itemLabel="#{lbl['createDish.type.kitchenMade']}" />
-							<f:selectItem itemValue="false" itemLabel="#{lbl['createDish.type.nonKitchenMade']}" />
+						<h:outputText />
+						<h:outputText value="#{lbl['createDish.type']}" />
+						<h:selectOneMenu styleClass="form-control"
+							value="#{menuManageBean.dish.dishtype}">
+							<f:selectItem itemValue="true"
+								itemLabel="#{lbl['createDish.type.kitchenMade']}" />
+							<f:selectItem itemValue="false"
+								itemLabel="#{lbl['createDish.type.nonKitchenMade']}" />
 						</h:selectOneMenu>
-												<h:outputText/>
-						<h:outputText value="#{lbl['createDish.menuItem']}"/>
-						<h:selectOneMenu styleClass="form-control" value="#{menuManageBean.dish.menuitem}">
-							<f:selectItem itemValue="true" itemLabel="#{lbl['createDish.menuItem.inMenu']}" />
-							<f:selectItem itemValue="false" itemLabel="#{lbl['createDish.menuItem.notInMenu']}" />
+						<h:outputText />
+						<h:outputText value="#{lbl['createDish.menuItem']}" />
+						<h:selectOneMenu styleClass="form-control"
+							value="#{menuManageBean.dish.menuitem}">
+							<f:selectItem itemValue="true"
+								itemLabel="#{lbl['createDish.menuItem.inMenu']}" />
+							<f:selectItem itemValue="false"
+								itemLabel="#{lbl['createDish.menuItem.notInMenu']}" />
 						</h:selectOneMenu>
-						
+
 					</h:panelGrid>
-					<h:commandButton value="#{lbl['createDish.submit']}"  styleClass="btn btn-primary"
-						action="#{menuManageBean.addDish()}" />
+					<h:commandButton value="#{lbl['createDish.submit']}"
+						styleClass="btn btn-primary" action="#{menuManageBean.addDish()}" />
 				</h:form>
 			</div>
 		</div>

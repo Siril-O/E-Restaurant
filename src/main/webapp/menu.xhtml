@@ -5,11 +5,11 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<title><h:outputText value="#{lbl['title.menu']}" /></title>
 
-</h:head>
 <ui:composition template="WEB-INF/templates/restautantTemplate.xhtml">
+	<ui:define name="title">
+		<h:outputText value="#{lbl['title.menu']}" />
+	</ui:define>
 	<ui:define name="content">
 		<div class="panel panel-primary">
 			<div class="panel-heading"><h:outputText value="#{lbl['menu.info']}" />#{menuListBean.category.name}</div>

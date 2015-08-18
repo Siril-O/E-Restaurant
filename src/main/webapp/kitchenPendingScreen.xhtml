@@ -5,46 +5,58 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
 <f:metadata>
-	<f:event listener="#{checkRightsBean.isKitchenStuff}" type="preRenderView" />
+	<f:event listener="#{checkRightsBean.isKitchenStuff}"
+		type="preRenderView" />
 </f:metadata>
-<h:head>
-	<title><h:outputText value="#{lbl['title.kitchenPendingScreen']}" /></title>
-</h:head>
 <ui:composition
 	template="WEB-INF/templates/adminRestaurantTemplate.xhtml">
-	<ui:define name="content"> 
-	<h2><h:outputText value="#{lbl['pageName.kitchenPendingScreen']}" /></h2>
+	<ui:define name="title">
+		<h:outputText value="#{lbl['title.kitchenPendingScreen']}" />
+	</ui:define>
+	<ui:define name="content">
+		<h2>
+			<h:outputText value="#{lbl['pageName.kitchenPendingScreen']}" />
+		</h2>
 		#{kitchenPendingListBean.refreshPendingList()}
-	<h:form >
-		<h:commandButton
-			action="#{kitchenPendingListBean.refreshPendingList()}"
-			value="Update List" styleClass="btn btn-primary" />
-		<h:dataTable value="#{kitchenPendingListBean.orderedItems}" var="item"
-			styleClass="table table-hover" headerClass="danger">
-			<h:column>
-				<f:facet name="header"><h:outputText value="#{lbl['kitchenPendingScreen.order']}" /></f:facet>
-				<h:outputText value="#{item.dishOrder.id}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header"><h:outputText value="#{lbl['kitchenPendingScreen.dishName']}" /></f:facet>
-				<h:outputText value="#{item.dish.name}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header"><h:outputText value="#{lbl['kitchenPendingScreen.dishQuantity']}" /></f:facet>
-				<h:outputText value="#{item.quantity}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header"><h:outputText value="#{lbl['kitchenPendingScreen.TimeOrdered']}" /></f:facet>
-				<h:outputText value="#{item.dishOrder.ordertime}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header"></f:facet>
-				<h:commandButton
-					action="#{kitchenPendingListBean.markDishAsDone(item.id)}"
-					value="#{lbl['kitchenPendingScreen.done']}" styleClass="btn btn-primary"/>
-			</h:column>
-		</h:dataTable>
-	</h:form>
+	<h:form>
+			<h:commandButton
+				action="#{kitchenPendingListBean.refreshPendingList()}"
+				value="Update List" styleClass="btn btn-primary" />
+			<h:dataTable value="#{kitchenPendingListBean.orderedItems}"
+				var="item" styleClass="table table-hover" headerClass="danger">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{lbl['kitchenPendingScreen.order']}" />
+					</f:facet>
+					<h:outputText value="#{item.dishOrder.id}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{lbl['kitchenPendingScreen.dishName']}" />
+					</f:facet>
+					<h:outputText value="#{item.dish.name}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{lbl['kitchenPendingScreen.dishQuantity']}" />
+					</f:facet>
+					<h:outputText value="#{item.quantity}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{lbl['kitchenPendingScreen.TimeOrdered']}" />
+					</f:facet>
+					<h:outputText value="#{item.dishOrder.ordertime}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header"></f:facet>
+					<h:commandButton
+						action="#{kitchenPendingListBean.markDishAsDone(item.id)}"
+						value="#{lbl['kitchenPendingScreen.done']}"
+						styleClass="btn btn-primary" />
+				</h:column>
+			</h:dataTable>
+		</h:form>
 	</ui:define>
 </ui:composition>
 </html>
